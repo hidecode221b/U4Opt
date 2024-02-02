@@ -1,0 +1,1 @@
+The undulator period can be optimized in the plot based on the magnet type, gap, flux. The first prototype is based on the Excel spreadsheet, and transfered to the macro in Igor Pro. Python code is now available for the basic undulator configuration. The coding is in progress, not well documented, but open for public for review.
