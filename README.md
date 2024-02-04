@@ -8,4 +8,17 @@ U4Opt discloses these complex relationship among the parameters above. Users com
 
 ## Background
 
-The undulator period can be optimized in the plot based on the magnet type, gap, flux. To design the undulator specification in the synchrotron facility, U4Opt has been developed. The first prototype of the program is based on the Excel spreadsheet, and transfered to the macro in Igor Pro. Python code is now available for the basic undulator configuration. The coding is in progress, not well documented, but open for public for review.
+The undulator period can be optimized in the plot based on the magnet type, gap, flux. To design the undulator specification in the synchrotron facility, U4Opt has been developed. The first prototype of the program is based on the Excel spreadsheet, and transfered to the macro in Igor Pro. Python code is now available for the basic undulator configuration. The coding is in progress, not well documented, but open for public for review. The original idea is from ID23 workshop.
+
+## Specification
+
+No emittance or energy spread are taken into account. Further optimization should be performed in SPECTRA or SRW. No warranty in the results from U4Opt. 
+
+### Requirements
+
+Python3, Numpy, Scipy, PyQt5, Matplotlib, Reliability, ...
+
+## References
+
+Magnets, formula, theory, 
+
