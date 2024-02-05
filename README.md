@@ -8,11 +8,11 @@ U4Opt discloses these complex relationship among the parameters above. Users com
 
 ## Background
 
-The undulator period can be optimized in the plot based on the magnet type, gap, flux. To design the undulator specification in the synchrotron facility, U4Opt has been developed. The first prototype of the program is based on the Excel spreadsheet, and transfered to the macro in Igor Pro. Python code is now available for the basic undulator configuration. The coding is in progress, not well documented, but open for public for review. The original idea is from ID23 workshop.
+The undulator period can be optimized in the plot based on the magnet type, gap, flux. To design the undulator specification in the synchrotron facility, U4Opt has been developed. The first prototype of the program is based on the Excel spreadsheet, and transfered to the macro in Igor Pro. Python code is now available for the basic undulator configuration. The coding is in progress, not well documented, but open for public for review. The original idea is from the talk of Markus Tischer - DESY in the [ID23](https://aps.anl.gov/Magnetic-Devices/Workshops-Proceedings/ID-23) workshop.
 
 ## Specification
 
-No emittance or energy spread are taken into account. Further optimization should be performed in SPECTRA or SRW. No warranty in the results from U4Opt. 
+No emittance or energy spread are taken into account. Further optimization should be performed in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). No warranty in the results from U4Opt. 
 
 ### Requirements
 
@@ -20,8 +20,22 @@ No emittance or energy spread are taken into account. Further optimization shoul
 
 Python3, Numpy, Scipy, PyQt5, Matplotlib, Reliability, ...
 
+#### Igor Pro
+
+version 8 or 9 (tested)
 
 ## References
 
-Magnets, formula, theory, 
+### Theory
+
+[Richard P. Walker](https://indico.ictp.it/event/a02011/contribution/1)
+
+[Johannes Bahrdt](http://dx.doi.org/10.5170/CERN-2006-002.441)
+
+### Magnets
+
+[Magnet vs gap](https://doi.org/10.1016/S0168-9002(00)00544-1)
+
+[APPLE-II](https://www.aps.anl.gov/files/APS-sync/lsnotes/files/APS_1418272.pdf)
+
 
