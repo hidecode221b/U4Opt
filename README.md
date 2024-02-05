@@ -8,7 +8,9 @@ U4Opt discloses these complex relationship among the parameters above. Users com
 
 ## Background
 
-The undulator period can be optimized in the plot based on the magnet type, gap, flux. To design the undulator specification in the synchrotron facility, U4Opt has been developed. The first prototype of the program is based on the Excel spreadsheet, and transfered to the macro in Igor Pro. Python code is now available for the basic undulator configuration. The coding is in progress, not well documented, but open for public for review. The original idea is from the talk of Dr. Markus Tischer - [DESY](https://photon-science.desy.de/research/technical_groups/undulators/group_members/index_eng.html) in the [ID23](https://aps.anl.gov/Magnetic-Devices/Workshops-Proceedings/ID-23) workshop.
+The undulator period can be optimized in the plot based on the magnet type, gap, flux. To design the undulator specification in the synchrotron facility, U4Opt has been developed. The first prototype of the program is based on the Excel spreadsheet, and transfered to the macro in Igor Pro. Python code is now available for the basic undulator configuration. The coding is in progress, not well documented, but open for public for review. 
+
+The original idea originates from the talk of [Dr. Markus Tischer - DESY](https://photon-science.desy.de/research/technical_groups/undulators/group_members/index_eng.html) in the [ID23 workshop](https://aps.anl.gov/Magnetic-Devices/Workshops-Proceedings/ID-23).
 
 ## Specification
 
@@ -16,15 +18,15 @@ No emittance or energy spread are taken into account resulting in the single ele
 
 ### Setup
 
-#### Python
+#### Python (tested in Windows and macOS)
 
 Install Python3, and pip3 install numpy, scipy, PyQt5, matplotlib, reliability. 
 
 > 'python3 main.py'
 
-#### Igor Pro version 8 or 9 (tested)
+#### Igor Pro version 8 or 9 (tested in Windows and macOS)
 
-Open the procedure file, then compile. Undulator is available in the macro menu. Select the plot in the popup menu of u4opt.
+Open the procedure file, then compile it. Undulator is available in the macro menu. Select the plot in the popup menu of u4opt.
 
 ## References
 
@@ -34,6 +36,8 @@ Open the procedure file, then compile. Undulator is available in the macro menu.
 
 [Johannes Bahrdt](http://dx.doi.org/10.5170/CERN-2006-002.441)
 
+[Jui-Che Huang](https://doi.org/10.1103/PhysRevAccelBeams.20.064801)
+
 ### Magnets
 
 [Magnet vs gap](https://doi.org/10.1016/S0168-9002(00)00544-1)
@@ -42,7 +46,11 @@ Open the procedure file, then compile. Undulator is available in the macro menu.
 
 ### Examples
 
+#### Python
+
 ![Python_u4opt.PNG](/Images/Python_u4opt.PNG)
+
+#### Igor Pro
 
 ![IgorPro_undulator.PNG](/Images/IgorPro_undulator.PNG)
 
