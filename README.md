@@ -16,7 +16,10 @@ No emittance or energy spread are taken into account. Further optimization shoul
 
 ### Requirements
 
+#### Python
+
 Python3, Numpy, Scipy, PyQt5, Matplotlib, Reliability, ...
+
 
 ## References
 
