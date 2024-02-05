@@ -38,4 +38,10 @@ version 8 or 9 (tested)
 
 [APPLE-II](https://www.aps.anl.gov/files/APS-sync/lsnotes/files/APS_1418272.pdf)
 
+### Examples
+
+![Python_u4opt.PNG](/Images/Python_u4opt.PNG)
+
+![IgorPro_undulator.PNG](/Images/IgorPro_undulator.PNG)
+
 
