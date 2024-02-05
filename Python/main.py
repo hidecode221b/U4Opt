@@ -6,15 +6,17 @@ import sys, os, ast
 import numpy as np
 from scipy.special import jv
 import matplotlib.pyplot as plt
-from matplotlib import style
+
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 from reliability.Other_functions import crosshairs
 
 import faulthandler
 
+from matplotlib import style
 #style.use('fast')
 #style.use('seaborn-pastel')
+
 faulthandler.enable()
 
 class PrettyWidget(QMainWindow):
@@ -24,9 +26,8 @@ class PrettyWidget(QMainWindow):
 
     def initUI(self):
         version = 'U4Opt: Undulator to be optimized ver. 0.006'
-        #self.floating = '.2f'
 
-        # Home directory
+        # Home directory to load and save preset files
         self.filePath = QDir.homePath()
         #self.filePath = '/Users/hidekinakajima/Desktop/'
 
@@ -73,8 +74,10 @@ class PrettyWidget(QMainWindow):
 
         # default machine parameter
         self.variables = [3,0.3,2,7,0,2.076,-3.24,0,1.38,4,0.5,15,22,71,1,3,21,4,5.5,4,13,16,1,20,20,2.03]
-        # default magnet parameters
+        # default magnet parameters in the planar
         # https://doi.org/10.1016/S0168-9002(00)00544-1
+        # helical like APPLE-II (Br = 0.62 T based on APS report)
+        # https://www.aps.anl.gov/files/APS-sync/lsnotes/files/APS_1418272.pdf
         self.default_magnet = [[2.076, -3.24, 0],[3.694, -5.068, 1.52],[4.625, -5.251, 2.079],[12.42, -4.79, 0.385],[1.38,4,0.50],[0.62,4,0.50]]
         self.reloaded = 0
 
@@ -254,12 +257,9 @@ class PrettyWidget(QMainWindow):
         # blank line
         blank_space = QLabel('')
         grid.addWidget(blank_space, 5, 0)
-        blank_space.setFixedHeight(fix_height/2)
+        blank_space.setFixedHeight(5)
 
         # Slider to optimize the period and K
-        #self.lu_t = 20
-        #self.K_t = 2.03
-        # adjustable lu and K in flux
         label_adj_per = QLabel('Adj. per. (mm):')
         label_adj_per.setFixedHeight(fix_height)
         grid.addWidget(label_adj_per, 6, 8)
@@ -407,7 +407,7 @@ class PrettyWidget(QMainWindow):
         hc = 1.23498*10**-6
         gamma = self.variables[0]/0.000511
         K0 = 0.01
-
+        # Helical undulator like APPLE-II
         if self.comboBox_magnet.currentIndex() == 5:
             self.variables[3] = 1
             self.harmonic_number.setValue(self.variables[3])
@@ -423,7 +423,7 @@ class PrettyWidget(QMainWindow):
         x2, y2 = np.meshgrid(lu, gap)
         x3, y3 = np.meshgrid(Kf, n)
 
-        if self.comboBox_magnet.currentIndex() < 4:
+        if self.comboBox_magnet.currentIndex() <= 4:
             # Planar
             K_lu = hc*10**-3/(x1*10**-3*(1+y1**2/2)/(2*gamma**2)/self.variables[3])
             Np = np.floor(self.variables[2]/self.variables[24]*1000)
@@ -431,9 +431,8 @@ class PrettyWidget(QMainWindow):
             Qk = (y3/(1+x3**2/2))*(x3**2*(jv((y3-1)/2,Y)-jv((y3+1)/2,Y))**2)
             fx = 1.431*10**14*Np*Qk*self.variables[1]
             en = hc*10**-3/((self.variables[24]*10**-3/(2*gamma**2))*(1+x3**2/2)/y3)
-        elif self.comboBox_magnet.currentIndex() >= 4:
-            # helical n=1, Kx=Ky (Br = 0.62 T based on APS report)
-            # https://www.aps.anl.gov/files/APS-sync/lsnotes/files/APS_1418272.pdf
+        elif self.comboBox_magnet.currentIndex() == 5:
+            # helical n=1, Kx=Ky
             K_lu = hc*10**-3/(x1*10**-3*(1+y1**2)/(2*gamma**2))
             Np = np.floor(self.variables[2]/self.variables[24]*1000)
             Y = 0
@@ -442,8 +441,10 @@ class PrettyWidget(QMainWindow):
             en = hc*10**-3/((self.variables[24]*10**-3/(2*gamma**2))*(1+x3**2))
 
         if self.comboBox_magnet.currentIndex() < 4:
+            # (a, b, c)
             g = 0.0934*x2*self.variables[5]*np.exp((y2/x2)*(self.variables[6]+self.variables[7]*(y2/x2)))
         elif self.comboBox_magnet.currentIndex() >= 4:
+            # (Br, M, h)
             g = 0.0934*x2*2*self.variables[8]*(np.sin(np.pi/self.variables[9])/(np.pi/self.variables[9]))*np.exp(-np.pi*(y2/x2))*(1-np.exp(-2*np.pi*self.variables[10]))
 
         self.ax1.cla()
@@ -555,7 +556,7 @@ class PrettyWidget(QMainWindow):
         if reload > 0:
             cfilePath = str(self.comboBox_preset.currentText())
         else:
-            cfilePath, _ = QFileDialog.getOpenFileName(self, 'Open data file', self.filePath, "DAT Files (*.dat)")
+            cfilePath, _ = QFileDialog.getOpenFileName(self, 'Open Preset file', self.filePath, "DAT Files (*.dat)")
 
         if cfilePath != "":
             #print (cfilePath)
