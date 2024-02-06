@@ -24,7 +24,7 @@ Install Python3, and pip3 install numpy, scipy, PyQt5, matplotlib, reliability.
 
 > python3 main.py
 
-#### Igor Pro version 8 or 9 (tested in Windows and macOS)
+#### [Igor Pro](https://www.wavemetrics.com/) version 8 or 9 (tested in Windows and macOS)
 
 Open the procedure file, then compile it. Undulator is available in the macro menu. Select the plot in the popup menu of u4opt.
 
