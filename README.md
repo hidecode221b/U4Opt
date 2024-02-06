@@ -1,4 +1,4 @@
-# U4Opt: Undulator plot for the optimization of period
+# U4Opt: Undulator plot for the period optimization
 
 ## Introduction
 
@@ -10,7 +10,7 @@ U4Opt discloses these complex relationship among the parameters above. Users com
 
 The undulator period can be optimized in the plot based on the magnet type, gap, flux. To design the undulator specification in the synchrotron facility, U4Opt has been developed. The first prototype of the program is based on the Excel spreadsheet, and transfered to the macro in Igor Pro. Python code is now available for the basic undulator configuration. The coding is in progress, not well documented, but open for public for review. 
 
-The original idea originates from the talk of [Dr. Markus Tischer - DESY](https://photon-science.desy.de/research/technical_groups/undulators/group_members/index_eng.html) in the [ID23 workshop](https://aps.anl.gov/Magnetic-Devices/Workshops-Proceedings/ID-23).
+The original idea comes from the talk of [Dr. Markus Tischer - DESY](https://photon-science.desy.de/research/technical_groups/undulators/group_members/index_eng.html) in the [ID23 workshop](https://aps.anl.gov/Magnetic-Devices/Workshops-Proceedings/ID-23).
 
 ## Specification
 
