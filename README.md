@@ -14,7 +14,7 @@ The original idea originates from the talk of [Dr. Markus Tischer - DESY](https:
 
 ## Specification
 
-No emittance or energy spread are taken into account resulting in the single electron approximation. Further optimization should be performed in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). No warranty in the results from U4Opt. 
+No emittance or energy spread are taken into account resulting in the single electron approximation. Further optimization should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). No warranty of U4Opt without errors. 
 
 ### Setup
 
@@ -22,7 +22,7 @@ No emittance or energy spread are taken into account resulting in the single ele
 
 Install Python3, and pip3 install numpy, scipy, PyQt5, matplotlib, reliability. 
 
-> 'python3 main.py'
+> python3 main.py
 
 #### Igor Pro version 8 or 9 (tested in Windows and macOS)
 
@@ -52,6 +52,8 @@ Open the procedure file, then compile it. Undulator is available in the macro me
 
 #### Igor Pro
 
-![IgorPro_undulator.PNG](/Images/IgorPro_undulator.PNG)
+![IgorPro_undulator.PNG](/Images/IgorPro_undulator_interface.PNG)
+
+![IgorPro_undulator.PNG](/Images/IgorPro_undulator1.PNG)
 
 
