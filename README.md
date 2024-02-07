@@ -22,7 +22,9 @@ No emittance or energy spread are taken into account resulting in the single ele
 
 Install Python3, and pip3 install numpy, scipy, PyQt5, matplotlib, reliability. 
 
-> python3 main.py
+```
+python3 main.py
+```
 
 #### [Igor Pro](https://www.wavemetrics.com/) version 8 or 9 (tested in Windows and macOS)
 
