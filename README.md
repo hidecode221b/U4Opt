@@ -49,7 +49,7 @@ Open the procedure file, then compile it. Undulator is available in the macro me
 
 ## References
 
-### Theory
+### Theory of the undulalar
 
 - [Richard P. Walker](https://indico.ictp.it/event/a02011/contribution/1)
 
@@ -57,7 +57,7 @@ Open the procedure file, then compile it. Undulator is available in the macro me
 
 - [Jui-Che Huang](https://doi.org/10.1103/PhysRevAccelBeams.20.064801)
 
-### Magnets
+### Magnet parameters
 
 - [Magnet vs gap](https://doi.org/10.1016/S0168-9002(00)00544-1)
 
