@@ -2,7 +2,11 @@
 
 ## Introduction
 
-The undulator is an insertion device used to generate the synchrotron radiation at a higher flux density than that from the bending magnet radiation. The photon energy from the undulator depends on the `electron beam energy`, `harmonic number`, `undulator period`, and `K` parameter which is based on the `undulator period` and `magnetic field strength`. The `magnetic field strength` is varied with the `magnetic gap`, `magnet dimension`, and `magnetization`. The `flux` from the undulator depends on the the `electron beam current`, `total length`, `undulator period`, `harmonic number`, and `K`. The maximum `K` value is correlated with the lowest energy as well as highest `flux` at a particular `harmonic number`. The photon energy extends toward a high energy as the `harmonic number` increases at every odd harmonic number.
+The undulator is an insertion device used to generate the synchrotron radiation at a higher flux density than that from the bending magnet radiation. The photon energy from the undulator depends on the `electron beam energy`, `harmonic number`, `undulator period`, and `K` parameter which is based on the `undulator period` and `magnetic field strength`. The `magnetic field strength` is varied with the `magnetic gap`, `magnet dimension`, and `magnetization`. The `flux` from the undulator depends on the the `electron beam current`, `total length`, `undulator period`, `harmonic number`, and `K`. The maximum `K` value is correlated with the lowest energy as well as highest `flux` at a particular `harmonic number`. The photon energy extends toward a high energy as the `harmonic number` increases at every odd harmonic number ($n$). However, the energy is not tunable between 1st and 3rd harmonics if $K$ is less than 2, because the wavelength of radiation $\lambda_1$ at $K=0$ is equal to $\lambda_3$ at $K=2$.
+
+$$\lambda_n = {\lambda_u \over 2 n \gamma^2}(1 + {K^2 \over 2} + \gamma^2 \theta^2)$$
+
+$$K = {e B_0 \lambda_u \over 2 \pi m c^2}$$
 
 **U4Opt** discloses these complex relationship among the parameters above. Users comprehend the principle of the undulator at a glance in two plots and tune the periodic length interactively.
 
@@ -15,6 +19,10 @@ The first concept of K-period plot originates from the talk of [Dr. Markus Tisch
 ### Magnet
 
 The magnetic configuration can be selected in the pop down list. Users can tune the parameters from the default values in either (a, b, c) or (Br, M, h) configuration. APPLE-II is based on the Br = 0.62 expirically. The other APPLE type can be tuned based on the magneti field measurement.
+
+$$B_0 = a \exp({g \over \lambda_u}(b + {g \over \lambda_u}c))$$
+
+$$B_0 = 2 Br {\sin(\pi/M) \over (\pi/M)} (1 - e^{-2 \pi h/\lambda_u}) e^{-\pi g/\lambda_u}$$
 
 ### Preset
 
@@ -46,6 +54,12 @@ pip3 install reliability
 ### [Igor Pro](https://www.wavemetrics.com/) version 8 or 9 (tested in Windows and macOS)
 
 Open the procedure file, then compile it. Undulator is available in the macro menu. Select the plot in the popup menu of **U4Opt** interface.
+
+#### Technical issues
+
+The flux of multi-pole wiggler (MPW) and bending magnet (BM) radiation can be added in Igor version. The flux of MPW is limited at the horizontal acceptance angle of 1 mrad. The magnet type and periodic length are equivalent to those used in the undulator. The magnetic field of BM is evaluated from the beam energy because the circumarence is roughly proportional to the beam energy.
+
+
 
 ## References
 
