@@ -30,7 +30,7 @@ Users can import and export the parameters as a preset (.dat).
 
 ### Non-linear effects
 
-No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). 
+No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization including the end-magnet, phase error, and beta function should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). 
 
 ### Limitations
 
