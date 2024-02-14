@@ -6,7 +6,7 @@ Menu "Macros"
 	"Undulator"
 End
 
-// Hideki NAKAJIMA (c) 2024.01.18, rev. 2024.02.05
+// Hideki NAKAJIMA (c) 2024.01.18, rev. 2024.02.14
 // load delimited text "XAS_edges.txt" for Flux/en plot
 
 Function Undulator() : Panel
@@ -249,7 +249,7 @@ Function B_un_plot()
 		
 		SetAxis/W=$topGraphName left K_0, K_1
 		SetAxis/W=$topGraphName bottom lu_0, lu_1
-		TextBox/W=$topGraphName/C/N=topGraphName/F=0/A=LT targetName(2)+" ("+targetName(3)+")\r"+num2str(E_e)+" GeV, "+num2str(I_e*1000)+" mA, "+num2str(u_length/1000)+" m, "+"har. "+num2str(n_har)
+		TextBox/W=$topGraphName/C/N=$topGraphName/F=0/A=LT targetName(2)+" ("+targetName(3)+")\r"+num2str(E_e)+" GeV, "+num2str(I_e*1000)+" mA, "+num2str(u_length/1000)+" m, "+"har. "+num2str(n_har)
 			
 		String w_list = TraceNameList(topGraphName, ";", 1), w_temp
 		
@@ -321,12 +321,12 @@ Function B_un_plot()
 			//Showinfo/W=$"Un_plot_" + plot_type + "_" + wn
 		endif
 		
-		Label/W=$"Un_plot_" + plot_type + "_" + wn left "K"
+		Label/W=$topGraphName left "K"
 		SetAxis/W=$topGraphName left K_0, K_1
 		SetAxis/W=$topGraphName bottom lu_0, lu_1
 		ModifyGraph/W=$topGraphName mirror=2
 		ModifyGraph/W=$topGraphName grid=1,tick(left)=3,tick(bottom)=2,minor=1,gridStyle=3,gridRGB=(48059,48059,48059)
-		TextBox/W=$topGraphName/C/N=topGraphName/F=0/A=LT targetName(2)+" ("+targetName(3)+")\r"+num2str(E_e)+" GeV, "+num2str(I_e*1000)+" mA, "+num2str(u_length/1000)+" m, "+"har. "+num2str(n_har)
+		TextBox/W=$topGraphName/C/N=$topGraphName/F=0/A=LT targetName(2)+" ("+targetName(3)+")\r"+num2str(E_e)+" GeV, "+num2str(I_e*1000)+" mA, "+num2str(u_length/1000)+" m, "+"har. "+num2str(n_har)
 		
 		if (gap_plot==1)
 			i=0
@@ -730,6 +730,8 @@ Function calc_1d(lu, K)
 		I_1d_plot = "CF_y"
 	elseif  (V_Value == 13)
 		I_1d_plot = "CF"
+	else
+		return -1
 	endif
 	
 	DoWindow $I_1d_plot
@@ -771,6 +773,8 @@ Function calc_1d_plot()
 		I_1d_plot = "CF_y"
 	elseif  (V_Value == 13)
 		I_1d_plot = "CF"
+	else
+		return -1
 	endif
 	
 	Controlinfo/W=panelun setBMPlot
@@ -976,7 +980,7 @@ Function calc_1d_plot()
 	endif
 	
 	setcolor()
-	TextBox/W=$I_1d_plot/C/N=I_1d_plot/F=0/A=LT num2str(E_e)+" GeV, "+num2str(I_e*1000)+" mA, "+num2str(u_length/1000)+" m, period "+num2str(lu_t)+" mm, max K "+num2str(K_t)
+	TextBox/W=$I_1d_plot/C/N=$I_1d_plot/F=0/A=LT num2str(E_e)+" GeV, "+num2str(I_e*1000)+" mA, "+num2str(u_length/1000)+" m, period "+num2str(lu_t)+" mm, max K "+num2str(K_t)
 end
 
 Function Gap_lu_K()
@@ -1076,38 +1080,40 @@ Function Plot_field_lu()
 	NVAR winpos = root:un:winpos, winsize = root:un:winsize, w_width = root:un:w_width, w_height = root:un:w_height
 	NVAR gap_0 = root:un:gap_0, gap_1 = root:un:gap_1, gap_pnt = root:un:gap_pnt, lu_0 = root:un:lu_0, lu_1 = root:un:lu_1
 	Variable i = 0, d_gap = (gap_1 - gap_0)/(gap_pnt-1), gap, lu = lu_1-(lu_1-lu_0)/10
-	String gapstr, m_plot
+	String gapstr, m_plot, Field_lu_plot = "Field_lu_plot"
 	
-	DoWindow Field_lu_plot
+	DoWindow $Field_lu_plot
 	if (V_flag == 1)
-		DoWindow/K Field_lu_plot
+		DoWindow/K $Field_lu_plot
 	endif
 	
 	m_plot = "Gap_lu_field_K"		// plot matrix data: default: "Gap_lu_field_K"
 									// can be "Gap_lu_field_mw", "Gap_lu_field_fl", "Gap_lu_field_af"
-	Do 
-		gap = gap_0+d_gap*i
-		gapstr = num2str(gap)
-		
-		if (i==0)	// K contour in field vs period plot
-			Display/N=Field_lu_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
-			AppendMatrixContour/W=Field_lu_plot $m_plot
-			ModifyContour/W=Field_lu_plot $m_plot autoLevels={*,*,11}
-			ModifyGraph/W=Field_lu_plot nticks=5,manTick=0,manMinor(bottom)={0,0}
-			ModifyGraph/W=Field_lu_plot grid=1,tick=2,mirror=2,minor(left)=1,gridStyle=3,gridRGB=(34952,34952,34952)
-		endif
-		// Field vs period for each gap value
-		AppendToGraph/W=Field_lu_plot $"Gap_lu_field_gap" + gapstr
-		Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=Field_lu_plot $"Gap_lu_field_gap" + gapstr, lu, gapstr+" mm"
-		i = i + 1
-	while(i<gap_pnt)
+	// K contour in field vs period plot
+	Display/N=$Field_lu_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
+	AppendMatrixContour/W=$Field_lu_plot $m_plot
+	ModifyContour/W=$Field_lu_plot $m_plot autoLevels={*,*,11}
+	ModifyGraph/W=$Field_lu_plot nticks=5,manTick=0,manMinor(bottom)={0,0}
+	ModifyGraph/W=$Field_lu_plot grid=1,tick=2,mirror=2,minor(left)=1,gridStyle=3,gridRGB=(34952,34952,34952)
 	
-	ModifyGraph/W=Field_lu_plot mirror=2
-	ModifyGraph/W=Field_lu_plot grid=1,tick(left)=3,tick(bottom)=2,minor=1,gridStyle=3,gridRGB=(48059,48059,48059)
+	// Field vs period for each gap value
+	Controlinfo/W=panelun setGapPlot
+	if (V_Value == 1)		
+		Do 
+			gap = gap_0+d_gap*i
+			gapstr = num2str(gap)
+			AppendToGraph/W=$Field_lu_plot $"Gap_lu_field_gap" + gapstr
+			Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=Field_lu_plot $"Gap_lu_field_gap" + gapstr, lu, gapstr+" mm"
+			i = i + 1
+		while(i<gap_pnt)
+	endif
+	
+	ModifyGraph/W=$Field_lu_plot mirror=2
+	ModifyGraph/W=$Field_lu_plot grid=1,tick(left)=3,tick(bottom)=2,minor=1,gridStyle=3,gridRGB=(48059,48059,48059)
 	//Label/W=Field_lu_plot left "Field (T)"
 	//Label/W=Field_lu_plot bottom "Undulator period (mm)"
 	setcolor()
-	TextBox/W=Field_lu_plot/C/N=K/F=0/A=LT "K"	// default "K", "flux" or "AFD"
+	TextBox/W=$Field_lu_plot/C/N=$Field_lu_plot/F=0/A=LT "K"	// default "K", "flux" or "AFD"
 	
 	DoWindow/F panelun
 End
@@ -1119,6 +1125,7 @@ Function phaseError()
 	// phase error in equation based on the radian unit
 	Variable err_0 = err_deg_0*pi/180, d_err = d_err_deg*pi/180
 	Variable n_pnt = (n_1-n_0+2)/2, err_pnt = (err_deg_1 - err_deg_0)/d_err_deg + 1
+	String Phase_error_plot = "Phase_error_plot"
 	
 	Make/D/N=(n_pnt,err_pnt)/O I_n_err
 	i = 0
@@ -1136,17 +1143,17 @@ Function phaseError()
 	SetScale/P	x n_0,2,"Harmonic number", I_n_err
 	SetScale/I	y err_deg_0,err_deg_1,"Phase error (º)", I_n_err
 	
-	DoWindow Phase_error_plot
+	DoWindow $Phase_error_plot
 	if (V_flag == 1)
-		DoWindow/F Phase_error_plot
+		DoWindow/F $Phase_error_plot
 	else
-		Display/N=Phase_error_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
-		AppendMatrixContour/W=Phase_error_plot I_n_err
-		ModifyContour/W=Phase_error_plot I_n_err autoLevels={*,*,11}
-		ModifyGraph/W=Phase_error_plot nticks=5,manTick(bottom)={1,2,0,0},manMinor(bottom)={0,0}
-		ModifyGraph/W=Phase_error_plot grid=1,tick=2,mirror=2,minor(left)=1,gridStyle=3,gridRGB=(34952,34952,34952)
+		Display/N=$Phase_error_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
+		AppendMatrixContour/W=$Phase_error_plot I_n_err
+		ModifyContour/W=$Phase_error_plot I_n_err autoLevels={*,*,11}
+		ModifyGraph/W=$Phase_error_plot nticks=5,manTick(bottom)={1,2,0,0},manMinor(bottom)={0,0}
+		ModifyGraph/W=$Phase_error_plot grid=1,tick=2,mirror=2,minor(left)=1,gridStyle=3,gridRGB=(34952,34952,34952)
 		SetAxis/W=Phase_error_plot left err_deg_0,err_deg_1
-		TextBox/W=Phase_error_plot/C/N=Gap_lu/F=0/A=LT "I/I0"
+		TextBox/W=$Phase_error_plot/C/N=$Phase_error_plot/F=0/A=LT "I/I0"
 	endif
 end
 
@@ -1157,6 +1164,9 @@ Function set_E_e(ctrlName,varNum,varStr,varName) : SetVariableControl
 	NVAR E_e = root:un:E_e
 	K_lu_energy()
 	Gap_lu_K()
+	
+	NVAR lu_t = root:un:lu_t, K_t = root:un:K_t
+	calc_1d(lu_t, K_t)
 end
 
 Function set_I_e(ctrlName,varNum,varStr,varName) : SetVariableControl
@@ -1166,6 +1176,9 @@ Function set_I_e(ctrlName,varNum,varStr,varName) : SetVariableControl
 	NVAR I_e = root:un:I_e
 	K_lu_energy()
 	Gap_lu_K()
+	
+	NVAR lu_t = root:un:lu_t, K_t = root:un:K_t
+	calc_1d(lu_t, K_t)
 end
 
 Function set_u_length(ctrlName,varNum,varStr,varName) : SetVariableControl
@@ -1175,6 +1188,9 @@ Function set_u_length(ctrlName,varNum,varStr,varName) : SetVariableControl
 	NVAR u_length = root:un:u_length
 	K_lu_energy()
 	Gap_lu_K()
+	
+	NVAR lu_t = root:un:lu_t, K_t = root:un:K_t
+	calc_1d(lu_t, K_t)
 end
 
 Function set_n_har(ctrlName,varNum,varStr,varName) : SetVariableControl
@@ -1184,6 +1200,7 @@ Function set_n_har(ctrlName,varNum,varStr,varName) : SetVariableControl
 	NVAR n_har = root:un:n_har
 	K_lu_energy()
 	Gap_lu_K()
+	calc_1d_plot()
 end
 
 Function set_lu_0(ctrlName,varNum,varStr,varName) : SetVariableControl
@@ -1429,6 +1446,8 @@ Function set_gap_0(ctrlName,varNum,varStr,varName) : SetVariableControl
 	
 	NVAR gap_0 = root:un:gap_0
 	Gap_lu_K()
+	K_lu_energy()
+	B_un_plot()
 end
 
 Function set_gap_1(ctrlName,varNum,varStr,varName) : SetVariableControl
@@ -1437,6 +1456,8 @@ Function set_gap_1(ctrlName,varNum,varStr,varName) : SetVariableControl
 	
 	NVAR gap_1 = root:un:gap_1
 	Gap_lu_K()
+	K_lu_energy()
+	B_un_plot()
 end
 
 Function set_gap_pnt(ctrlName,varNum,varStr,varName) : SetVariableControl
@@ -1445,6 +1466,8 @@ Function set_gap_pnt(ctrlName,varNum,varStr,varName) : SetVariableControl
 	
 	NVAR gap_pnt = root:un:gap_pnt
 	Gap_lu_K()
+	K_lu_energy()
+	B_un_plot()
 end
 
 Function set_mode(ctrlName, popNum, popStr) : PopupMenuControl
@@ -1454,6 +1477,7 @@ Function set_mode(ctrlName, popNum, popStr) : PopupMenuControl
 	
 	K_lu_energy()
 	Gap_lu_K()
+	Other_plots()
 End
 
 Function set_plot_type(ctrlName, popNum, popStr) : PopupMenuControl
@@ -1461,6 +1485,9 @@ Function set_plot_type(ctrlName, popNum, popStr) : PopupMenuControl
 	Variable popNum
 	String popStr
 	
+	Gap_lu_K()
+	K_lu_energy()
+	B_un_plot()
 End
 
 Function set_data_type(ctrlName, popNum, popStr) : PopupMenuControl
@@ -1478,6 +1505,9 @@ Function set_color_type(ctrlName, popNum, popStr) : PopupMenuControl
 	Variable popNum
 	String popStr
 	
+	Gap_lu_K()
+	K_lu_energy()
+	B_un_plot()
 End
 
 Function set_color_rev(ctrlName,checked) : CheckBoxControl
@@ -1485,6 +1515,9 @@ Function set_color_rev(ctrlName,checked) : CheckBoxControl
 	Variable checked
 	
 	NVAR crev = root:un:crev
+	Gap_lu_K()
+	K_lu_energy()
+	B_un_plot()
 End
 
 Function set_gap_plot(ctrlName,checked) : CheckBoxControl
@@ -1492,6 +1525,9 @@ Function set_gap_plot(ctrlName,checked) : CheckBoxControl
 	Variable checked
 	
 	NVAR gplot = root:un:gplot
+	Gap_lu_K()
+	K_lu_energy()
+	B_un_plot()
 End
 
 Function set_color_gap(ctrlName, popNum, popStr) : PopupMenuControl
@@ -1526,6 +1562,9 @@ Function set_BM_plot(ctrlName,checked) : CheckBoxControl
 	Variable checked
 	
 	NVAR xplot = root:un:xplot
+	K_lu_energy()
+	Gap_lu_K()
+	Other_plots()
 End
 
 Function luscaleproc(name, value, event)
@@ -1569,7 +1608,10 @@ Function luscaleproc(name, value, event)
 	Controlinfo/W=panelun setGapPlot
 	if (V_Value == 1)
 		String topGraphName = "Un_plot_" + plot_type + "_" + targetName(1)
-		Cursor/S=2/C=(1,16019,65535)/W=$topGraphName A, $"Gap_lu_K_gap"+num2str(gap_0), lu_t
+		DoWindow $topGraphName
+		if (V_flag == 1)
+			Cursor/S=2/C=(1,16019,65535)/W=$topGraphName A, $"Gap_lu_K_gap"+num2str(gap_0), lu_t
+		endif
 	endif
 End
 
@@ -1628,7 +1670,10 @@ Function set_lu_scale(ctrlName,varNum,varStr,varName) : SetVariableControl
 	Controlinfo/W=panelun setGapPlot
 	if (V_Value == 1)
 		String topGraphName = "Un_plot_" + plot_type + "_" + targetName(1)
-		Cursor/S=2/C=(1,16019,65535)/W=$topGraphName A, $"Gap_lu_K_gap"+num2str(gap_0), lu_t
+		DoWindow $topGraphName
+		if (V_flag == 1)
+			Cursor/S=2/C=(1,16019,65535)/W=$topGraphName A, $"Gap_lu_K_gap"+num2str(gap_0), lu_t
+		endif
 	endif
 	
 end
