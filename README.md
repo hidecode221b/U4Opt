@@ -2,31 +2,45 @@
 
 ## Introduction
 
-The undulator is an insertion device used to generate the synchrotron radiation at a higher flux density than that from the bending magnet radiation. The photon energy from the undulator depends on the `electron beam energy`, `harmonic number`, `undulator period`, and `K` parameter which is based on the `undulator period` and `magnetic field strength`. The `magnetic field strength` is varied with the `magnetic gap`, `magnet dimension`, and `magnetization`. The `flux` from the undulator depends on the the `electron beam current`, `total length`, `undulator period`, `harmonic number`, and `K`. The maximum `K` value is correlated with the lowest energy as well as highest `flux` at a particular `harmonic number`. The photon energy extends toward a high energy as the `harmonic number` increases at every odd harmonic number ($n$). However, the energy is not tunable between 1st and 3rd harmonics if $K$ is less than 2, because the wavelength of radiation $\lambda_1$ at $K=0$ is equal to $\lambda_3$ at $K=2$.
+The undulator is an insertion device used to generate the synchrotron radiation at a higher flux density than that from the bending magnet radiation. The photon energy ($hc/\lambda$) from the undulator depends on the electron beam energy ($0.000511\gamma$ GeV), harmonic number ($n$), undulator period ($\lambda_u$), and $K$ parameter which is based on the $\lambda_u$ and magnetic field strength ($B_0$). $B_0$ is varied with the magnetic gap ($g$),  magnet height ($h$), and magnetization ($B_r$). The  flux ($F$) from the undulator depends on the the electron beam current ($I$ A), total length ($L$), $\lambda_u$, $n$, and $K$. The maximum $K$ value is correlated with the lowest energy as well as highest $F$ at a particular $n$. The photon energy extends toward a high energy as the $n$ increases at every odd $n$. However, the energy is not tunable between 1st and 3rd harmonics if $K$ is less than 2, because the wavelength of radiation $\lambda_1$ at $K=0$ is equal to $\lambda_3$ at $K=2$ on axis $\theta = 0$.
 
-$$\lambda_n = {\lambda_u \over 2 n \gamma^2}(1 + {K^2 \over 2} + \gamma^2 \theta^2)$$
+$$\lambda_n = {\lambda_u \over 2 n \gamma^2}\left( 1 + {K^2 \over 2} + \gamma^2 \theta^2 \right)$$
 
 $$K = {e B_0 \lambda_u \over 2 \pi m c^2}$$
 
+The flux over the central cone at the harmonic $n$ and number of periods $N$ ($=L/\lambda_u$) is
+
+$${\partial F \over \partial (\Delta \omega/\omega)} = 1.744 \cdot 10^{14} \cdot N \cdot Q_n(K) \cdot I$$
+
+$$Q_n(K) = (1+K^2/2) \cdot F_n(K)/n$$
+
+$$F_n(K) = {K^2n^2 \over (1 + K^2/2)^2} \cdot \left[ \ J_{n-1 \over 2}(\zeta) - J_{n+1 \over 2}(\zeta) \right]\^2$$
+
+$$\zeta = {nK^2 \over 4 (1 + K^2/2)}$$
+
+$J$ represents the [Bessel junction of the first kind](https://en.wikipedia.org/wiki/Bessel_function).
+
 **U4Opt** discloses these complex relationship among the parameters above. Users comprehend the principle of the undulator at a glance in two plots and tune the periodic length interactively.
+
+
 
 ## Background
 
 The `undulator period` can be optimized in the plot based on the `magnet type`, `gap`, `flux`. To design the undulator specification in the synchrotron facility, **U4Opt** has been developed. The first prototype of the program is based on the Excel spreadsheet, and transfered to the macro in Igor Pro. Python code is now available. The coding is in progress, not well documented, but open for public for review. 
 
-The first concept of K-period plot originates from the talk of [Dr. Markus Tischer (DESY)](https://photon-science.desy.de/research/technical_groups/undulators/group_members/index_eng.html) in the [ID23](https://aps.anl.gov/Magnetic-Devices/Workshops-Proceedings/ID-23) workshop.
+The first concept of `K-period` space analysis originates from the talk of [Dr. Markus Tischer (DESY)](https://photon-science.desy.de/research/technical_groups/undulators/group_members/index_eng.html) in the [ID23](https://aps.anl.gov/Magnetic-Devices/Workshops-Proceedings/ID-23) workshop.
 
 ### Magnet
 
-The magnetic configuration can be selected in the pop down list. Users can tune the parameters from the default values in either (a, b, c) or (Br, M, h) configuration. APPLE-II is based on the Br = 0.62 expirically. The other APPLE type can be tuned based on the magneti field measurement.
+The magnetic configuration can be selected in the pop down list. Users can tune the parameters from the default values in either ($a, b, c$) or ($B_r, M, h$) configuration. APPLE-II is based on the $B_r = 0.62$ expirically. The other APPLE type can be tuned based on the magneti field measurement. The peak field can be approximated in the following equations;
 
-$$B_0 = a \exp({g \over \lambda_u}(b + {g \over \lambda_u}c))$$
+$$B_0 = a \cdot \exp \left({g \over \lambda_u} \left( b + {g \over \lambda_u}c \right) \right)$$ by [D.C. Quimby and A.L. Pindroh](https://doi.org/10.1063/1.1139284), and
 
-$$B_0 = 2 Br {\sin(\pi/M) \over (\pi/M)} (1 - e^{-2 \pi h/\lambda_u}) e^{-\pi g/\lambda_u}$$
+$$B_0 = 2 B_r {\sin(\pi/M) \over (\pi/M)} \left( 1 - e^{-2 \pi h/\lambda_u} \right) e^{-\pi g/\lambda_u}$$ by [K. Halbach](https://doi.org/10.1016/0029-554X(81)90477-8).
 
 ### Preset
 
-Users can import and export the parameters as a preset (.dat).
+Users can import and export the parameters as a preset (.dat) in Python version.
 
 ### Non-linear effects
 
@@ -34,7 +48,7 @@ No emittance or energy spread are taken into account resulting in the single ele
 
 ### Limitations
 
-No warranty of U4Opt without errors. Python and Igor Pro work in the same manner, but Igor Pro runs faster than Python does. The data can be handled in Igor as a wave within the program and transformed in further analysis.
+No warranty of **U4Opt** without errors. Python and Igor Pro work in the same manner, but Igor Pro runs faster than Python does. The data can be handled in Igor as a wave within the program and transformed in further analysis.
 
 ## Setup
 
@@ -63,7 +77,7 @@ The flux of multi-pole wiggler (MPW) and bending magnet (BM) radiation can be ad
 
 ## References
 
-### Theory of the undulalar
+### Basic principles
 
 - [Richard P. Walker](https://indico.ictp.it/event/a02011/contribution/1)
 
