@@ -73,6 +73,12 @@ Open the procedure file, then compile it. Undulator is available in the macro me
 
 The flux of multi-pole wiggler (MPW) and bending magnet (BM) radiation can be added in Igor version. The flux of MPW is limited at the horizontal acceptance angle of 1 mrad. The magnet type and periodic length are equivalent to those used in the undulator. The magnetic field of BM is evaluated from the beam energy because the circumarence is roughly proportional to the beam energy.
 
+## Usage
+
+* Setup the basic parameters like the energy, current, length, and harmonic number
+* Choose the magnet type like PPM, hybrid, cryogenic, superconducting, and APPLE-II
+* Setup the plot ranges like the period, K, gap, flux, and energy
+* Adjust the period at the maximum K (minimum gap) in the variable or slider
 
 
 ## References
