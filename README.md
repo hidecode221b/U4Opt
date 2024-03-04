@@ -8,7 +8,7 @@ $$\lambda_n = {\lambda_u \over 2 n \gamma^2}\left( 1 + {K^2 \over 2} + \gamma^2 
 
 $$K = {e B_0 \lambda_u \over 2 \pi m c^2}$$
 
-The flux over the central cone at the harmonic $n$ and number of periods $N$ ($=L/\lambda_u$) is
+The flux over the central cone at the harmonic $n$ and number of periods $N$ ($=L/\lambda_u$) in the band width ($\Delta \omega/\omega=0.1$ \%) is
 
 $${\partial F \over \partial (\Delta \omega/\omega)} = 1.744 \cdot 10^{14} \cdot N \cdot Q_n(K) \cdot I$$
 
