@@ -2,13 +2,13 @@
 
 ## Introduction
 
-The undulator is an insertion device used to generate the synchrotron radiation at a higher flux density than that from the bending magnet radiation. The photon energy ($hc/\lambda$) from the undulator depends on the electron beam energy ($0.000511\gamma$ GeV), harmonic number ($n$), undulator period ($\lambda_u$), and $K$ parameter which is based on the $\lambda_u$ and magnetic field strength ($B_0$). $B_0$ is varied with the magnetic gap ($g$),  magnet height ($h$), and magnetization ($B_r$). The  flux ($F$) from the undulator depends on the the electron beam current ($I$ A), total length ($L$), $\lambda_u$, $n$, and $K$. The maximum $K$ value is correlated with the lowest energy as well as highest $F$ at a particular $n$. The photon energy extends toward a high energy as the $n$ increases at every odd $n$. However, the energy is not tunable between 1st and 3rd harmonics if $K$ is less than 2, because the wavelength of radiation $\lambda_1$ at $K=0$ is equal to $\lambda_3$ at $K=2$ on axis $\theta = 0$.
+The undulator is an insertion device used to generate the synchrotron radiation at a higher flux density than that from the bending magnet radiation. The photon energy ($hc/\lambda$) from the undulator depends on the electron beam energy ($0.000511\gamma$ GeV), harmonic number ($n$), undulator period ($\lambda_u$), polar angle from the undulator axis ($\theta$), and $K$ parameter which is based on the $\lambda_u$ and magnetic field strength ($B_0$). $B_0$ is varied with the magnetic gap ($g$),  magnet height ($h$), and magnetization ($B_r$). 
 
 $$\lambda_n = {\lambda_u \over 2 n \gamma^2}\left( 1 + {K^2 \over 2} + \gamma^2 \theta^2 \right)$$
 
 $$K = {e B_0 \lambda_u \over 2 \pi m c^2}$$
 
-The flux over the central cone at the harmonic $n$ and number of periods $N$ ($=L/\lambda_u$) in the band width ($\Delta \omega/\omega=0.1$ \%) is
+The  flux ($F$) from the undulator depends on the the electron beam current ($I$ amps), total length ($L$), $\lambda_u$, $n$, and $K$. The flux over the central cone ($\sqrt{\lambda/L}$) at the harmonic $n$ and number of periods $N$ ($=L/\lambda_u$) in the band width ($\Delta \omega/\omega=0.1$ \%) is
 
 $${\partial F \over \partial (\Delta \omega/\omega)} = 1.744 \cdot 10^{14} \cdot N \cdot Q_n(K) \cdot I$$
 
@@ -19,6 +19,14 @@ $$F_n(K) = {K^2n^2 \over (1 + K^2/2)^2} \cdot \left[ \ J_{n-1 \over 2}(\zeta) - 
 $$\zeta = {nK^2 \over 4 (1 + K^2/2)}$$
 
 $J$ represents the [Bessel junction of the first kind](https://en.wikipedia.org/wiki/Bessel_function).
+
+
+The maximum $K$ value is correlated with the lowest energy as well as highest $F$ at a particular $n$. The photon energy extends toward a high energy as the $n$ increases at every odd $n$. However, the energy is not tunable between 1st and 3rd harmonics if $K$ is less than 2, because the wavelength of radiation $\lambda_1$ at $K=0$ is equal to $\lambda_3$ at $K=2$ on axis $\theta = 0$ as shown below.
+
+$$\lambda_{1, K=0} = {\lambda_u \over 2 \cdot 1 \gamma^2} \left( 1 + {0^2 \over 2} \right) = {\lambda_u \over 2 \gamma^2}$$
+
+$$\lambda_{3, K=2} = {\lambda_u \over 2 \cdot 3 \gamma^2} \left( 1 + {2^2 \over 2} \right) = {\lambda_u \over 2 \gamma^2}$$
+
 
 **U4Opt** discloses these complex relationship among the parameters above. Users comprehend the principle of the undulator at a glance in two plots and tune the periodic length interactively.
 
