@@ -36,7 +36,7 @@ The magnetic configuration can be selected in the pop down list. Users can tune 
 
 $$B_0 = a \cdot \exp \left({g \over \lambda_u} \left( b + {g \over \lambda_u}c \right) \right)$$ by [D.C. Quimby and A.L. Pindroh](https://doi.org/10.1063/1.1139284), and
 
-$$B_0 = 2 B_r {\sin(\pi/M) \over (\pi/M)} \left( 1 - e^{-2 \pi h/\lambda_u} \right) e^{-\pi g/\lambda_u}$$ by [K. Halbach](https://doi.org/10.1016/0029-554X(81)90477-8).
+$$B_0 = 2 B_r {\sin(\pi/M) \over (\pi/M)} \left( 1 - e^{-2 \pi h/\lambda_u} \right) e^{-\pi g/\lambda_u}$$ by [K. Halbach](https://doi.org/10.1016/0029-554X(81)90477-8). $M$ represents the number of magnets in a priod, and $h$ the height of magnet. These formulas and variables are varied in line with the field measurements in magnet arrays on-site.
 
 ### Preset
 
@@ -75,10 +75,10 @@ The flux of multi-pole wiggler (MPW) and bending magnet (BM) radiation can be ad
 
 ## Usage
 
-* Setup the basic parameters like the energy, current, length, and harmonic number
-* Choose the magnet type like PPM, hybrid, cryogenic, superconducting, and APPLE-II
-* Setup the plot ranges like the period, K, gap, flux, and energy
-* Adjust the period at the maximum K (minimum gap) in the variable or slider
+* Setup the basic parameters like the energy, current, length, and harmonic number.
+* Choose the magnet type like PPM, hybrid, cryogenic, superconducting, and APPLE-II.
+* Setup the plot ranges like the period, K, gap, flux, and energy.
+* Adjust the period at the maximum K (minimum gap) in the variable or slider.
 
 
 ## References
