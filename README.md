@@ -2,11 +2,15 @@
 
 ## Introduction
 
-The undulator is an insertion device used to generate the synchrotron radiation at a higher flux density than that from the bending magnet radiation. The photon energy ($hc/\lambda$) from the undulator depends on the electron beam energy ($0.000511\gamma$ GeV), harmonic number ($n$), undulator period ($\lambda_u$), polar angle from the undulator axis ($\theta$), and $K$ parameter which is based on the $\lambda_u$ and magnetic field strength ($B_0$). $B_0$ is varied with the magnetic gap ($g$),  magnet height ($h$), and magnetization ($B_r$). 
+The undulator is an insertion device used to generate the synchrotron radiation at a higher flux density than that from the bending magnet radiation. The photon energy ($hc/\lambda$) from the undulator depends on the electron beam energy ($0.000511\gamma$ GeV), harmonic number ($n$), undulator period ($\lambda_u$), polar angle from the undulator axis ($\theta$), and $K$ parameter which is based on the $\lambda_u$ and magnetic field strength ($B_0$). 
 
 $$\lambda_n = {\lambda_u \over 2 n \gamma^2}\left( 1 + {K^2 \over 2} + \gamma^2 \theta^2 \right)$$
 
 $$K = {e B_0 \lambda_u \over 2 \pi m c^2}$$
+
+
+$B_0$ can be designed in the magnet height ($h$) and magnetization ($B_r$), and tuned in the magnetic gap ($g$) and temperature. The minimum gap is basically limited in the dynamic aperture of the storage ring lattice, and the maximum gap is limited in the mechanical structure of the undulator. Various magnetic types and structures are available in the advanced synchrotron facilities. 
+
 
 The  flux ($F$) from the undulator depends on the the electron beam current ($I$ amps), total length ($L$), $\lambda_u$, $n$, and $K$. The flux over the central cone ($\sqrt{\lambda/L}$) at the harmonic $n$ and number of periods $N$ ($=L/\lambda_u$) in the band width ($\Delta \omega/\omega=0.1$ \%) is
 
@@ -40,11 +44,15 @@ The first concept of `K-period` space analysis originates from the talk of [Dr. 
 
 ### Magnet
 
-The magnetic configuration can be selected in the pop down list. Users can tune the parameters from the default values in either ($a, b, c$) or ($B_r, M, h$) configuration. APPLE-II is based on the $B_r = 0.62$ expirically. The other APPLE type can be tuned based on the magneti field measurement. The peak field can be approximated in the following equations;
+The magnetic configuration can be selected in the pop down list. Users can tune the parameters from the default values in either ($a, b, c$) or ($B_r, M, h$) configuration. APPLE-II is based on the $B_r = 0.62$ expirically. The magnetic field can be approximated in the following equations;
 
-$$B_0 = a \cdot \exp \left({g \over \lambda_u} \left( b + {g \over \lambda_u}c \right) \right)$$ by [D.C. Quimby and A.L. Pindroh](https://doi.org/10.1063/1.1139284), and
+$$B_0 = a \cdot \exp \left({g \over \lambda_u} \left( b + {g \over \lambda_u}c \right) \right)$$ 
 
-$$B_0 = 2 B_r {\sin(\pi/M) \over (\pi/M)} \left( 1 - e^{-2 \pi h/\lambda_u} \right) e^{-\pi g/\lambda_u}$$ by [K. Halbach](https://doi.org/10.1016/0029-554X(81)90477-8). $M$ represents the number of magnets in a priod, and $h$ the height of magnet. The `effective magnetic field` or `K` depends on the vender specifications or the field measurements in magnet arrays on-site.
+by [D.C. Quimby and A.L. Pindroh](https://doi.org/10.1063/1.1139284), and
+
+$$B_0 = 2 B_r {\sin(\pi/M) \over (\pi/M)} \left( 1 - e^{-2 \pi h/\lambda_u} \right) e^{-\pi g/\lambda_u}$$ 
+
+by [K. Halbach](https://doi.org/10.1016/0029-554X(81)90477-8). $M$ represents the number of magnets in a priod, and $h$ the height of magnet. The `effective magnetic field` or `K` depends on the vender specifications or the field measurements in magnet arrays on-site.
 
 
 ### Preset
