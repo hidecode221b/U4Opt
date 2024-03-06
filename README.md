@@ -36,19 +36,23 @@ The magnetic configuration can be selected in the pop down list. Users can tune 
 
 $$B_0 = a \cdot \exp \left({g \over \lambda_u} \left( b + {g \over \lambda_u}c \right) \right)$$ by [D.C. Quimby and A.L. Pindroh](https://doi.org/10.1063/1.1139284), and
 
-$$B_0 = 2 B_r {\sin(\pi/M) \over (\pi/M)} \left( 1 - e^{-2 \pi h/\lambda_u} \right) e^{-\pi g/\lambda_u}$$ by [K. Halbach](https://doi.org/10.1016/0029-554X(81)90477-8). $M$ represents the number of magnets in a priod, and $h$ the height of magnet. These formulas and variables are varied in line with the field measurements in magnet arrays on-site.
+$$B_0 = 2 B_r {\sin(\pi/M) \over (\pi/M)} \left( 1 - e^{-2 \pi h/\lambda_u} \right) e^{-\pi g/\lambda_u}$$ by [K. Halbach](https://doi.org/10.1016/0029-554X(81)90477-8). $M$ represents the number of magnets in a priod, and $h$ the height of magnet. The `effective magnetic field` or `K` depends on the vender specifications or the field measurements in magnet arrays on-site.
+
 
 ### Preset
 
 Users can import and export the parameters as a preset (.dat) in Python version.
 
+
 ### Non-linear effects
 
 No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization including the end-magnet, phase error, and beta function should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). 
 
+
 ### Limitations
 
 No warranty of **U4Opt** without errors. Python and Igor Pro work in the same manner, but Igor Pro runs faster than Python does. The data can be handled in Igor as a wave within the program and transformed in further analysis.
+
 
 ## Setup
 
