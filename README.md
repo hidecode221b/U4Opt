@@ -62,7 +62,7 @@ Users can import and export the parameters as a preset (.dat) in Python version.
 
 ### Non-linear effects
 
-No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization including the end-magnet, phase error, and beta function should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). 
+No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization including the end-magnet, phase error, and beta function should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). The theoretical background and formula are summarized by [Takashi Tanaka](https://doi.org/10.1103/PhysRevAccelBeams.21.110704) and [Jui-Che Huang](https://doi.org/10.1103/PhysRevAccelBeams.20.064801).
 
 
 ### Limitations
@@ -74,10 +74,9 @@ No warranty of **U4Opt** without errors. Python and Igor Pro work in the same ma
 
 ### Python (tested in Windows and macOS)
 
-Install Python3, and pip3 install numpy, scipy, PyQt5, matplotlib, and reliability. 
+Install [Python3](https://www.python.org/) and [pip3](https://pip.pypa.io/en/stable/installation/) install numpy, scipy, PyQt5, matplotlib, and reliability. 
 
 ```
-python3 main.py
 pip3 install numpy
 pip3 install scipy
 pip3 install pyqt5
@@ -85,11 +84,16 @@ pip3 install matplotlib
 pip3 install reliability
 ```
 
+Download this repository and run the main.py under the Python folder.
+```
+python3 main.py
+```
+
 ### [Igor Pro](https://www.wavemetrics.com/) version 8 or 9 (tested in Windows and macOS)
 
 Open the procedure file, then compile it. Undulator is available in the macro menu. Select the plot in the popup menu of **U4Opt** interface.
 
-#### Technical issues
+#### MPW and BM radiations
 
 The flux of multi-pole wiggler (MPW) and bending magnet (BM) radiation can be added in Igor version. The flux of MPW is limited at the horizontal acceptance angle of 1 mrad. The magnet type and periodic length are equivalent to those used in the undulator. The magnetic field of BM is evaluated from the beam energy because the circumarence is roughly proportional to the beam energy.
 
@@ -109,7 +113,7 @@ The flux of multi-pole wiggler (MPW) and bending magnet (BM) radiation can be ad
 
 - [Johannes Bahrdt](http://dx.doi.org/10.5170/CERN-2006-002.441)
 
-- [Jui-Che Huang](https://doi.org/10.1103/PhysRevAccelBeams.20.064801)
+- [M.R. Howells and B.M. Kincaid](https://cds.cern.ch/record/260372/files/P00021955.pdf)
 
 ### Magnet parameters
 
