@@ -95,7 +95,7 @@ Open the procedure file, then compile it. Undulator is available in the macro me
 
 #### MPW and BM radiations
 
-The flux of multi-pole wiggler (MPW) and bending magnet (BM) radiation can be added in Igor version. The flux of MPW is limited at the horizontal acceptance angle of 1 mrad. The magnet type and periodic length are equivalent to those used in the undulator. The magnetic field of BM is evaluated from the beam energy because the circumarence is roughly proportional to the beam energy.
+The flux of multi-pole wiggler (MPW) and bending magnet (BM) radiation can be added in Igor version. The flux of MPW is limited at the horizontal acceptance angle of 1 mrad. The magnet type and periodic length are equivalent to those used in the undulator. The magnetic field of BM is evaluated from the beam energy because the circumarence is roughly proportional to the beam energy ([Lightsources2018.csv](/LS/Lightsources2018.csv)).
 
 ## Usage
 
@@ -109,17 +109,19 @@ The flux of multi-pole wiggler (MPW) and bending magnet (BM) radiation can be ad
 
 ### Basic principles
 
-- [Richard P. Walker](https://indico.ictp.it/event/a02011/contribution/1)
+- [The properties of undulator radiation, M.R. Howells and B.M. Kincaid (1993).](https://cds.cern.ch/record/260372/files/P00021955.pdf)
 
-- [Johannes Bahrdt](http://dx.doi.org/10.5170/CERN-2006-002.441)
+- [Insertion devices: undulators and wigglers, Richard P. Walker (1997).](https://indico.ictp.it/event/a02011/contribution/1)
 
-- [M.R. Howells and B.M. Kincaid](https://cds.cern.ch/record/260372/files/P00021955.pdf)
+- [Insertion devices, Johannes Bahrdt (2006).](http://dx.doi.org/10.5170/CERN-2006-002.441)
+
+
 
 ### Magnet parameters
 
-- [Magnet vs gap](https://doi.org/10.1016/S0168-9002(00)00544-1)
+- [Design considerations for a 1Å SASE undulator, P. Elleaume, J. Chavanne, Bart Faatz, Nucl. Instrum. Methods Phys. Res. A 455, 503 (2000).](https://doi.org/10.1016/S0168-9002(00)00544-1)
 
-- [APPLE-II](https://www.aps.anl.gov/files/APS-sync/lsnotes/files/APS_1418272.pdf)
+- [Short-Period APPLE II Undulator for Generating 12-15 keV X-Rays at the Advanced Photon Source, R. Dejus and S. Sasaki, ANL/APS/LS-313 rev. 3 (2009).](https://www.aps.anl.gov/files/APS-sync/lsnotes/files/APS_1418272.pdf)
 
 ## Interface
 
