@@ -1,0 +1,88 @@
+﻿Abbrev,Facilities,Energy,Emittance,Vert. emi,Hori. Emi,Circumstance,Commissioned,Status,Acc,Spec
+ALBA,"ALBA - Synchrotron Light Facility, Spain",3,4.3,,4.3,268.8,,Dedicated,STR,http://www.cells.es/Divisions/Accelerators
+ALS,"ALS - Advanced Light Source, USA",1.9,2.2,0.05,2.2,196.8,,Dedicated,STR,http://www.als.lbl.gov/als/techspecs/srparameters.html
+ANKA,"ANKA - Angstromquelle Karlsruhe, Germany",2.5,50,,,110.4,,Dedicated,STR,http://ankaweb.fzk.de/website.php?page=instrumentation_acce&id=4&field=5
+APS,"APS - Advanced Photon Source, USA",7,2.514,,,1104,,Dedicated,STR,http://www.aps.anl.gov/Facility/Storage_Ring_Parameters/node1.html
+AS,Australian Synchrotron facility,3,7.4,,,216,,Dedicated,STR,http://www.synchrotron.org.au/index.php/about-us/our-facilities/accelerator-physics/synchrotrons-and-the-large-hadron-collider
+ASTRID2,"ISA - Institute for Storage Ring Facilities, Denmark",0.58,12,,12,45.713,,Dedicated,STR,http://www.isa.au.dk/facilities/astrid2/astrid2.asp
+BESSY-II,"BESSY-II, Helmholtz-Zentrum Berlin (HZB), Wilhelm-Conrad-Röntgen-Campus, Germany ",1.7,6,,,240,,Dedicated,STR,
+BSRF,"BSRF - Beijing Synchrotron Radiation Facility, P.R. China",2.2,76,7.6,76,240.4,,Partly Dedicated,STR,http://www.ihep.ac.cn/bsrf/english/introduction/bepc.htm
+CAMD,"CAMD - Center for Advanced Microstructures & Devices, USA",1.5,350,,,55,,Dedicated,STR,http://www.camd.lsu.edu/aboutcamd.htm
+CANDLE,"CANDLE, Armenia",3,8.4,,,216,,Dedicated,STR,http://candle.am/design_report/
+CHESS,"CHESS - Cornell High Energy Synchrotron Source, USA",5.6,300,,300,768.43,,Partly Dedicated,STR,http://www.lns.cornell.edu/Research/AP/CESR/OperatingParameters.html
+CLS,"CLS - Canadian Light Source, Canada",2.9,18.2,0.1017,22.7,171,,Dedicated,STR,http://www.lightsource.ca/operations/storageRing_status.php
+DAFNE,"DAFNE Light, Italy",0.51,,10000,1000000,32.56,,Parasitic,STR,http://web.infn.it/Dafne_Light/index.php/dafne-storage-ring-parameters
+Diamond,"Diamond Light Source, UK",3,4.58,0.0274,2.74,561.6,,Dedicated,STR,http://www.diamond.ac.uk/Home/Technology/Parameter.html
+DORIS-III,"DORIS-III, DESY, Germany",4.5,410,12,410,289,,Dedicated,STR,http://doris.desy.de/index_eng.html
+ELETTRA,"ELETTRA - Synchrotron Light Laboratory, Italy",2.4,9.7,,,259.2,,Dedicated,STR,http://www.elettra.trieste.it/accelerator/parameters.html
+ESRF,"ESRF - European Synchrotron Radiation Facility, France",6,4,,,844.4,,Dedicated,STR,http://www.esrf.eu/Accelerators/Accelerators/StorageRing
+HiSOR,"HiSOR - Hiroshima Synchrotron Radiation Center, Japan",0.7,400,,,21.95,,Dedicated,STR,http://www.hsrc.hiroshima-u.ac.jp/hisor.htm
+INDUS-II,"INDUS 2, India",2.5,22.1,5.81,58.1,172.4743,,Dedicated,STR,http://www.cat.ernet.in/technology/accel/indus/indus2.html
+LNLS,"LNLS - Laboratorio Nacional de Luz Sincrotron, Brazil",1.37,100,,,93.2,,Dedicated,STR,http://www.lnls.cnpem.br/uvx-en/machine/
+MAX-I,"MAX-I, MAX-lab, Sweden",0.55,40,,40,32.4,,Dedicated,STR,http://www.maxlab.lu.se/maxlab/about/maxi.html
+MAX-II,"MAX-II, MAX-lab, Sweden",1.5,8.8,,9,90,,Dedicated,STR,http://www.maxlab.lu.se/maxlab/about/maxii.html
+MAX-III,"MAX-III, MAX-lab, Sweden",0.7,13.6,,13,36,,Dedicated,STR,http://www.maxlab.lu.se/maxlab/about/maxiii.html
+MLS,"MLS - Metrology Light Source, Germany",0.63,100,,,48,,Dedicated,STR,http://www.ptb.de/mls/ring.html
+New SUBARU,"New SUBARU, Spring-8, Japan",1.5,37,,,118.731,,Dedicated,STR,http://www.spring8.or.jp/ja/facilities/accelerators/new_subaru/publicfolder_view
+NSLS-V,"NSLS-VUV - National Synchrotron Light Source, USA",0.808,155,4,160,51,,Dedicated,STR,http://www.nsls.bnl.gov/facility/accelerator/vuv/vuv_parameters.pdf
+NSLS-X,"NSLS-X - National Synchrotron Light Source, USA",2.8,60,0.2,66,170.08,,Dedicated,STR,http://www.nsls.bnl.gov/facility/accelerator/xray/xray_parameters.pdf
+NSLS-II,"NSLS-II, National Synchrotron Light Source II",3,0.55,0.008,0.55,792,,Dedicated,STR,http://www.bnl.gov/ps/accelerator/
+NSRL,"NSRL - National Synchrotron Radiation Laboratory, P.R. China",0.8,160,16,160,66.13,,Dedicated,STR,http://en.nsrl.ustc.edu.cn/Machine_Beamlines/Machine/201107/t20110705_115445.html
+NUSRC,"NUSRC - Nagoya University Synchrotron radiation Research Center, Japan",1.2,53,,,72,,Dedicated,STR,http://www.nusrc.nagoya-u.ac.jp/plan/ring.php
+PETRA-III,"PETRA-III, DESY, Germany",6.5,1,0.01,1,2304,,Partly Dedicated,STR,http://hasylab.desy.de/facilities/petra_iii/machine/parameters/index_eng.html
+PLS-II,"PAL - Pohang Accelerator Laboratory , Korea",3,5.9,,,281.82,,Dedicated,STR,http://paleng.postech.ac.kr/download.html?filepath=annual_reports_eng/9&filename=51881259724861.pdf&filecopyname=2008%20Annual%20Report_Final.pdf
+PF,"PF - Photon Factory, KEK, Japan",2.5,36,,,187,,Dedicated,STR,http://pfwww.kek.jp/outline/ring/index.html
+PF-AR,"PF-AR, KEK, Japan",6.5,290,,,384,,Dedicated,STR,
+SAGA-LS,"SAGA-LS - Saga Light Source, Japan",1.4,25,,,75.6,,Dedicated,STR,http://www.saga-ls.jp/?page=218
+Siberia-1,Kurchatov Synchrotron Radiation Source (KSRS),0.45,,,880,8.7,,Dedicated,STR,http://www.kcsr.kiae.ru/source.php
+Siberia-2,Kurchatov Synchrotron Radiation Source (KSRS),2.5,,,76,124.1,,Dedicated,STR,http://www.kcsr.kiae.ru/source.php
+SLRI,"SLRI - Synchrotron Light Research Institute, Thailand",1.2,41,,,81.3,,Dedicated,STR,http://www.slri.or.th/new_eng/index.php?option=com_content&task=view&id=51&Itemid=88
+SLS,"SLS - Swiss Light Source, Switzerland",2.7,5,,,288,,Dedicated,STR,http://sls.web.psi.ch/view.php/accelerators/desc/sr/index.html
+SOLEIL,"SOLEIL, France  ",2.75,3.74,,,354.097,,Dedicated,STR,http://www.synchrotron-soleil.fr/portal/page/portal/SourceAccelerateur/ParametresPrincipaux
+Spring-8,"SPring-8, Japan",8,3.4,,,1435.95,,Dedicated,STR,http://www.spring8.or.jp/en/facilities/accelerators/storage_ring/publicfolder_view
+SRC,"SRC - Synchrotron Radiation Center, University of Wisconsin - Madison, USA",0.8,41,,,88.9,,Dedicated,STR,http://www.src.wisc.edu/facility/ring_parameters.html
+SSLS,"SSLS - Singapore Synchrotron Light Source, Singapore",0.7,1370,,,10.8,,Dedicated,STR,http://ssls.nus.edu.sg/facility/helios2.html
+SSRF,"SSRF - Shanghai Synchrotron Radiation Facility, P.R. China",3.5,3.9,,,432,,Dedicated,STR,http://ssrf.sinap.ac.cn/english/2/Parameters.htm
+SSRL,"SSRL (SPEAR3) - Stanford Synchrotron Radiation Lightsource, USA",3,18,0.01,14,234.137,,Dedicated,STR,http://www-ssrl.slac.stanford.edu/userresources/beamlines/sp3parameterfig.pdf
+TPS,"NSRRC - National Synchrotron Radiation Research Center, Taiwan",1.5,25,,25,120,,Dedicated,STR,http://www.nsrrc.org.tw/english/accelerator.aspx
+UVSOR-II,"UVSOR-II - Ultraviolet Synchrotron Orbital Radiation Facility, Japan",0.75,27.4,,,53.2,,Dedicated,STR,http://www.uvsor.ims.ac.jp/inforuvsor/jparameters.pdf
+VEPP-4M,"SSRC - Siberian Synchrotron Research Center, Russian Federation",1.85,,,24.6,366.075,,Partly Dedicated,STR,http://v4.inp.nsk.su/vepp4/index.en.html
+VEPP-3,"SSRC - Siberian Synchrotron Research Center, Russian Federation",2,,,292,74.39,,Partly Dedicated,STR,http://v4.inp.nsk.su/vepp3/index.en.html
+SURF,"SURF - Synchrotron Ultraviolet Radiation Facility, USA",0.361804,,,,,,Dedicated,STR,http://physics.nist.gov/MajResFac/SURF/SURF/accnojava.html
+ELSA,"ELSA - Electron Stretcher Accelerator, German",3.5,,,,164.4,,Partly Dedicated,STR,http://www-elsa.physik.uni-bonn.de/index_en.html
+SR Center,"SR Center, Synchrotron Radiation Center, Ritsumeikan University, Japan",0.575,,,,3.14,,Dedicated,STR,http://www.ritsumei.ac.jp/acd/re/src/gairyaku/index.htm
+INDUS-I,"INDUS 1, India",0.45,,,,19,,Dedicated,STR,http://www.cat.ernet.in/technology/accel/accpara1.html
+DELTA,"DELTA - Dortmund Electron Test Accelerator, Germany",1.5,,,,115.2,,Dedicated,STR,http://www.delta.tu-dortmund.de/index.php
+KSR,"KSR - Advanced Research Center for Beam Science, Kyoto University, Japan",0.3,,,,25.689,,Partly Dedicated,STR,http://wwwal.kuicr.kyoto-u.ac.jp/www/accelerator/preprint/pac95-far08.htmlx
+DELSY,"DELSY - Dubna ELectron SYnchrotron, Russian Federation",1.2,11.4,,,136.04,,Planned,STR,http://wwwinfo.jinr.ru/delsy/Science.htm
+PSLS,"PSLS - Polish Synchrotron Light Source, Poland",1.5,6,,6,96,,Planned,STR,http://www.synchrotron.uj.edu.pl/en_GB/pierscien
+SESAME,"SESAME, Jordan",2.5,26,,26,133.2,,Planned,STR,http://www.sesame.org.jo/sesame/machine-and-beamlines/machine.html
+MAX-IV3,"MAX-IV 3.0GeV, MAX-lab, Sweden",3,0.2,0.002,0.2,528,,Planned,STR,https://www.maxiv.lu.se/accelerators-beamlines/accelerators/accelerator-documentation/3-gev-storage-ring/
+MAX-IV1.5,"MAX-IV 1.5 GeV, MAX-lab, Sweden",1.5,6,0.06,6,96,,Planned,STR,https://www.maxiv.lu.se/accelerators-beamlines/accelerators/accelerator-documentation/1-5-gev-storage-ring/
+TPS2,"NSRRC - National Synchrotron Radiation Research Center, Taiwan",3,1.6,,1.6,518.4,,Planned,STR,http://www.nsrrc.org.tw/english/tps.aspx
+SIRUS,Sirius: New Brazilian Synchrotron Light Source,3,0.251,,,518.396,,Planned,STR,http://www.lnls.cnpem.br/sirius-en/accelerators-parameters/
+SLS2,"SLS - Swiss Light Source, Switzerland",2.4,0.102,,,290.4,,Planned,STR,https://www.elettra.trieste.it/Conferences/2017/PHANGS/uploads/Main/Abstract2414.pdf
+ALS-U,,2,0.05,,,197,,Planned,STR,https://als.lbl.gov/wp-content/uploads/2016/09/strategic_plan_2015-19.pdf
+HEPS,High Energy Photon Source (HEPS) - Beijing synchrotron source ,6,0.0594,,,1295.6,,Planned,STR,https://doi.org/10.1016/j.phpro.2016.11.008
+PEP-X,Stanford Synchrotron Radiation Lightsource,4.5,0.14,,,2199.3,,Planned,STR,https://www-ssrl.slac.stanford.edu/pep-x/overview.html
+NSLS-III,"NSLS-III, National Synchrotron Light Source III",3,0.03,,,800,,Planned,STR,https://indico.cern.ch/event/247069/contributions/1568391/attachments/424487/589325/PEP-X_LERing_Workshop_-_2013-_Hettel-b.pdf
+APS-U,,6,0.065,,,1104,,Planned,STR,https://www.aps.anl.gov/APS-Upgrade
+DLS-II,,3,0.1,,,562,,Planned,STR,http://ados.web.psi.ch/SLS2/CDR/Science_Case/bookmain.pdf
+Elettra2.0,,2,0.23,,,260,,Planned,STR,http://ados.web.psi.ch/SLS2/CDR/Science_Case/bookmain.pdf
+ESRF-EBS,,6,0.14,,,844,,Planned,STR,http://www.esrf.eu/about/upgrade
+Soleil-II,,2.75,0.2,,,354,,Planned,STR,http://ados.web.psi.ch/SLS2/CDR/Science_Case/bookmain.pdf
+Spring-8-II,,6,0.19,,,1436,,Planned,STR,http://ados.web.psi.ch/SLS2/CDR/Science_Case/bookmain.pdf
+CHESS-U,,6,0.03,,,,,Planned,STR,https://www.chess.cornell.edu/about/chess-u/cesr-accelerator-upgrade
+LCLS,"LCLS - Linac Coherent Light Source, USA",14.2,,,,,,800 - 8700 eV,FEL,https://slacportal.slac.stanford.edu/sites/lclscore_public/Accelerator_Physics_Published_Documents/LCLS-parameters-Sep-2009%20DCSv.doc
+CTST,"CTST - UCSB Center for Terahertz Science and Technology, USA",0.006,,,,,,2.5 mm - 63 µm,FEL,http://sbfel3.ucsb.edu/6mv/fir_des_parms.html
+DFELL,"DFELL - Duke Free Electron Laser Laboratory, USA",1.2,,1,19,107.46,,193 - 400 nm,FEL,http://www.fel.duke.edu/lightsources/ok4.html
+Jlab,"Jlab - Jefferson Lab, USA",0.2,30000000,,,,,0.25 - 14 µm,FEL,http://www.jlab.org/FEL/felspecs.html
+VU FEL,"VU FEL - W. M. Keck Vanderbilt Free-electron Laser Center, USA",0.045,,,,,,,FEL,http://www.vanderbilt.edu/fel/technical/techinfo.html
+iFEL,"iFEL - Institute of Free Electron Laser, Japan",0.165,30000000,,,,,0.23 - 100 µm,FEL,http://www.fel.eng.osaka-u.ac.jp/FEL5.html
+FEL-TUS,"IR-FEL Center, Tokyo University of Science",0.04,,,,,,5 - 14 µm,FEL,http://www.rs.noda.tus.ac.jp/fel-tus/Japanese/J-FEL_App.html
+CLIO,"CLIO - Centre Laser Infrarouge d'Orsay, France",0.05,40,,,,,3 - 150 µm,FEL,http://clio.lcp.u-psud.fr/clio_eng/laser.html
+DELSY,"DELSY - Dubna ELectron SYnchrotron, Russian Federation",0.28,30000000,,,,,0.15 - 150 µm,FEL,http://wwwinfo.jinr.ru/delsy/Science.htm
+FELBE,"FELBE - Free-Electron Lasers at the ELBE radiation source at the FZD, Germany",0.034,13000000,,,,,3.5 - 280 µm,FEL,http://www.fzd.de/db/Cms?pNid=205
+FELIX,"FELIX - Free Electron Laser for Infrared eXperiments, The Netherlands",,,,,,,3 - 250 µm,FEL,http://www.rijnhuizen.nl/en/felix/specifications
+FLASH,"FLASH, DESY, Germany",1,1,,,,,6 - 60 nm,FEL,http://www.desy.de/research/accelerators/free_electron_laser_flash/index_eng.html
+European XFEL,"X-ray laser European XFEL, DESY, Germany",17.5,,,,,,Plan,FEL,http://www.desy.de/research/accelerators/x_ray_laser_european_xfel/index_eng.html
