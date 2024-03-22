@@ -95,7 +95,11 @@ Open the procedure file, then compile it. Undulator is available in the macro me
 
 #### MPW and BM radiations
 
-The flux of multi-pole wiggler (MPW) and bending magnet (BM) radiation can be added in Igor version. The flux of MPW is limited at the horizontal acceptance angle of 1 mrad. The magnet type and periodic length are equivalent to those used in the undulator. The magnetic field of BM is evaluated from the beam energy because the circumarence is roughly proportional to the beam energy ([Lightsources2018.csv](/LS/Lightsources2018.csv)).
+The flux of multi-pole wiggler (MPW) and bending magnet (BM) radiation can be added in Igor version. The flux of MPW is limited at the horizontal acceptance angle of 1 mrad. The magnet type and periodic length of MPW are equivalent to those used in the undulator. The magnetic field of BM is evaluated from the beam energy because the circumarence is roughly proportional to the beam energy ([Lightsources2018.csv](/LS/Lightsources2018.csv)). The on-axis angular flux density of BM is caluclated in 
+
+$${\partial F \over \partial (\Delta \omega/\omega)}= 1.33 \cdot 10^{13} E^2 I \left( {\omega \over \omega_c} \right)^2 K^2_{2/3} \left( {\omega \over 2 \omega_c} \right)$$
+
+and MPW generates its $2N$ times [https://www.cockcroft.ac.uk/wp-content/uploads/2014/12/Lecture-1.pdf](https://www.cockcroft.ac.uk/wp-content/uploads/2014/12/Lecture-1.pdf).
 
 ## Usage
 
@@ -112,6 +116,8 @@ The flux of multi-pole wiggler (MPW) and bending magnet (BM) radiation can be ad
 - [The properties of undulator radiation, M.R. Howells and B.M. Kincaid (1993).](https://cds.cern.ch/record/260372/files/P00021955.pdf)
 
 - [Insertion devices: undulators and wigglers, Richard P. Walker (1997).](https://indico.ictp.it/event/a02011/contribution/1)
+
+- [The Science and Technology of Undulators and Wigglers, James A. Clarke (2004).](https://doi.org/10.1093/acprof:oso/9780198508557.001.0001)
 
 - [Insertion devices, Johannes Bahrdt (2006).](http://dx.doi.org/10.5170/CERN-2006-002.441)
 
