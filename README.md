@@ -48,11 +48,11 @@ The magnetic configuration can be selected in the pop down list. Users can tune 
 
 $$B_0 = a \cdot \exp \left({g \over \lambda_u} \left( b + {g \over \lambda_u}c \right) \right)$$ 
 
-by [K. Halbach, J. Phys. Colloques 44, C1-211-C1-216 (1983)](https://doi.org/10.1051/jphyscol:1983120), and 
+by [K. Halbach, J. Phys. Colloques 44, C1-211-C1-216 (1983)](https://doi.org/10.1051/jphyscol:1983120) for a hybrid magnet (HYB), and 
 
 $$B_0 = 2 B_r {\sin(\pi/M) \over (\pi/M)} \left( 1 - e^{-2 \pi h/\lambda_u} \right) e^{-\pi g/\lambda_u}$$ 
 
-by [K. Halbach, Nucl. Instrum. Methods 187, 109 (1981)](https://doi.org/10.1016/0029-554X(81)90477-8). $M$ represents the number of magnets in a priod, and $h$ the height of magnet. The `effective magnetic field` or `K` depends on the vender specifications or the field measurements in magnet arrays on-site.
+by [K. Halbach, Nucl. Instrum. Methods 187, 109 (1981)](https://doi.org/10.1016/0029-554X(81)90477-8) for a pure permanent magnet (PPM). $M$ represents the number of magnets in a priod, and $h$ the height of magnet. The `effective magnetic field` or `K` depends on the vender specifications or the field measurements in magnet arrays on-site.
 
 
 ### Preset
