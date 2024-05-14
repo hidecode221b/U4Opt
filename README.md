@@ -10,7 +10,7 @@ $$K = {e B_0 \lambda_u \over 2 \pi m c^2}$$
 
 $B_0$ can be designed in the magnet height ($h$) and magnetization ($B_r$), and tuned in the magnetic gap ($g$) and temperature. The minimum gap is basically limited in the dynamic aperture of the storage ring lattice, and the maximum gap is limited in the mechanical structure of the undulator. Various magnetic types and structures are available in the advanced synchrotron facilities. 
 
-The deviation from the sinusoidal field appears in the hybrid short period undulator because the high peak field strength at the small pole materials. The photon radiative field can be analyzed in the Fourier transform as described in elsewhere by [T. Tanaka](https://doi.org/10.1107/S090904950101425X).
+The deviation from the sinusoidal field appears in the hybrid short period undulator because the high peak field strength at the small pole materials. The photon radiative field can be analyzed in the Fourier transform as described in elsewhere by [Takashi Tanaka](https://doi.org/10.1107/S090904950101425X).
 
 $$\beta_{x,y} (z) = \pm {e \over \gamma m c} \int^z B_{y,x} (z') dz'$$
 
@@ -121,7 +121,7 @@ and MPW generates its $2N$ times [https://www.cockcroft.ac.uk/wp-content/uploads
 
 - [The properties of undulator radiation, M.R. Howells and B.M. Kincaid (1993).](https://cds.cern.ch/record/260372/files/P00021955.pdf)
 
-- [CERN Accelerator School : Synchrotron Radiation and Free Electron Lasers (1998).](http://dx.doi.org/10.5170/CERN-1998-004) Insertion devices by K. Wille and R.P. Walker
+- [CERN Accelerator School : Synchrotron Radiation and Free Electron Lasers (1998).](http://dx.doi.org/10.5170/CERN-1998-004) Insertion devices by [K. Wille](https://cds.cern.ch/record/382323?ln=en) and [R.P. Walker](https://cds.cern.ch/record/382656?ln=en)
 
 - [Insertion devices: undulators and wigglers, Richard P. Walker (1997).](https://indico.ictp.it/event/a02011/contribution/1)
 
