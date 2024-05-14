@@ -2,19 +2,25 @@
 
 ## Introduction
 
-The undulator is an insertion device used to generate the synchrotron radiation at a higher flux density than that from the bending magnet radiation. The photon energy ($hc/\lambda$) from the undulator depends on the electron beam energy ($0.000511\gamma$ GeV), harmonic number ($n$), undulator period ($\lambda_u$), polar angle from the undulator axis ($\theta$), and $K$ parameter which is based on the $\lambda_u$ and magnetic field strength ($B_0$). 
+The undulator is an insertion device used to generate the synchrotron radiation at a higher flux density than that from the bending magnet radiation. The photon energy ($hc/\lambda$) from the undulator depends on the electron beam energy ($0.000511\gamma$ GeV), harmonic number ($n$), undulator period ($\lambda_u$), polar angle from the undulator axis ($\theta$), and $K$ parameter which is based on the $\lambda_u$ and magnetic field strength ($B_0$; in the sinusoidal field approximation). 
 
 $$\lambda_n = {\lambda_u \over 2 n \gamma^2}\left( 1 + {K^2 \over 2} + \gamma^2 \theta^2 \right)$$
 
 $$K = {e B_0 \lambda_u \over 2 \pi m c^2}$$
 
-
 $B_0$ can be designed in the magnet height ($h$) and magnetization ($B_r$), and tuned in the magnetic gap ($g$) and temperature. The minimum gap is basically limited in the dynamic aperture of the storage ring lattice, and the maximum gap is limited in the mechanical structure of the undulator. Various magnetic types and structures are available in the advanced synchrotron facilities. 
 
+The deviation from the sinusoidal field appears in the hybrid short period undulator because the high peak field strength at the small pole materials. The photon radiative field can be analyzed in the Fourier transform as described in elsewhere by [T. Tanaka](https://doi.org/10.1107/S090904950101425X).
+
+$$\beta_{x,y} (z) = \pm {e \over \gamma m c} \int^z B_{y,x} (z') dz'$$
+
+$$K = 2 \sqrt{\langle (\gamma \beta)^2 \rangle}$$
+
+$$\langle (\gamma \beta)^2 \rangle = {1 \over \lambda_u} \int^{\lambda_u}_0 \lbrack(\gamma \beta_x)^2+(\gamma \beta_y)^2 \rbrack dz$$
 
 The  flux ($F$) from the undulator depends on the the electron beam current ($I$ amps), total length ($L$), $\lambda_u$, $n$, and $K$. The flux over the central cone ($\sqrt{\lambda/L}$) at the harmonic $n$ and number of periods $N$ ($=L/\lambda_u$) in the band width ($\Delta \omega/\omega=0.1$ \%) is
 
-$${\partial F \over \partial (\Delta \omega/\omega)} = 1.744 \cdot 10^{14} \cdot N \cdot Q_n(K) \cdot I$$
+$${\partial F \over \partial (\Delta \omega/\omega)} = 1.431 \cdot 10^{14} \cdot N \cdot Q_n(K) \cdot I$$
 
 $$Q_n(K) = (1+K^2/2) \cdot F_n(K)/n$$
 
@@ -115,12 +121,17 @@ and MPW generates its $2N$ times [https://www.cockcroft.ac.uk/wp-content/uploads
 
 - [The properties of undulator radiation, M.R. Howells and B.M. Kincaid (1993).](https://cds.cern.ch/record/260372/files/P00021955.pdf)
 
+- [CERN Accelerator School : Synchrotron Radiation and Free Electron Lasers (1998).](http://dx.doi.org/10.5170/CERN-1998-004) Insertion devices by K. Wille and R.P. Walker
+
 - [Insertion devices: undulators and wigglers, Richard P. Walker (1997).](https://indico.ictp.it/event/a02011/contribution/1)
 
 - [The Science and Technology of Undulators and Wigglers, James A. Clarke (2004).](https://doi.org/10.1093/acprof:oso/9780198508557.001.0001)
 
+- [Insertion devices, P. Elleaume (2005).](http://cds.cern.ch/record/1058080/)
+  
 - [Insertion devices, Johannes Bahrdt (2006).](http://dx.doi.org/10.5170/CERN-2006-002.441)
 
+- [Insertion Devices as Highly-Brilliant Synchrotron Radiation Sources, Takashi Tanaka (2005).](https://doi.org/10.5940/jcrsj.47.115) in Japanese
 
 
 ### Magnet parameters
