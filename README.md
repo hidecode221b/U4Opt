@@ -62,7 +62,7 @@ $$n=1+M\nu, (\nu=0,1,2,...)$$
 
 $$\epsilon={1 \over (1+1/M)}$$
 
-by [K. Halbach, Nucl. Instrum. Methods 187, 109 (1981)](https://doi.org/10.1016/0029-554X(81)90477-8) for a pure permanent magnet (PPM). $M$ represents the number of magnets in a priod, and $h$ the height of magnet. The higher order magnetic field appears upon M. The `effective magnetic field` or `K` can be evaluated in the Fourier transform of the field simulation in the Radia or in-situ measurement in magnet arrays.
+by [K. Halbach, Nucl. Instrum. Methods 187, 109 (1981)](https://doi.org/10.1016/0029-554X(81)90477-8) for a pure permanent magnet (PPM). $M$ represents the number of magnets in a priod, and $h$ the height of magnet. The higher order magnetic field appears upon $M$. The `effective magnetic field` or `K` can be evaluated in the Fourier transform of the field simulation in the Radia or in-situ measurement in magnet arrays.
 
 
 ### Preset
