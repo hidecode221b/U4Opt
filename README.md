@@ -6,7 +6,7 @@ The undulator is an insertion device used to generate the synchrotron radiation 
 
 $$\lambda_n = {\lambda_u \over 2 n \gamma^2}\left( 1 + {K^2 \over 2} + \gamma^2 \theta^2 \right)$$
 
-$$K = {e B_0 \lambda_u \over 2 \pi m c^2}$$
+$$K = {e B_0 \lambda_u \over 2 \pi m c}$$
 
 $B_0$ can be designed in the magnet height ($h$) and magnetization ($B_r$), and tuned in the magnetic gap ($g$) and temperature. The minimum gap is basically limited in the dynamic aperture of the storage ring lattice, and the maximum gap is limited in the mechanical structure of the undulator. Various magnetic types and structures are available in the advanced synchrotron facilities. 
 
