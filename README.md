@@ -14,7 +14,7 @@ The deviation from the sinusoidal field appears owing to the finite number of tr
 
 $$\beta_{x,y} (z) = \pm {e \over \gamma m c} \int_0^z B_{y,x} (z') dz'$$
 
-$$K = 2 \sqrt{\langle (\gamma \beta)^2 \rangle}$$
+$$K = \sqrt{2 \langle (\gamma \beta)^2 \rangle}$$
 
 $$\langle (\gamma \beta)^2 \rangle = {1 \over \lambda_u} \int_0^{\lambda_u} \lbrack(\gamma \beta_x)^2+(\gamma \beta_y)^2 \rbrack dz$$
 
@@ -22,13 +22,13 @@ Here, $\beta (z)$ is not sinusoidal, so the effective $K$ should be obtained in 
 
 $$\beta (z) = {e \over \gamma m c} \sum_{n=1}^{n_{\mbox{odd}}} \beta_n \sin(2 \pi n z / \lambda_u)$$
 
-$$K_n = 2 {e \over m c} {\beta_n \over n} $$
+$$K_n = \sqrt{2} {e \over m c} {\beta_n \over n} $$
 
 $$K_{\mbox{eff}} = \sqrt{ K_1^2 + K_3^2 + K_5^2 + \cdot \cdot \cdot }$$
 
 The effective field can also be evaluated by using $\beta_n$.
 
-$$B_{\mbox{eff}} = {4 \pi \over \lambda_u} \sum_{n=1}^{n_{\mbox{odd}}} {\beta_n \over n}$$
+$$B_{\mbox{eff}} = {2 \sqrt{2} \pi \over \lambda_u} \sum_{n=1}^{n_{\mbox{odd}}} {\beta_n \over n}$$
 
 The  flux ($F$) from the undulator depends on the the electron beam current ($I$ amps), total length ($L$), $\lambda_u$, $n$, and $K$. The flux over the central cone ($\sqrt{\lambda/L}$) at the harmonic $n$ and number of periods $N$ ($=L/\lambda_u$) in the band width ($\Delta \omega/\omega=0.1$ \%) is
 
