@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The undulator is an insertion device used to generate the synchrotron radiation at a higher flux density than that from the bending magnet radiation. The photon energy ($hc/\lambda$) from the undulator depends on the electron beam energy ($0.000511\gamma$ GeV), harmonic number ($n$), undulator period ($\lambda_u$), polar angle from the undulator axis ($\theta$), and $K$ parameter which is based on the $\lambda_u$ and magnetic field strength ($B_0$; in the sinusoidal field approximation). 
+The undulator is an insertion device used to generate the synchrotron radiation at a higher flux density than that from the bending magnet radiation. The photon energy ($hc/\lambda$) from the undulator depends on the electron beam energy ($0.000511\gamma$ GeV), harmonic number ($n$), undulator period ($\lambda_u$), polar angle from the undulator axis ($\theta$), and $K$ parameter which is based on the $\lambda_u$ and peak magnetic field ($B_0$; in the sinusoidal field approximation). 
 
 $$\lambda_n = {\lambda_u \over 2 n \gamma^2}\left( 1 + {K^2 \over 2} + \gamma^2 \theta^2 \right)$$
 
@@ -17,6 +17,10 @@ $$\beta_{x,y} (z) = \pm {e \over \gamma m c} \int^z B_{y,x} (z') dz'$$
 $$K = 2 \sqrt{\langle (\gamma \beta)^2 \rangle}$$
 
 $$\langle (\gamma \beta)^2 \rangle = {1 \over \lambda_u} \int^{\lambda_u}_0 \lbrack(\gamma \beta_x)^2+(\gamma \beta_y)^2 \rbrack dz$$
+
+Then
+
+$$K_{x,y} = {4 \pi \over \lambda_u} \int^{\lambda_u} B_{y,x} (z') dz'$$
 
 The  flux ($F$) from the undulator depends on the the electron beam current ($I$ amps), total length ($L$), $\lambda_u$, $n$, and $K$. The flux over the central cone ($\sqrt{\lambda/L}$) at the harmonic $n$ and number of periods $N$ ($=L/\lambda_u$) in the band width ($\Delta \omega/\omega=0.1$ \%) is
 
