@@ -18,9 +18,9 @@ $$K = 2 \sqrt{\langle (\gamma \beta)^2 \rangle}$$
 
 $$\langle (\gamma \beta)^2 \rangle = {1 \over \lambda_u} \int_0^{\lambda_u} \lbrack(\gamma \beta_x)^2+(\gamma \beta_y)^2 \rbrack dz$$
 
-Here, $\beta_{x,y} (z)$ is not sinusoidal, so the effective K should be obtained in the discrete Fourier transform analysis.
+Here, $\beta (z)$ is not sinusoidal, so the effective $K$ should be obtained in the discrete Fourier transform analysis.
 
-$$\beta_{x,y} (z) = \pm {e \over \gamma m c} \sum_{n=1}^{n_{\mbox{odd}}} \beta_n \sin(2 \pi n z / \lambda_u)$$
+$$\beta (z) = \pm {e \over \gamma m c} \sum_{n=1}^{n_{\mbox{odd}}} \beta_n \sin(2 \pi n z / \lambda_u)$$
 
 $$K_n = 2 {e \over m c} {\beta_n \over n} $$
 
