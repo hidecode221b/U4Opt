@@ -21,7 +21,7 @@ $$\langle (\gamma \beta)^2 \rangle = {1 \over \lambda_u} \int_0^{\lambda_u} \lbr
 
 Here, $\beta (z)$ is not sinusoidal, so the effective $K$ should be obtained in the discrete Fourier transform analysis within a period $\lambda_u$. For a simplity, $B_y$ is only available ($B_x$=0), so $\beta_x$ is considered. 
 
-$$\beta_x (z) = {e \over \gamma m c} \sum_{n=1}^{n_{\mbox{odd}}} \beta_n \sin(2 \pi n z / \lambda_u)$$
+$$\beta_x (z) = {e \over \gamma m c} \sum_{n=1}^{n_{\mbox{odd}}} {\beta_n}  \sin(2 \pi n z / \lambda_u)$$
 
 The maximum $K_n$ is based on the $\beta_n$, and effective $K$ can be evaluated.
 
