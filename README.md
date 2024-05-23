@@ -141,7 +141,7 @@ and MPW generates its $2N$ times [https://www.cockcroft.ac.uk/wp-content/uploads
 
 - [The properties of undulator radiation, M.R. Howells and B.M. Kincaid (1993).](https://cds.cern.ch/record/260372/files/P00021955.pdf)
 
-- [CERN Accelerator School : Synchrotron Radiation and Free Electron Lasers (1998).](http://dx.doi.org/10.5170/CERN-1998-004) Insertion devices by [K. Wille](https://cds.cern.ch/record/382323?ln=en) and [R.P. Walker](https://cds.cern.ch/record/382656?ln=en)
+- [CERN Accelerator School : Synchrotron Radiation and Free Electron Lasers (1998).](http://dx.doi.org/10.5170/CERN-1998-004) Insertion devices by [A. Hofmann](http://dx.doi.org/10.5170/CERN-1998-004.1), [K. Wille](http://dx.doi.org/10.5170/CERN-1998-004.61), and [R.P. Walker](http://dx.doi.org/10.5170/CERN-1998-004.129)
 
 - [Insertion devices: undulators and wigglers, Richard P. Walker (1997).](https://indico.ictp.it/event/a02011/contribution/1)
 
