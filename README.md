@@ -27,13 +27,13 @@ $$\beta_x (z) = {e \over \gamma m c} \sum_{n=1}^{n_{\mbox{odd}}} {\beta_n}  \sin
 
 $K_n$ is described in terms of $\beta_n$, and effective $K$ can be evaluated.
 
-$$K_n = {e \over m c} {\beta_n \over n} $$
+$$K_n = {e \over m c} {\beta_n} $$
 
 $$K_{\mbox{eff}} = \sqrt{ K_1^2 + K_3^2 + K_5^2 + \cdot \cdot \cdot }$$
 
 The effective field can also be evaluated by using $\beta_n$.
 
-$$B_{\mbox{eff}} = {2 \pi mc K_{\mbox{eff}} \over e \lambda_u } $$
+$$B_{\mbox{eff}} = {2 \pi mc \over e} {K_{\mbox{eff}} \over \lambda_u } $$
 
 
 The  flux ($F$) from the undulator depends on the the electron beam current ($I$ amps), total length ($L$), $\lambda_u$, $n$, and $K$. The flux over the central cone ($\sqrt{\lambda/L}$) at the harmonic $n$ and number of periods $N$ ($=L/\lambda_u$) in the band width ($\Delta \omega/\omega=0.1$ \%) is
