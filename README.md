@@ -89,7 +89,7 @@ Users can import and export the parameters as a preset (.dat) in Python version.
 
 ### Non-linear effects
 
-No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization including the end-magnet, phase error, and beta function should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). The theoretical background and formula are summarized by [Takashi Tanaka](https://doi.org/10.1103/PhysRevAccelBeams.21.110704). 
+No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization including the end-magnet, phase error, and betatron function should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). [Takashi Tanaka](https://doi.org/10.1103/PhysRevAccelBeams.21.110704) analyzes the universal representation of phase error. 
 
 [Jui-Che Huang](https://doi.org/10.1103/PhysRevAccelBeams.20.064801) describes the average brilliance by using electron beam emittance ($\epsilon$), radiation emittance ($\epsilon_r = \lambda /4\pi$), radiation wavelength ($\lambda$), undulator length ($L$), betatron function ($\beta$), and $\zeta = 2\pi \beta/L$.
 
