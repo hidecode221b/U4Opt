@@ -18,12 +18,13 @@ $$K = \sqrt{2 \langle (\gamma \beta)^2 \rangle}$$
 
 $$\langle (\gamma \beta)^2 \rangle = {1 \over \lambda_u} \int_0^{\lambda_u} \lbrack(\gamma \beta_x)^2+(\gamma \beta_y)^2 \rbrack dz$$
 
-<!---
-Here, $\beta (z)$ is not sinusoidal, so the effective $K$ should be obtained in the discrete Fourier transform analysis within a period $\lambda_u$. For a simplity, $B_y$ is only available ($B_x$=0), so $\beta_x$ is considered. 
+
+Here, even if $\beta (z)$ is not sinusoidal, the effective $K$ should be obtained in either the numerical integration of the field as shown above or the discrete Fourier transform (DFT) analysis within a period $\lambda_u$. 
+For a simplity in the DFT analysis, assume $B_x$=0, so $\beta_x$ is formulated as below. 
 
 $$\beta_x (z) = {e \over \gamma m c} \sum_{n=1}^{n_{\mbox{odd}}} {\beta_n}  \sin(2 \pi n z / \lambda_u)$$
 
-The maximum $K_n$ is based on the $\beta_n$, and effective $K$ can be evaluated.
+$K_n$ is described in terms of $\beta_n$, and effective $K$ can be evaluated.
 
 $$K_n = {e \over m c} {\beta_n \over n} $$
 
@@ -31,8 +32,8 @@ $$K_{\mbox{eff}} = \sqrt{ K_1^2 + K_3^2 + K_5^2 + \cdot \cdot \cdot }$$
 
 The effective field can also be evaluated by using $\beta_n$.
 
-$$B_{\mbox{eff}} = {2 \pi \over \lambda_u} \sqrt{\sum_{n=1}^{n_{\mbox{odd}}} \left( {\beta_n \over n}\right)^2 }$$
---->
+$$B_{\mbox{eff}} = {2 \pi mc K_{\mbox{eff}} \over e \lambda_u } $$
+
 
 The  flux ($F$) from the undulator depends on the the electron beam current ($I$ amps), total length ($L$), $\lambda_u$, $n$, and $K$. The flux over the central cone ($\sqrt{\lambda/L}$) at the harmonic $n$ and number of periods $N$ ($=L/\lambda_u$) in the band width ($\Delta \omega/\omega=0.1$ \%) is
 
@@ -68,7 +69,7 @@ The first concept of `K-period` space analysis originates from the talk of [Dr. 
 
 The magnetic configuration can be selected in the pop down list. Users can tune the parameters from the default values in either ($a, b, c$) or ($B_r, M, h$) configuration. APPLE-II is based on the $B_r = 0.62$ expirically. The magnetic field can be approximated in the following equations;
 
-$$B_0 = a \cdot \exp \left({g \over \lambda_u} \left( b + {g \over \lambda_u}c \right) \right)$$ 
+$$B_0 = a \cdot \exp \left[{g \over \lambda_u} \left( b + {g \over \lambda_u}c \right) \right]$$ 
 
 by [K. Halbach, J. Phys. Colloques 44, C1-211-C1-216 (1983)](https://doi.org/10.1051/jphyscol:1983120) for a hybrid magnet (HYB), and 
 
@@ -88,8 +89,19 @@ Users can import and export the parameters as a preset (.dat) in Python version.
 
 ### Non-linear effects
 
-No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization including the end-magnet, phase error, and beta function should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). The theoretical background and formula are summarized by [Takashi Tanaka](https://doi.org/10.1103/PhysRevAccelBeams.21.110704) and [Jui-Che Huang](https://doi.org/10.1103/PhysRevAccelBeams.20.064801).
+No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization including the end-magnet, phase error, and beta function should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). The theoretical background and formula are summarized by [Takashi Tanaka](https://doi.org/10.1103/PhysRevAccelBeams.21.110704). 
 
+[Jui-Che Huang](https://doi.org/10.1103/PhysRevAccelBeams.20.064801) describes the average brilliance by using electron beam emittance ($\epsilon$), radiation emittance ($\epsilon_r = \lambda /4\pi$), radiation wavelength ($\lambda$), undulator length ($L$), betatron function ($\beta$), and $\zeta = 2\pi \beta/L$.
+
+$$B_{r0} = {F_n \over 4 \pi^2 \sqrt{\epsilon^2_r + \epsilon^2_x + \epsilon_r \epsilon_x (\zeta_x + \zeta^{-1}_x)} \sqrt{\epsilon^2_r + \epsilon^2_y + \epsilon_r \epsilon_y (\zeta_y + \zeta^{-1}_y)}}$$
+
+Here, $F_n$ is the flux over the central cone described above. The practical brilliance is also approximates as
+
+$$B_r = f_{n,N} B_{r0}$$
+
+$$f_{n,N} =  1 / \sqrt{1+ \left[ 5nN \left( \sigma_{\gamma} \over \gamma \right) \right]^2}$$
+
+Here, $\sigma_{\gamma} / \gamma$ represents the energy spread.
 
 ### Limitations
 
