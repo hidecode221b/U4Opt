@@ -1,4 +1,4 @@
-#pragma TextEncoding = "UTF-8"
+﻿#pragma TextEncoding = "UTF-8"
 #pragma rtGlobals=3				// Use modern global access method and strict wave access
 #pragma DefaultTab={3,20,4}		// Set default tab width in Igor Pro 9 and later
 
@@ -24,22 +24,22 @@ Function Undulator() : Panel
 		// default: winsize = 1, winpos = 910, w_width=300, w_height=350
 		// macbook11: winsize = 1, winpos = 400, w_width=900, w_height=700
 		Variable/G winsize = 2, winpos = 400, w_width=900, w_height=700
-		Variable/G E_e = 3, I_e = 0.30, u_length = 2000, n_har = 7
+		Variable/G E_e = 3, I_e = 0.30, u_length = 2000, n_har = 7, ph_err = 0
 		Variable/G T_a = 2.076, T_b = -3.24, T_c = 0, crev, gplot, xplot, K_max = 5
 		Variable/G PPM_a = 2.076, PPM_b = -3.24, PPM_c = 0, Br = 1.38, M = 4, h_lu_r = 0.5
 		Variable/G HYB_a = 3.694, HYB_b = -5.068, HYB_c = 1.52 // https://doi.org/10.1016/S0168-9002(00)00544-1
 		Variable/G CPM_a = 4.625, CPM_b = -5.251, CPM_c = 2.079 // https://doi.org/10.1103/PhysRevAccelBeams.20.064801
 		Variable/G SCM_a = 12.42, SCM_b = -4.79, SCM_c = 0.385 // https://doi.org/10.1016/S0168-9002(00)00544-1
-		Variable/G lu_0 = 16, lu_1 = 21, lu_t = 20, lu_pnt = 51, K_0 = 1, K_1 = 3, K_t = 2, K_pnt = 21
+		Variable/G lu_0 = 15, lu_1 = 22, lu_t = 20, lu_pnt = 71, K_0 = 1, K_1 = 3, K_t = 2, K_pnt = 21
 		Variable/G gap_0 = 4, gap_1 = 5.5, gap_pnt = 4, gap_lu_0 = 0.001, gap_lu_1 = 10 // limit of gap/lu range, default 0.1 < gap/lu < 1.0
-		Variable/G sigma_xr = 97.18, sigma_yr = 3.507, sigma_xd = 9.801, sigma_yd = 2.173
-		Variable/G emi_x = 9.5E-10, emi_y = 7.6E-12, beta_x = 9.95, beta_y = 1.6, esp = 0.00077 // emi9.5E-10/7.6E-12, beta9.95/1.6, esp0.00077
+		Variable/G sigma_xr = 97.44, sigma_yr = 3.9, sigma_xd = 9.754, sigma_yd = 2.437
+		Variable/G emi_x = 9.6E-10, emi_y = 9.6E-12, beta_x = 9.99, beta_y = 1.6, esp = 0.00077 // emi9.5E-10/7.6E-12, beta9.95/1.6, esp0.00077
 		Variable/G coupling = emi_y/emi_x // 0.01
 		String/G lu_str= "Period "+num2str(lu_t), K_str = "max K "+num2str(K_t)
 	else
 		SetDataFolder root:un
 		//String/G File_Name, Full
-		Variable/G E_e, I_e, u_length, n_har, T_a, T_b, T_c, crev, gplot, xplot, PPM_a, PPM_b, PPM_c, HYB_a, HYB_b, HYB_c, Br, M, h_lu_r
+		Variable/G E_e, I_e, u_length, n_har, T_a, T_b, T_c, crev, gplot, xplot, PPM_a, PPM_b, PPM_c, HYB_a, HYB_b, HYB_c, Br, M, h_lu_r, ph_err
 		Variable/G CPM_a, CPM_b, CPM_c, SCM_a, SCM_b, SCM_c
 		Variable/G lu_0, lu_1, lu_t, lu_pnt, K_0, K_1, K_t, K_pnt, gap_0, gap_1, gap_pnt, gap_lu_0, gap_lu_1, K_max
 		Variable/G winsize, winpos, loadpos, w_width, w_height
@@ -48,7 +48,7 @@ Function Undulator() : Panel
 		String/G lu_str, K_str
 	endif
 	
-	NewPanel /W=(loadpos,10,loadpos+370,390)/N=panelun as "Undulator"
+	NewPanel /W=(loadpos,10,loadpos+370,410)/N=panelun as "Undulator"
 	
 	TitleBox tit_un_opt,title="Machine parameters",pos={10,10},size={100, 40},fsize=14,frame=0
 	SetVariable setE_e pos={10,40},size={150,30},title="Beam energy (GeV):",limits={0.1,10,0},value=E_e, proc = set_E_e
@@ -70,22 +70,22 @@ Function Undulator() : Panel
 	SetVariable setK_1 pos={60,215},size={50,30},title=" ",limits={0.1,50,0},value=K_1, proc = set_K_1
 	SetVariable setK_pnt pos={110,215},size={50,30},title=" ",limits={2,10001,0},value=K_pnt, proc = set_K_pnt
 	
-	TitleBox tit_e,title="epsilon",pos={10,240},size={50, 20},frame=0
-	TitleBox tit_x,title="x",pos={100,240},size={50, 20},frame=0
-	TitleBox tit_y,title="y",pos={150,240},size={50, 20},frame=0
+	TitleBox tit_e,title="Emittance",pos={10,255},size={50, 20},frame=0
+	TitleBox tit_x,title="x",pos={100,255},size={50, 20},frame=0
+	TitleBox tit_y,title="y",pos={150,255},size={50, 20},frame=0
 	
-	SetVariable setE_x pos={10,255},size={100,30},title="(m rad):",limits={1E-15,1,0},value=emi_x,format="%.2e", proc = set_E_x,disable=2
-	SetVariable setE_y pos={110,255},size={50,30},title=" ",limits={1E-15,1,0},value=emi_y,format="%.2e", proc = set_E_y,disable=2
-	SetVariable setB_x pos={10,275},size={100,30},title="beta (m):",limits={0.1,1000,0},value=beta_x, proc = set_B_x
-	SetVariable setB_y pos={110,275},size={50,30},title=" ",limits={0.1,1000,0},value=beta_y, proc = set_B_y
+	SetVariable setE_x pos={10,275},size={100,30},title="(m rad):",limits={1E-15,1,0},value=emi_x,format="%.2e", proc = set_E_x
+	SetVariable setE_y pos={110,275},size={50,30},title=" ",limits={1E-15,1,0},value=emi_y,format="%.2e", proc = set_E_y
+	SetVariable setB_x pos={10,295},size={100,30},title="beta (m):",limits={0.1,1000,0},value=beta_x, proc = set_B_x
+	SetVariable setB_y pos={110,295},size={50,30},title=" ",limits={0.1,1000,0},value=beta_y, proc = set_B_y
 	
-	SetVariable setS_xr pos={10,295},size={100,30},title="s_r (um):",limits={0.1,1000,0},value=sigma_xr, proc = set_S_xr
-	SetVariable setS_yr pos={110,295},size={50,30},title=" ",limits={0.1,1000,0},value=sigma_yr, proc = set_S_yr
-	SetVariable setS_xd pos={10,315},size={100,30},title="s_d (urad):",limits={0.1,1000,0},value=sigma_xd, proc = set_S_xd
-	SetVariable setS_yd pos={110,315},size={50,30},title=" ",limits={0.1,1000,0},value=sigma_yd, proc = set_S_yd
+	SetVariable setS_xr pos={10,315},size={100,30},title="s_r (um):",limits={0.1,1000,0},value=sigma_xr, proc = set_S_xr
+	SetVariable setS_yr pos={110,315},size={50,30},title=" ",limits={0.1,1000,0},value=sigma_yr, proc = set_S_yr
+	SetVariable setS_xd pos={10,335},size={100,30},title="s_d (urad):",limits={0.1,1000,0},value=sigma_xd, proc = set_S_xd
+	SetVariable setS_yd pos={110,335},size={50,30},title=" ",limits={0.1,1000,0},value=sigma_yd, proc = set_S_yd
 	
-	SetVariable setEsp pos={10,335},size={150,30},title="Energy spread:",limits={0.0000001,1,0},value=esp, proc = set_esp
-	SetVariable setCou pos={10,355},size={150,30},title="Coupling:",limits={0.0000001,1,0},value=coupling, proc = set_cou,disable=2
+	SetVariable setEsp pos={10,355},size={150,30},title="Energy spread:",limits={0.0000001,1,0},value=esp, proc = set_esp
+	SetVariable setCou pos={10,375},size={150,30},title="Coupling:",limits={0.0000001,1,0},value=coupling, proc = set_cou
 
 	TitleBox tit_mag_est,title="Magnetic field simulation",pos={200,10},size={100, 20},fsize=14,frame=0
 	PopupMenu setType pos={200,40},size={150,30},title="Magnet type:",value="PPM(a,b,c);HYB(a,b,c);PPM(Br,M,h);CPM(a,b,c);SCM(a,b,c);Define(a,b,c)",proc=set_Type_mag
@@ -112,7 +112,7 @@ Function Undulator() : Panel
 	
 	PopupMenu setMode pos={200,190},size={100,30},title="Mode:", value ="Linear(n>0,Kx=0,Ky);Helical(n=1,Kx=Ky)", proc = set_mode
 	
-	PopupMenu setDataType pos={200,210},size={150,30},title="Data:",value="PE (keV);F(K,n);Flux (ph/s/0.1%bw);AFD (ph/s/mrad2/0.1%bw);Beam size (um);Divergence (urad);CF x;CF y;Coherent fraction;Brilliance;Total power (kW);Angular PD (kW/mrad2);Eff. AFD;Eff. br1;Eff. br2 (details in code)",proc=set_data_type
+	PopupMenu setDataType pos={200,210},size={150,30},title="Data:",value="PE (keV);F(K,n);Flux (ph/s/0.1%bw);AFD (ph/s/mrad2/0.1%bw);Beam size (um);Divergence (urad);CF x;CF y;Coherent fraction;Brilliance;Total power (kW);Angular PD (kW/mrad2);Eff. AFD;Eff. br1;Eff. br2 (details in code);Eff. flux",proc=set_data_type
 	PopupMenu setPlotType pos={200,230},size={150,30},title="Plot:",value="Contour;Image",proc=set_plot_type
 	PopupMenu setColorType pos={200,250},size={150,30},mode=3,value="*COLORTABLEPOPNONAMES*",proc=set_color_type
 	CheckBox setColorRev pos={200,270},title="Rev. color:",side=1,value=crev,proc=set_color_rev
@@ -120,7 +120,7 @@ Function Undulator() : Panel
 	PopupMenu setPlotGap pos={200,290},size={150,30},title="Gap vs period:",value="Gap/lu;Field (T);K",proc=set_plot_gap
 	
 	//TitleBox tit_plotOther,title="Others:",pos={200,305},size={50,20},frame=0
-	PopupMenu setPlotOther pos={200,315},size={150,30},title="Others:",value="Phase error;Flux(n),eV;AFD,eV;Bri,eV;F(K,n),K;F(K,n),eV;Q(K,n),K;G(K);Size (um);Div. (urad);CF x;CF y;CF",proc=set_plot_other
+	PopupMenu setPlotOther pos={200,315},size={150,30},title="Others:",value="Phase error;Flux(n),eV;AFD,eV;Bri,eV;F(K,n),K;F(K,n),eV;Q(K,n),K;G(K);Size (um);Div. (urad);CF x;CF y;CF;eff bri,eV;eff flux,eV",proc=set_plot_other
 	CheckBox setBMPlot pos={325,315},title="B/W",side=1,value=xplot,proc=set_BM_plot
 	//TitleBox tit_lu,title="Period:",variable=lu_str,pos={200,330},size={50, 20},frame=0
 	//TitleBox tit_K,title="max K:",variable=K_str,pos={200,350},size={50, 20},frame=0
@@ -128,6 +128,7 @@ Function Undulator() : Panel
 	Slider/Z luscale, pos={290,335},size={70,10},vert=0,ticks=0,side=1,value=lu_t,variable=lu_t,limits={1,100,0.1}, proc=luscaleproc,fColor=(0,1000,0)
 	SetVariable setKscale pos={200,355},size={90,30},title="max K:",limits={0.1,5,0.1},value=K_t, proc = set_K_scale
 	Slider/Z Kscale, pos={290,355},size={70,10},vert=0,ticks=0,side=1,value=K_t,variable=K_t,limits={0.1,5,0.1}, proc=Kscaleproc,fColor=(0,1000,0)
+	SetVariable setpherr pos={200,375},size={150,30},title="Phase error (deg):",limits={0,10,1},value=ph_err, proc = set_ph_err
 	
 	SetDataFolder saveDF
 End
@@ -193,10 +194,14 @@ Function/S targetName(varNum)
 		wn = "K_lu_ebr1"
 		data = "Effective brilliance (sigma_r,d and beam size,divergence)"
 		unit = "ph/s/mm2/mrad2/0.1%bw"
-	elseif (V_Value == 15)	// Effective brilliance 2 (Emittance, beta and energy spread)
+	elseif (V_Value == 15)	// Effective brilliance 2 (Emittance, beta, energy spread, and phase error)
 		wn = "K_lu_ebr2"
-		data = "Effective brilliance 2 (Emittance, beta and energy spread)"
+		data = "Effective brilliance 2 (Emittance, beta and energy spread, phase error)"
 		unit = "ph/s/mm2/mrad2/0.1%bw"
+	elseif (V_Value == 16)	// Effective brilliance 2 (Emittance, beta, energy spread, and phase error)
+		wn = "K_lu_efl"
+		data = "Effective flux from eff bri 2 (Emittance, beta and energy spread, phase error)"
+		unit = "ph/s/0.1%bw"
 	endif
 	
 	if (varNum == 1)
@@ -397,7 +402,7 @@ End
 Function K_lu_energy()
 	NVAR E_e = root:un:E_e, I_e = root:un:I_e, u_length = root:un:u_length, n_har = root:un:n_har, emi_x = root:un:emi_x, emi_y = root:un:emi_y, beta_x = root:un:beta_x, beta_y = root:un:beta_y , esp = root:un:esp
 	NVAR lu_0 = root:un:lu_0, lu_1 = root:un:lu_1, lu_t = root:un:lu_t, lu_pnt = root:un:lu_pnt, K_0 = root:un:K_0, K_1 = root:un:K_1, K_t = root:un:K_t, K_pnt = root:un:K_pnt
-	NVAR sigma_xr = root:un:sigma_xr, sigma_yr = root:un:sigma_yr, sigma_xd = root:un:sigma_xd, sigma_yd = root:un:sigma_yd
+	NVAR sigma_xr = root:un:sigma_xr, sigma_yr = root:un:sigma_yr, sigma_xd = root:un:sigma_xd, sigma_yd = root:un:sigma_yd, ph_err = root:un:ph_err
 	String savedDF = GetDataFolder(1), wn = targetName(1), plot_type
 	
 	Controlinfo/W=panelun setPlotType
@@ -411,10 +416,10 @@ Function K_lu_energy()
 	Variable i = 0, j = 0, d_lu = (lu_1 - lu_0)/(lu_pnt-1), d_K = (K_1 - K_0)/(K_pnt-1)
 	Variable lu, K, N, hc = 1.2398*10^-6, gg=E_e/0.000511, eta_x, eta_y, mode
 	
-	Controlinfo/W=panelun setMode
+	Controlinfo/W=panelun setMode	// linear or helical (APPLE-II)
 	mode = V_Value
 	//printf num2str(V_Value)
-	Make/D/N=(lu_pnt,K_pnt)/O K_lu_la, K_lu_en, K_lu_bt, K_lu_fk, K_lu_fl, K_lu_af, K_lu_sr, K_lu_sd, K_lu_cx, K_lu_cy, K_lu_cf, K_lu_br, K_lu_tp, K_lu_ap, K_lu_eaf, K_lu_ebr1, K_lu_ebr2, emi_r
+	Make/D/N=(lu_pnt,K_pnt)/O K_lu_la, K_lu_en, K_lu_bt, K_lu_fk, K_lu_fl, K_lu_af, K_lu_sr, K_lu_sd, K_lu_cx, K_lu_cy, K_lu_cf, K_lu_br, K_lu_tp, K_lu_ap, K_lu_eaf, K_lu_ebr1, K_lu_ebr2, emi_r, K_lu_efl
 	
 	Do 
 		j = 0
@@ -423,7 +428,7 @@ Function K_lu_energy()
 			K = K_0 + d_K*j
 			N = floor(u_length/lu)
 			if (mode == 1)
-				K_lu_la[i][j] = ((lu*10^-3/(2*gg^2))*(1+K^2/2)/n_har) // waelength (m)
+				K_lu_la[i][j] = ((lu*10^-3/(2*gg^2))*(1+K^2/2)/n_har) // wavelength (m)
 			elseif (mode == 2)
 				K_lu_la[i][j] = ((lu*10^-3/(2*gg^2))*(1+K^2)) // https://www.cockcroft.ac.uk/wp-content/uploads/2014/12/CLarke-Lecture-3.pdf
 			endif
@@ -464,13 +469,15 @@ Function K_lu_energy()
 			emi_y = sigma_yr*sigma_yd*10^-12
 			K_lu_ebr2[i][j] = K_lu_fl[i][j]/(4*pi^2*SQRT(emi_r[i][j]^2+emi_x^2+emi_r[i][j]*emi_x*(eta_x+eta_x^-1))*SQRT(emi_r[i][j]^2+emi_y^2+emi_r[i][j]*emi_y*(eta_y+eta_y^-1)))*10^-12 // m rad -> mm mrad
 			K_lu_ebr2[i][j] = K_lu_ebr2[i][j]/(sqrt(1+(5*n_har*N*esp)^2))	// energy spread effect
+			K_lu_ebr2[i][j] = K_lu_ebr2[i][j]*(exp(-(n_har*ph_err*pi/180)^2))	// energy spread effect
+			K_lu_efl[i][j] = K_lu_ebr2[i][j]*(4*pi^2*sigma_xr*sigma_yr*sigma_xd*sigma_yd)*10^-12
 			j = j + 1
 		while(j < K_pnt)
 		i = i + 1
 	while(i < lu_pnt)
 	
-	SetScale/I	x lu_0,lu_1,"Undulator period (mm)", K_lu_la, K_lu_en, K_lu_bt, K_lu_fk, K_lu_fl, K_lu_af, K_lu_sr, K_lu_sd, K_lu_cx, K_lu_cy, K_lu_cf, K_lu_br, K_lu_tp, K_lu_ap, K_lu_eaf, K_lu_ebr1, K_lu_ebr2
-	SetScale/I	y K_0,K_1,"K", K_lu_la, K_lu_en, K_lu_bt, K_lu_fk, K_lu_fl, K_lu_af, K_lu_sr, K_lu_sd, K_lu_cx, K_lu_cy, K_lu_cf, K_lu_br, K_lu_tp, K_lu_ap, K_lu_eaf, K_lu_ebr1, K_lu_ebr2
+	SetScale/I	x lu_0,lu_1,"Undulator period (mm)", K_lu_la, K_lu_en, K_lu_bt, K_lu_fk, K_lu_fl, K_lu_af, K_lu_sr, K_lu_sd, K_lu_cx, K_lu_cy, K_lu_cf, K_lu_br, K_lu_tp, K_lu_ap, K_lu_eaf, K_lu_ebr1, K_lu_ebr2, K_lu_efl
+	SetScale/I	y K_0,K_1,"K", K_lu_la, K_lu_en, K_lu_bt, K_lu_fk, K_lu_fl, K_lu_af, K_lu_sr, K_lu_sd, K_lu_cx, K_lu_cy, K_lu_cf, K_lu_br, K_lu_tp, K_lu_ap, K_lu_eaf, K_lu_ebr1, K_lu_ebr2, K_lu_efl
 	
 	SetDataFolder savedDF
 	//DoWindow/F panelun
@@ -485,7 +492,7 @@ End
 Function K_lu_energy_n()	// layer for 3D plot
 	NVAR E_e = root:un:E_e, I_e = root:un:I_e, u_length = root:un:u_length, n_har = root:un:n_har, emi_x = root:un:emi_x, emi_y = root:un:emi_y, beta_x = root:un:beta_x, beta_y = root:un:beta_y , esp = root:un:esp
 	NVAR lu_0 = root:un:lu_0, lu_1 = root:un:lu_1, lu_pnt = root:un:lu_pnt, K_0 = root:un:K_0, K_1 = root:un:K_1, K_pnt = root:un:K_pnt
-	NVAR sigma_xr = root:un:sigma_xr, sigma_yr = root:un:sigma_yr, sigma_xd = root:un:sigma_xd, sigma_yd = root:un:sigma_yd
+	NVAR sigma_xr = root:un:sigma_xr, sigma_yr = root:un:sigma_yr, sigma_xd = root:un:sigma_xd, sigma_yd = root:un:sigma_yd, ph_err = root:un:ph_err
 	
 	String savedDF = GetDataFolder(1)
 	Variable i = 0, j = 0, k = 0, d_lu = (lu_1 - lu_0)/(lu_pnt-1), d_K = (K_1 - K_0)/(K_pnt-1), gg=E_e/0.000511
@@ -526,6 +533,8 @@ Function K_lu_energy_n()	// layer for 3D plot
 				emi_y = sigma_yr*sigma_yd*10^-12
 				K_lu_ebr2[i][j][k] = K_lu_fl[i][j][k]/(4*pi^2*SQRT(emi_r^2+emi_x^2+emi_r*emi_x*(eta_x+eta_x^-1))*SQRT(emi_r^2+emi_y^2+emi_r*emi_y*(eta_y+eta_y^-1)))*10^-12 // m rad -> mm mrad
 				K_lu_ebr2[i][j][k] = K_lu_ebr2[i][j][k]/(sqrt(1+(5*n*Np*esp)^2))
+				K_lu_ebr2[i][j][k] = K_lu_ebr2[i][j][k]*(exp(-(n*ph_err*pi/180)^2))	// energy spread effect
+				
 				k = k + 1
 			while(k < n_pnt)
 			j = j + 1
@@ -542,14 +551,14 @@ End
 
 Function calc_1d(lu, K)
 	Variable lu, K
-	NVAR E_e = root:un:E_e, I_e = root:un:I_e, u_length = root:un:u_length, n_har = root:un:n_har
+	NVAR E_e = root:un:E_e, I_e = root:un:I_e, u_length = root:un:u_length, n_har = root:un:n_har, ph_err = root:un:ph_err
 	NVAR lu_0 = root:un:lu_0, lu_1 = root:un:lu_1, lu_pnt = root:un:lu_pnt, K_0 = root:un:K_0, K_1 = root:un:K_1, K_pnt = root:un:K_pnt
 	NVAR sigma_xd = root:un:sigma_xd, sigma_yd = root:un:sigma_yd, sigma_xr = root:un:sigma_xr, sigma_yr = root:un:sigma_yr
 	NVAR beta_x = root:un:beta_x, beta_y = root:un:beta_y, esp = root:un:esp
 	Variable i, j, n, n_pnt = (n_har+1)/2, Kp, d_K = (K - K0)/(K_pnt-1), hc = 1.2398*10^-6, gg=E_e/0.000511, en_0, en_1, Np, mode
 	Variable eta_x, eta_y, emi_x, emi_y
 	String w = "I_1d", harstr, fl, af, fk, en, qk, gk, bt, br
-	String la, sr, sd, cx, cy, cf, eaf, ebr, emr
+	String la, sr, sd, cx, cy, cf, eaf, ebr, emr, efl
 	
 	Controlinfo/W=panelun setMode
 	mode = V_Value
@@ -588,9 +597,10 @@ Function calc_1d(lu, K)
 		eaf = w + "_eaf_n" + harstr
 		ebr = w + "_ebr_n" + harstr
 		emr = w + "_emr_n" + harstr
+		efl = w + "_efl_n" + harstr
 		
-		Make/D/N=(K_pnt)/O $la, $sr, $sd, $cx, $cy, $cf, $eaf, $ebr, $emr
-		Wave w_la = $la, w_sr = $sr, w_sd = $sd, w_cx = $cx, w_cy = $cy, w_cf = $cf, w_eaf = $eaf, w_ebr = $ebr, w_emr = $emr
+		Make/D/N=(K_pnt)/O $la, $sr, $sd, $cx, $cy, $cf, $eaf, $ebr, $emr, $efl
+		Wave w_la = $la, w_sr = $sr, w_sd = $sd, w_cx = $cx, w_cy = $cy, w_cf = $cf, w_eaf = $eaf, w_ebr = $ebr, w_emr = $emr, w_efl = $efl
 		
 		j=0
 		Do
@@ -629,6 +639,8 @@ Function calc_1d(lu, K)
 			emi_y = sigma_yr*sigma_yd*10^-12
 			w_ebr[j] = w_fl[j]/(4*pi^2*SQRT(w_emr[j]^2+emi_x^2+w_emr[j]*emi_x*(eta_x+eta_x^-1))*SQRT(w_emr[j]^2+emi_y^2+w_emr[j]*emi_y*(eta_y+eta_y^-1)))*10^-12 // m rad -> mm mrad
 			w_ebr[j] = w_ebr[j]/(sqrt(1+(5*n*Np*esp)^2))	// energy spread effect
+			w_ebr[j] = w_ebr[j]*(exp(-(n*ph_err*pi/180)^2))	// energy spread effect
+			w_efl[j] = w_ebr[j]*(4*pi^2*sigma_xr*sigma_yr*sigma_xd*sigma_yd)*10^-12
 			// end codes
 			
 			if (i == 0)
@@ -645,7 +657,7 @@ Function calc_1d(lu, K)
 		elseif (i == n_pnt-1)
 			en_1 = w_en[0]
 		endif
-		SetScale/I	x K0,K,"K", w_fk, w_af, w_qk, w_bt, w_br, w_la, w_sr, w_sd, w_cx, w_cy, w_cf, w_eaf, w_ebr, w_emr
+		SetScale/I	x K0,K,"K", w_fk, w_af, w_qk, w_bt, w_br, w_la, w_sr, w_sd, w_cx, w_cy, w_cf, w_eaf, w_ebr, w_emr, w_efl
 		i = i + 1
 	while(i < n_pnt)
 	
@@ -654,7 +666,7 @@ Function calc_1d(lu, K)
 	Variable pe_pnt = 1000, pe, pe_0 = 0.1, pe_1 = 100, d_pe = (pe_1 - pe_0)/(pe_pnt+1), B = K/(0.0934*lu) 	// Magnetic field (T)
 	String ab, am, fb, fm, ub, um, bb, bm, brb, brm
 	// BM specified by the B0 (field) or curverture (rho)
-	//Variable B0 = 0.54, crt_bm = 3*hc*gg^3/4*pi*rho
+	// Variable B0 = 0.54, crt_bm = 3*hc*gg^3/4*pi*rho
 	// BM approximated by the beam energy only: Excel Lightsource2018b.xlsx
 	// a abritary factor of 5 is from SPring-8(8GeV,B0.68T,R39.3m,c28.9keV),SPS-II(3GeV,B0.87T,R11.5m,c5.2keV), SPS-1(1.2GrV,B1.4T,R2.78,c1.37keV)
 	Variable rho_bm = (205.687*exp(-0.0056*(E_e-0.204)^2+0.31*(E_e-0.204))-196.846)/(2*pi*4.5), crt_bm = 3*hc*gg^3/(4*pi*rho_bm)/1000, B0 = crt_bm/(0.665*E_e^2)
@@ -730,6 +742,10 @@ Function calc_1d(lu, K)
 		I_1d_plot = "CF_y"
 	elseif  (V_Value == 13)
 		I_1d_plot = "CF"
+	elseif  (V_Value == 14)
+		I_1d_plot = "eb"
+	elseif  (V_Value == 15)
+		I_1d_plot = "ef"
 	else
 		return -1
 	endif
@@ -744,7 +760,7 @@ Function calc_1d_plot()
 	NVAR winpos = root:un:winpos, winsize = root:un:winsize, w_width = root:un:w_width, w_height = root:un:w_height, E_e = root:un:E_e, I_e = root:un:I_e, u_length = root:un:u_length
 	NVAR n_har = root:un:n_har, K_0 = root:un:K_0, K_1 = root:un:K_1, K_t = root:un:K_t, K_pnt = root:un:K_pnt, lu_0 = root:un:lu_0, lu_1 = root:un:lu_1, lu_t = root:un:lu_t
 	Variable i, j, n, n_pnt = (n_har+1)/2, Kp, d_K = (K_1 - K_0)/(K_pnt-1), lu = lu_1, en_0, en_1, mode, bm_plot
-	String w = "I_1d", harstr, fl, af, fk, en, qk, gk, sr, sd, cx, cy, cf, br, ebr
+	String w = "I_1d", harstr, fl, af, fk, en, qk, gk, sr, sd, cx, cy, cf, br, eb, ef
 	
 	String I_1d_plot
 	Controlinfo/W=panelun setPlotOther
@@ -773,6 +789,10 @@ Function calc_1d_plot()
 		I_1d_plot = "CF_y"
 	elseif  (V_Value == 13)
 		I_1d_plot = "CF"
+	elseif  (V_Value == 14)
+		I_1d_plot = "eb"
+	elseif  (V_Value == 15)
+		I_1d_plot = "ef"
 	else
 		return -1
 	endif
@@ -813,7 +833,8 @@ Function calc_1d_plot()
 		cx = w + "_cx_n" + harstr
 		cy = w + "_cy_n" + harstr
 		cf = w + "_cf_n" + harstr
-		//br = w + "_ebr_n" + harstr	// effective brilliance
+		eb = w + "_ebr_n" + harstr	// effective brilliance
+		ef = w + "_efl_n" + harstr	// effective flux
 		Wave w_en = $en
 		
 		if (i==0)
@@ -841,6 +862,10 @@ Function calc_1d_plot()
 				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $cy vs $en
 			elseif  (stringmatch(I_1d_plot,"CF")==1)
 				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $cf vs $en
+			elseif  (stringmatch(I_1d_plot,"eb")==1)
+				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $eb vs $en
+			elseif  (stringmatch(I_1d_plot,"ef")==1)
+				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $ef vs $en
 			endif
 		else
 			if (stringmatch(I_1d_plot,"FKneV")==1)
@@ -867,6 +892,10 @@ Function calc_1d_plot()
 				AppendToGraph/W=$I_1d_plot $cy vs $en
 			elseif (stringmatch(I_1d_plot,"CF")==1)
 				AppendToGraph/W=$I_1d_plot $cf vs $en
+			elseif (stringmatch(I_1d_plot,"eb")==1)
+				AppendToGraph/W=$I_1d_plot $eb vs $en
+			elseif (stringmatch(I_1d_plot,"ef")==1)
+				AppendToGraph/W=$I_1d_plot $ef vs $en
 			endif
 		endif
 		if (stringmatch(I_1d_plot,"Flux")==1)
@@ -891,6 +920,10 @@ Function calc_1d_plot()
 			Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$I_1d_plot $cy, numpnts($en), num2str(n)
 		elseif  (stringmatch(I_1d_plot,"CF")==1)
 			Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$I_1d_plot $cf, numpnts($en), num2str(n)
+		elseif (stringmatch(I_1d_plot,"eb")==1)
+			Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$I_1d_plot $eb, numpnts($en), num2str(n)
+		elseif (stringmatch(I_1d_plot,"ef")==1)
+			Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$I_1d_plot $ef, numpnts($en), num2str(n)
 		endif
 		
 		if (i == 0)
@@ -907,7 +940,7 @@ Function calc_1d_plot()
 	
 	ModifyGraph/W=$I_1d_plot mirror=2
 	ModifyGraph/W=$I_1d_plot grid=1,tick(left)=3,tick(bottom)=2,minor=1,gridStyle=3,gridRGB=(48059,48059,48059)
-	if (stringmatch(I_1d_plot,"Flux")==1 || stringmatch(I_1d_plot,"AFD")==1 || stringmatch(I_1d_plot,"Bri")==1)
+	if (stringmatch(I_1d_plot,"Flux")==1 || stringmatch(I_1d_plot,"AFD")==1 || stringmatch(I_1d_plot,"Bri")==1 || stringmatch(I_1d_plot,"eb")==1 || stringmatch(I_1d_plot,"ef")==1)
 		if (stringmatch(I_1d_plot,"Flux")==1)
 			Label/W=$I_1d_plot left "Flux (ph/s/0.1%bw)"
 			if (bm_plot == 1)
@@ -926,6 +959,22 @@ Function calc_1d_plot()
 			endif
 		elseif (stringmatch(I_1d_plot,"Bri")==1)
 			Label/W=$I_1d_plot left "Brilliance (ph/s/mm2/mrad2/0.1%bw)"
+			if (bm_plot == 1)
+				AppendToGraph/W=$I_1d_plot $"I_1d_br_bm" vs $"I_1d_en"
+				AppendToGraph/W=$I_1d_plot $"I_1d_br_mw" vs $"I_1d_en"
+				Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$I_1d_plot $"I_1d_br_bm", 3, "BM (hor. mrad)"
+				Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$I_1d_plot $"I_1d_br_mw", 10, "MPW (hor. mrad)"
+			endif
+		elseif (stringmatch(I_1d_plot,"eb")==1)
+			Label/W=$I_1d_plot left "Effective brilliance (ph/s/mm2/mrad2/0.1%bw)"
+			if (bm_plot == 1)
+				AppendToGraph/W=$I_1d_plot $"I_1d_br_bm" vs $"I_1d_en"
+				AppendToGraph/W=$I_1d_plot $"I_1d_br_mw" vs $"I_1d_en"
+				Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$I_1d_plot $"I_1d_br_bm", 3, "BM (hor. mrad)"
+				Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$I_1d_plot $"I_1d_br_mw", 10, "MPW (hor. mrad)"
+			endif
+		elseif (stringmatch(I_1d_plot,"ef")==1)
+			Label/W=$I_1d_plot left "Effective flux (ph/s/0.1%bw)"
 			if (bm_plot == 1)
 				AppendToGraph/W=$I_1d_plot $"I_1d_br_bm" vs $"I_1d_en"
 				AppendToGraph/W=$I_1d_plot $"I_1d_br_mw" vs $"I_1d_en"
@@ -1690,6 +1739,15 @@ Function set_K_scale(ctrlName,varNum,varStr,varName) : SetVariableControl
 	Variable field, gap = gap_0	// gap at the minimum specified in the initial gap range.
 	
 	calc_1d(lu_t, varNum)
+end
+
+
+Function set_ph_err(ctrlName,varNum,varStr,varName) : SetVariableControl
+	String ctrlName,varStr,varName
+	Variable varNum
+	
+	NVAR K_t = root:un:K_t, lu_t = root:un:lu_t
+	calc_1d(lu_t, K_t)
 end
 
 function setcolor0()
