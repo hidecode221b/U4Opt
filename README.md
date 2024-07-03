@@ -175,6 +175,8 @@ and MPW generates its $2N$ times [https://www.cockcroft.ac.uk/wp-content/uploads
 
 - [Short-Period APPLE II Undulator for Generating 12-15 keV X-Rays at the Advanced Photon Source, R. Dejus and S. Sasaki, ANL/APS/LS-313 rev. 3 (2009).](https://www.aps.anl.gov/files/APS-sync/lsnotes/files/APS_1418272.pdf)
 
+- [Superconducting undulator activities at the European X-ray Free-Electron Laser Facility, Sara Casalbuoni et al., Frontiers in Physics 11, 1204073 (22 June 2023).](https://doi.org/10.3389/fphy.2023.1204073)
+
 ## Interface
 
 ### Python (adjustable period shown as a pink marker)
