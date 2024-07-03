@@ -161,7 +161,7 @@ and MPW generates its $2N$ times [https://www.cockcroft.ac.uk/wp-content/uploads
 
 - [Insertion devices: undulators and wigglers, Richard P. Walker (1997).](https://indico.ictp.it/event/a02011/contribution/1)
 
-- [Undulators, Wigglers and Their Applications edited by Hideo Onuki and Pascal Elleaume (2002).](https://doi.org/10.4324/9780203218235).
+- [Undulators, Wigglers and Their Applications edited by Hideo Onuki and Pascal Elleaume (2002).](https://doi.org/10.4324/9780203218235)
 
 - [The Science and Technology of Undulators and Wigglers, James A. Clarke (2004).](https://doi.org/10.1093/acprof:oso/9780198508557.001.0001)
 
