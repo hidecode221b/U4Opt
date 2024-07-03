@@ -66,7 +66,8 @@ $$\lambda_{3, K=2} = {\lambda_u \over 2 \cdot 3 \gamma^2} \left( 1 + {2^2 \over 
 
 The `undulator period` can be optimized in the plot based on the `magnet type`, `gap`, `flux`. To design the undulator specification in the synchrotron facility, **U4Opt** has been developed. The first prototype of the program is based on the Excel spreadsheet, and transfered to the macro in Igor Pro. Python code is now available. The coding is in progress, not well documented, but open for public for review. 
 
-The first concept of `K-period` space analysis originates from the talk of [Dr. Markus Tischer (DESY)](https://photon-science.desy.de/research/technical_groups/undulators/group_members/index_eng.html) in the [ID23](https://aps.anl.gov/Magnetic-Devices/Workshops-Proceedings/ID-23) workshop.
+The first concept of `K-period` space analysis originates from the talk of [Dr. Markus Tischer (DESY)](https://photon-science.desy.de/research/technical_groups/undulators/group_members/index_eng.html) in the [ID23](https://aps.anl.gov/Magnetic-Devices/Workshops-Proceedings/ID-23) workshop. Later, it was found that Joel Chavanne and Pascal Elleaume illustrate the original plot in [Undulators, Wigglers and Their Applications edited by Hideo Onuki and Pascal Elleaume (Editors) p. 203](https://doi.org/10.4324/9780203218235).
+
 
 ### Magnet
 
@@ -92,7 +93,7 @@ Users can import and export the parameters as a preset (.dat) in Python version.
 
 ### Non-linear effects
 
-No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization including the end-magnet, phase error, and betatron function should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). [Takashi Tanaka](https://doi.org/10.1103/PhysRevAccelBeams.21.110704) formulates the universal representation of phase errors. 
+No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization including the end-magnet, phase error, and betatron function should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://github.com/ochubar/SRW), [SRW in OASYS](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). [Takashi Tanaka](https://doi.org/10.1103/PhysRevAccelBeams.21.110704) formulates the universal representation of phase errors. 
 
 [Jui-Che Huang](https://doi.org/10.1103/PhysRevAccelBeams.20.064801) describes the average brilliance by using electron beam emittance ($\epsilon$), radiation emittance ($\epsilon_r = \lambda /4\pi$), radiation wavelength ($\lambda$), undulator length ($L$), betatron function ($\beta$), and $\zeta = 2\pi \beta/L$.
 
@@ -159,6 +160,8 @@ and MPW generates its $2N$ times [https://www.cockcroft.ac.uk/wp-content/uploads
 - [CERN Accelerator School : Synchrotron Radiation and Free Electron Lasers (1998).](http://dx.doi.org/10.5170/CERN-1998-004) Insertion devices by [A. Hofmann](http://dx.doi.org/10.5170/CERN-1998-004.1), [K. Wille](http://dx.doi.org/10.5170/CERN-1998-004.61), and [R.P. Walker](http://dx.doi.org/10.5170/CERN-1998-004.129)
 
 - [Insertion devices: undulators and wigglers, Richard P. Walker (1997).](https://indico.ictp.it/event/a02011/contribution/1)
+
+- [Undulators, Wigglers and Their Applications edited by Hideo Onuki and Pascal Elleaume (2002).](https://doi.org/10.4324/9780203218235).
 
 - [The Science and Technology of Undulators and Wigglers, James A. Clarke (2004).](https://doi.org/10.1093/acprof:oso/9780198508557.001.0001)
 
