@@ -28,8 +28,14 @@ Function Undulator() : Panel
 		Variable/G T_a = 2.076, T_b = -3.24, T_c = 0, crev, gplot, xplot, K_max = 5
 		Variable/G PPM_a = 2.076, PPM_b = -3.24, PPM_c = 0, Br = 1.38, M = 4, h_lu_r = 0.5
 		Variable/G HYB_a = 3.694, HYB_b = -5.068, HYB_c = 1.52 // https://doi.org/10.1016/S0168-9002(00)00544-1
-		Variable/G CPM_a = 4.625, CPM_b = -5.251, CPM_c = 2.079 // https://doi.org/10.1103/PhysRevAccelBeams.20.064801
+		//Variable/G CPM_a = 4.625, CPM_b = -5.251, CPM_c = 2.079 // https://doi.org/10.1103/PhysRevAccelBeams.20.064801
 		Variable/G SCM_a = 12.42, SCM_b = -4.79, SCM_c = 0.385 // https://doi.org/10.1016/S0168-9002(00)00544-1
+		
+		// https://doi.org/10.3389/fphy.2023.1204073
+		//Variable/G HYB_a = 3.381, HYB_b = -4.73, HYB_c = 1.198 // https://doi.org/10.1016/S0168-9002(00)00544-1
+		Variable/G CPM_a = 3.502, CPM_b = -3.604, CPM_c = 0.359 // https://publications.anl.gov/anlpubs/2017/07/137001.pdf
+		//Variable/G SCM // https://doi.org/10.1016/j.nima.2005.03.150
+		
 		Variable/G lu_0 = 15, lu_1 = 22, lu_t = 20, lu_pnt = 71, K_0 = 1, K_1 = 3, K_t = 2, K_pnt = 21
 		Variable/G gap_0 = 4, gap_1 = 5.5, gap_pnt = 4, gap_lu_0 = 0.001, gap_lu_1 = 10 // limit of gap/lu range, default 0.1 < gap/lu < 1.0
 		Variable/G sigma_xr = 97.44, sigma_yr = 3.9, sigma_xd = 9.754, sigma_yd = 2.437
@@ -88,7 +94,7 @@ Function Undulator() : Panel
 	SetVariable setCou pos={10,375},size={150,30},title="Coupling:",limits={0.0000001,1,0},value=coupling, proc = set_cou
 
 	TitleBox tit_mag_est,title="Magnetic field simulation",pos={200,10},size={100, 20},fsize=14,frame=0
-	PopupMenu setType pos={200,40},size={150,30},title="Magnet type:",value="PPM(a,b,c);HYB(a,b,c);PPM(Br,M,h);CPM(a,b,c);SCM(a,b,c);Define(a,b,c)",proc=set_Type_mag
+	PopupMenu setType pos={200,40},size={150,30},title="Magnet type:",value="PPM(a,b,c);HYB(a,b,c);PPM(Br,M,h);CPM(a,b,c);SCM(a,b,c);SCM(Kim);Define(a,b,c)",proc=set_Type_mag
 	TitleBox tit_T_a,title="a:",pos={200,60},size={50, 20},frame=0
 	TitleBox tit_T_b,title="b:",pos={250,60},size={50, 20},frame=0
 	TitleBox tit_T_c,title="c:",pos={300,60},size={50, 20},frame=0
@@ -1058,10 +1064,12 @@ Function Gap_lu_K()
 			w_gap_lu[j] = gap/lu
 			
 			if (gap/lu > gap_lu_0 && gap/lu < gap_lu_1)
-				if (magnet_mode != 3)
-					w_field[j] = T_a*exp((gap/lu)*(T_b+T_c*(gap/lu)))
-				else
+				if (magnet_mode == 3)
 					w_field[j] = 2*Br*(sin(pi/M)/(pi/M))*exp(-pi*(gap/lu))*(1-exp(-2*pi*(h_lu_r)))
+				elseif (magnet_mode == 6)
+					w_field[j] = (0.28052+0.05798*lu-0.0009*lu^2+5.1E-6*lu^3)*exp(-pi*((gap/lu)-0.5))
+				else
+					w_field[j] = T_a*exp((gap/lu)*(T_b+T_c*(gap/lu)))
 				endif
 				
 				w_K[j] = 0.0934*w_field[j]*lu
