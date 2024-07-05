@@ -105,7 +105,7 @@ $$B_r = f_{n,N} B_{r0}$$
 
 $$f_{n,N} =  1 / \sqrt{1+ \left[ 5nN \left( \sigma_{\gamma} \over \gamma \right) \right]^2}$$
 
-Here, $\sigma_{\gamma} / \gamma$ represents the energy spread.
+Here, $\sigma_{\gamma} / \gamma$ represents the energy spread. These effects are evaluated in the *effective* brilliance and flux.
 
 ### Limitations
 
