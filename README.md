@@ -150,6 +150,8 @@ and MPW generates its $2N$ times [https://www.cockcroft.ac.uk/wp-content/uploads
 * Setup the plot ranges like the period, K, gap, flux, and energy.
 * Adjust the period at the maximum K (minimum gap) in the variable or slider.
 
+Note that the you may need update the plots from the popup menu after changes in ranges of gap, K, and period in Igor version.
+
 
 ## References
 
