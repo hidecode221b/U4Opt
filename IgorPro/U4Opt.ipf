@@ -38,7 +38,7 @@ Function Undulator() : Panel
 		
 		Variable/G lu_0 = 15, lu_1 = 22, lu_t = 20, lu_pnt = 71, K_0 = 1, K_1 = 3, K_t = 2, K_pnt = 21
 		Variable/G gap_0 = 4, gap_1 = 5.5, gap_pnt = 4, gap_lu_0 = 0.001, gap_lu_1 = 10 // limit of gap/lu range, default 0.1 < gap/lu < 1.0
-		Variable/G sigma_xr = 97.44, sigma_yr = 3.9, sigma_xd = 9.754, sigma_yd = 2.437
+		Variable/G sigma_xr = 97.44, sigma_yr = 3.9, sigma_xd = 9.754, sigma_yd = 2.437, pe_wigg = 50
 		Variable/G emi_x = 9.6E-10, emi_y = 9.6E-12, beta_x = 9.99, beta_y = 1.6, esp = 0.00077 // emi9.5E-10/7.6E-12, beta9.95/1.6, esp0.00077
 		Variable/G coupling = emi_y/emi_x // 0.01
 		String/G lu_str= "Period "+num2str(lu_t), K_str = "max K "+num2str(K_t)
@@ -49,12 +49,12 @@ Function Undulator() : Panel
 		Variable/G CPM_a, CPM_b, CPM_c, SCM_a, SCM_b, SCM_c
 		Variable/G lu_0, lu_1, lu_t, lu_pnt, K_0, K_1, K_t, K_pnt, gap_0, gap_1, gap_pnt, gap_lu_0, gap_lu_1, K_max
 		Variable/G winsize, winpos, loadpos, w_width, w_height
-		Variable/G sigma_xr, sigma_yr, sigma_xd, sigma_yd
+		Variable/G sigma_xr, sigma_yr, sigma_xd, sigma_yd, pe_wigg
 		Variable/G emi_x, emi_y, beta_x, beta_y, esp, coupling
 		String/G lu_str, K_str
 	endif
 	
-	NewPanel /W=(loadpos,10,loadpos+370,410)/N=panelun as "Undulator"
+	NewPanel /W=(loadpos,10,loadpos+370,480)/N=panelun as "Undulator"
 	
 	TitleBox tit_un_opt,title="Machine parameters",pos={10,10},size={100, 40},fsize=14,frame=0
 	SetVariable setE_e pos={10,40},size={150,30},title="Beam energy (GeV):",limits={0.1,10,0},value=E_e, proc = set_E_e
@@ -135,6 +135,9 @@ Function Undulator() : Panel
 	SetVariable setKscale pos={200,355},size={90,30},title="max K:",limits={0.1,5,0.1},value=K_t, proc = set_K_scale
 	Slider/Z Kscale, pos={290,355},size={70,10},vert=0,ticks=0,side=1,value=K_t,variable=K_t,limits={0.1,5,0.1}, proc=Kscaleproc,fColor=(0,1000,0)
 	SetVariable setpherr pos={200,375},size={150,30},title="Phase error (deg):",limits={0,10,1},value=ph_err, proc = set_ph_err
+	
+	PopupMenu setPlotWigg pos={200,400},size={150,30},title="Wiggler",value="Flux (ph/s/mrad/0.1%bw);Flux (ph/s/mrad2/0.1%bw);AFD",proc=set_plot_wigg
+	SetVariable setpewigg pos={200,420},size={150,30},title="PE (keV):",limits={1,100,1},value=pe_wigg, proc = set_pe_wigg
 	
 	SetDataFolder saveDF
 End
@@ -990,7 +993,7 @@ Function calc_1d_plot()
 		endif
 		Label/W=$I_1d_plot bottom "Photon energy (keV)"
 		ModifyGraph/W=$I_1d_plot log=1
-		SetAxis/W=$I_1d_plot left 1e+13,*
+		SetAxis/W=$I_1d_plot left 1e+11,*
 		//SetAxis/W=$I_1d_plot bottom *,100
 		//SetAxis/W=$I_1d_plot bottom en_0,en_1
 		
@@ -1175,6 +1178,84 @@ Function Plot_field_lu()
 	DoWindow/F panelun
 End
 
+Function Wigg_plots()
+	NVAR winpos = root:un:winpos, winsize = root:un:winsize, w_width = root:un:w_width, w_height = root:un:w_height
+	NVAR E_e = root:un:E_e, I_e = root:un:I_e, u_length = root:un:u_length, pe_wigg = root:un:pe_wigg
+	NVAR gap_0 = root:un:gap_0, gap_1 = root:un:gap_1, gap_pnt = root:un:gap_pnt, lu_0 = root:un:lu_0, lu_1 = root:un:lu_1, lu_pnt = root:un:lu_pnt
+	Variable i = 0, j=0, d_gap = (gap_1 - gap_0)/(gap_pnt-1), gap, d_lu = (lu_1-lu_0)/(lu_pnt-1), lu, n_har, plot_type
+	String Period_field_plot = "Period_field_plot", m_plot
+	
+	String savedDF = GetDataFolder(1)
+	
+	DoWindow $Period_field_plot
+	if (V_flag == 1)
+		DoWindow/K $Period_field_plot
+	endif
+	
+	Controlinfo/W=panelun setPlotWigg
+	if (V_Value == 1)
+		plot_type = 1	// spectral flux E=Ec
+	elseif (V_Value ==2)
+		plot_type = 2	// Spectral central brightness
+	else
+		plot_type = 3
+	endif
+	//https://photon-science.desy.de/sites/site_photonscience/content/e62/e189219/e187240/e187241/e187242/infoboxContent187245/f3_eng.pdf
+	
+	Variable fld_0 = 1, fld_1 = 8, fld_pnt=100
+	Variable d_fld = (fld_1 - fld_0)/(fld_pnt+1), fld, N, hc = 1.2398*10^-6, gg=E_e/0.000511
+	
+	Make/D/N=(lu_pnt,fld_pnt)/O $"Flux_lu_field_K", $"Flux_lu_field_mw", $"Flux_lu_field_en", $"Flux_lu_field_fk"
+	Wave m_flux_lu_field_K = $"Flux_lu_field_K", m_flux_lu_field_mw = $"Flux_lu_field_mw", m_flux_lu_field_en = $"Flux_lu_field_en", m_flux_lu_field_fk = $"Flux_lu_field_fk"
+	
+	i=0
+	Do
+		j = 0
+		fld = fld_0 + d_fld * i
+		Do
+			lu = lu_0+d_lu*j
+			N = floor(u_length/lu)
+			m_flux_lu_field_K[j][i] = 0.0934*fld*lu
+			m_flux_lu_field_en[j][i] = ((10^-3)*(hc))/((lu*10^-3/(2*gg^2))*(1+m_flux_lu_field_K[j][i]^2/2))
+			n_har = floor(pe_wigg/m_flux_lu_field_en[j][i])
+			if (mod(n_har, 2) == 0)
+				n_har = n_har - 1
+			endif
+			m_flux_lu_field_fk[j][i] = ((n_har*m_flux_lu_field_K[j][i])^2/((1+m_flux_lu_field_K[j][i]^2/2)^2))*(BESSELJ((n_har-1)/2,n_har*m_flux_lu_field_K[j][i]^2/(4*(1+m_flux_lu_field_K[j][i]^2/2)))-BESSELJ((n_har+1)/2,n_har*m_flux_lu_field_K[j][i]^2/(4*(1+m_flux_lu_field_K[j][i]^2/2))))^2
+			
+			if (plot_type == 1)
+				m_flux_lu_field_mw[j][i] = 2.458*10^13*2*N*E_e*I_e*(pe_wigg/(0.665*E_e^2*fld))*0.6522
+			elseif (plot_type == 2)	
+				m_flux_lu_field_mw[j][i] = 1.325*10^13*2*N*E_e^2*I_e*(pe_wigg/(0.665*E_e^2*fld))^2*(BESSELK(2/3,(pe_wigg/(2*0.665*E_e^2*fld))))^2
+			elseif (plot_type == 3)	// undulator
+				m_flux_lu_field_mw[j][i] = 1.7441*10^14*N^2*E_e^2*I_e*m_flux_lu_field_fk[j][i]
+
+			endif
+			j = j + 1
+		while(j<lu_pnt)
+		i = i + 1
+	while(i<fld_pnt)
+	
+	SetScale/I	x lu_0,lu_1,"Undulator period (mm)", m_flux_lu_field_K, m_flux_lu_field_mw
+	SetScale/I  y fld_0, fld_1,"Field (T)", m_flux_lu_field_K, m_flux_lu_field_mw
+	
+	SetDataFolder savedDF
+	
+	m_plot = "Flux_lu_field_mw"
+	
+	Display/N=$Period_field_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
+	AppendMatrixContour/W=$Period_field_plot $m_plot
+	ModifyContour/W=$Period_field_plot $m_plot autoLevels={*,*,11}
+	ModifyGraph/W=$Period_field_plot nticks=5,manTick=0,manMinor(bottom)={0,0}
+	ModifyGraph/W=$Period_field_plot grid=1,tick=2,mirror=2,minor(left)=1,gridStyle=3,gridRGB=(34952,34952,34952)
+	setcolor()
+	TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Flux"	
+	SetAxis/W=Period_field_plot left fld_0,fld_1
+	SetAxis/W=Period_field_plot bottom lu_0,lu_1
+	
+	DoWindow/F panelun
+End
+
 Function phaseError()
 	NVAR winpos = root:un:winpos, winsize = root:un:winsize, w_width = root:un:w_width, w_height = root:un:w_height
 	Variable i, j, err, n
@@ -1257,6 +1338,8 @@ Function set_n_har(ctrlName,varNum,varStr,varName) : SetVariableControl
 	NVAR n_har = root:un:n_har
 	K_lu_energy()
 	Gap_lu_K()
+	NVAR lu_t = root:un:lu_t, K_t = root:un:K_t
+	calc_1d(lu_t, K_t)
 	calc_1d_plot()
 end
 
@@ -1757,6 +1840,22 @@ Function set_ph_err(ctrlName,varNum,varStr,varName) : SetVariableControl
 	NVAR K_t = root:un:K_t, lu_t = root:un:lu_t
 	calc_1d(lu_t, K_t)
 end
+
+Function set_pe_wigg(ctrlName,varNum,varStr,varName) : SetVariableControl
+	String ctrlName,varStr,varName
+	Variable varNum
+	
+	NVAR pe_wigg = root:un:pe_wigg
+	
+end
+
+Function set_plot_wigg(ctrlName, popNum, popStr) : PopupMenuControl
+	String ctrlName
+	Variable popNum
+	String popStr
+	
+	Wigg_plots()
+End
 
 function setcolor0()
     string trl=tracenamelist("",";",1), item
