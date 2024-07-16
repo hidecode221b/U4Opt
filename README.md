@@ -143,9 +143,9 @@ $${\partial F \over \partial (\Delta \omega/\omega)}= 1.33 \cdot 10^{13} E^2 I \
 
 and MPW generates its $2N$ times as illustrated in [https://www.cockcroft.ac.uk/wp-content/uploads/2014/12/Lecture-1.pdf](https://www.cockcroft.ac.uk/wp-content/uploads/2014/12/Lecture-1.pdf).
 
-#### MPW power limitation
+#### MPW power and angle limitation
 
-The power of MPW is typically too high to deliver the beam in the beamline optics system. Therefore, the power of MPW shown in [https://www.cockcroft.ac.uk/wp-content/uploads/2014/12/Lecture-2.pdf](https://www.cockcroft.ac.uk/wp-content/uploads/2014/12/Lecture-2.pdf) determines the number of period or total length of wiggler. According to the acceptable maximum power from MPW ($P_{max}$), the angular flux density in the specific photon energy can be evaluted in the field-period space at each gap of magnets as demonstrated by [O. Marcouillé et al](https://accelconf.web.cern.ch/e08/papers/wepc120.pdf).
+The power of MPW is typically too high to deliver the beam in the beamline optics system. Therefore, the power of MPW shown in [https://www.cockcroft.ac.uk/wp-content/uploads/2014/12/Lecture-2.pdf](https://www.cockcroft.ac.uk/wp-content/uploads/2014/12/Lecture-2.pdf) determines the number of period or total length of wiggler. According to the acceptable maximum power and angle from MPW ($P_{max}$), the angular flux density at a specific photon energy can be evaluted in the field-period space at a gap of ID magnets as demonstrated by [O. Marcouillé et al](https://accelconf.web.cern.ch/e08/papers/wepc120.pdf) or [slide page 25](https://www.jlab.org/conferences/FLS2012/talks/Thur/preID-FLS12_WGIDv2.pdf).
 
 
 ## Usage
