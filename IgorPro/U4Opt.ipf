@@ -287,9 +287,9 @@ Function B_un_plot()
 					ModifyGraph/W=$topGraphName rgb($"Gap_lu_K_gap" + gapstr)=(1,16019,65535)
 					ModifyGraph/W=$topGraphName grid=1,tick(left)=3,tick(bottom)=2,minor=1,gridStyle=3,gridRGB=(48059,48059,48059)
 					if (plot_tran == 0)
-						Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$topGraphName $"Gap_lu_K_gap" + gapstr, lu, gapstr+" mm"
+						Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$topGraphName/X=1/y=1 $"Gap_lu_K_gap" + gapstr, lu, gapstr+" mm"
 					else
-						Tag/A=RT/B=1/F=0/I=0/L=0/Z=0/W=$topGraphName $"Gap_lu_K_gap" + gapstr, lu, gapstr+" mm"
+						Tag/A=RT/B=1/F=0/I=0/L=0/Z=0/W=$topGraphName/X=1/y=1 $"Gap_lu_K_gap" + gapstr, lu, gapstr+" mm"
 					endif
 					setcolor()
 					i = i + 1
@@ -309,9 +309,9 @@ Function B_un_plot()
 					ModifyGraph/W=$topGraphName rgb($"Gap_lu_K_gap" + gapstr)=(1,16019,65535)
 					ModifyGraph/W=$topGraphName grid=1,tick(left)=3,tick(bottom)=2,minor=1,gridStyle=3,gridRGB=(48059,48059,48059)
 					if (plot_tran == 0)
-						Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$topGraphName $"Gap_lu_K_gap" + gapstr, lu, gapstr+" mm"
+						Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$topGraphName/X=1/y=1 $"Gap_lu_K_gap" + gapstr, lu, gapstr+" mm"
 					else
-						Tag/A=RT/B=1/F=0/I=0/L=0/Z=0/W=$topGraphName $"Gap_lu_K_gap" + gapstr, lu, gapstr+" mm"
+						Tag/A=RT/B=1/F=0/I=0/L=0/Z=0/W=$topGraphName/X=1/y=1 $"Gap_lu_K_gap" + gapstr, lu, gapstr+" mm"
 					endif
 					setcolor()
 					i = i + 1
@@ -360,9 +360,9 @@ Function B_un_plot()
 				ModifyGraph/W=$topGraphName lsize($"Gap_lu_K_gap" + gapstr)=1.5
 				ModifyGraph/W=$topGraphName rgb($"Gap_lu_K_gap" + gapstr)=(1,16019,65535)
 				if (plot_tran == 0)
-					Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$topGraphName $"Gap_lu_K_gap" + gapstr, lu, gapstr+" mm"
+					Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$topGraphName/X=1/y=1 $"Gap_lu_K_gap" + gapstr, lu, gapstr+" mm"
 				else
-					Tag/A=RT/B=1/F=0/I=0/L=0/Z=0/W=$topGraphName $"Gap_lu_K_gap" + gapstr, lu, gapstr+" mm"
+					Tag/A=RT/B=1/F=0/I=0/L=0/Z=0/W=$topGraphName/X=1/y=1 $"Gap_lu_K_gap" + gapstr, lu, gapstr+" mm"
 				endif
 				setcolor()
 				i = i + 1
@@ -1224,8 +1224,8 @@ Function Wigg_plots()
 	Make/D/N=(lu_pnt,fld_pnt)/O $"Flux_lu_field_K", $"Flux_lu_field_mw", $"Flux_lu_field_en", $"Flux_lu_field_fk", $"Flux_lu_field_pw", $"Flux_lu_field_ul", $"Flux_lu_field_n", $"Flux_lu_field_pa"
 	Wave m_flux_lu_field_K = $"Flux_lu_field_K", m_flux_lu_field_mw = $"Flux_lu_field_mw", m_flux_lu_field_en = $"Flux_lu_field_en", m_flux_lu_field_fk = $"Flux_lu_field_fk", m_flux_lu_field_pw = $"Flux_lu_field_pw", m_flux_lu_field_ul = $"Flux_lu_field_ul", m_flux_lu_field_n = $"Flux_lu_field_n", m_flux_lu_field_pa = $"Flux_lu_field_pa"
 	
-	Make/D/N=(lu_pnt,fld_pnt)/O $"Flux_lu_field_ha" 
-	Wave m_flux_lu_field_ha = $"Flux_lu_field_ha"
+	Make/D/N=(lu_pnt,fld_pnt)/O $"Flux_lu_field_ha", $"Flux_lu_field_ag" 
+	Wave m_flux_lu_field_ha = $"Flux_lu_field_ha", m_flux_lu_field_ag = $"Flux_lu_field_ag"
 	
 	i=0
 	Do
@@ -1246,6 +1246,9 @@ Function Wigg_plots()
 			if (mod(n_har, 2) == 0)
 				n_har = n_har - 1
 			endif
+			// sec 3.7, https://indico.ictp.it/event/a02011/contribution/1/material/0/0.pdf
+			m_flux_lu_field_ag[j][i] = 4*sqrt((1+m_flux_lu_field_K[j][i]^2/2)/(gg^2))	// a factor of 4 = 2 x 2 from both sides x2 and emission for each side x2
+			//m_flux_lu_field_ag[j][i] = m_flux_lu_field_K[j][i]/gg
 			m_flux_lu_field_ha[j][i] = n_har
 			m_flux_lu_field_fk[j][i] = ((n_har*m_flux_lu_field_K[j][i])^2/((1+m_flux_lu_field_K[j][i]^2/2)^2))*(BESSELJ((n_har-1)/2,n_har*m_flux_lu_field_K[j][i]^2/(4*(1+m_flux_lu_field_K[j][i]^2/2)))-BESSELJ((n_har+1)/2,n_har*m_flux_lu_field_K[j][i]^2/(4*(1+m_flux_lu_field_K[j][i]^2/2))))^2
 			
@@ -1264,8 +1267,8 @@ Function Wigg_plots()
 		i = i + 1
 	while(i<fld_pnt)
 	
-	SetScale/I	x lu_0,lu_1,"ID period (mm)", m_flux_lu_field_K, m_flux_lu_field_mw, m_flux_lu_field_ul, m_flux_lu_field_n, m_flux_lu_field_pw, m_flux_lu_field_pa, m_flux_lu_field_ha, m_flux_lu_field_en
-	SetScale/I  y fld_0, fld_1,"Field (T)", m_flux_lu_field_K, m_flux_lu_field_mw, m_flux_lu_field_ul, m_flux_lu_field_n, m_flux_lu_field_pw, m_flux_lu_field_pa, m_flux_lu_field_ha, m_flux_lu_field_en
+	SetScale/I	x lu_0,lu_1,"ID period (mm)", m_flux_lu_field_K, m_flux_lu_field_mw, m_flux_lu_field_ul, m_flux_lu_field_n, m_flux_lu_field_pw, m_flux_lu_field_pa, m_flux_lu_field_ha, m_flux_lu_field_en, m_flux_lu_field_ag
+	SetScale/I  y fld_0, fld_1,"Field (T)", m_flux_lu_field_K, m_flux_lu_field_mw, m_flux_lu_field_ul, m_flux_lu_field_n, m_flux_lu_field_pw, m_flux_lu_field_pa, m_flux_lu_field_ha, m_flux_lu_field_en, m_flux_lu_field_ag
 
 	Controlinfo/W=panelun setType
 	magnet_mode = V_Value
@@ -1280,16 +1283,6 @@ Function Wigg_plots()
 		
 		Do
 			lu = lu_0 + d_lu * j
-			
-//			if (gap/lu > gap_lu_0 && gap/lu < gap_lu_1)
-//				if (magnet_mode == 3)
-//					m_flux_lu_field[j] = 2*Br*(sin(pi/M)/(pi/M))*exp(-pi*(gap/lu))*(1-exp(-2*pi*(h_lu_r)))
-//				elseif (magnet_mode == 6)
-//					m_flux_lu_field[j] = (0.28052+0.05798*lu-0.0009*lu^2+5.1E-6*lu^3)*exp(-pi*((gap/lu)-0.5))
-//				else
-//					m_flux_lu_field[j] = T_a*exp((gap/lu)*(T_b+T_c*(gap/lu)))
-//				endif
-//			endif
 			m_flux_lu_field[j] = calc_field(gap, lu)
 			j = j + 1
 		while(j<lu_pnt)
@@ -1327,7 +1320,7 @@ Function Wigg_plots()
 		g_plot = "Flux_lu_field" + gapstr
 		AppendToGraph/W=$Period_field_plot $g_plot
 		ModifyGraph/W=$Period_field_plot lsize($g_plot)=1.5
-		Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=Period_field_plot $g_plot, lu_1, gapstr+" mm"
+		Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=Period_field_plot/X=1/y=1 $g_plot, lu_1, gapstr+" mm"
 		i = i + 1
 	while(i<gap_pnt)
 	
