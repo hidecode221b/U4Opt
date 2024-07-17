@@ -28,15 +28,13 @@ Function Undulator() : Panel
 		Variable/G T_a = 2.076, T_b = -3.24, T_c = 0, crev, gplot, xplot, K_max = 5
 		Variable/G PPM_a = 2.076, PPM_b = -3.24, PPM_c = 0, Br = 1.38, M = 4, h_lu_r = 0.5
 		Variable/G HYB_a = 3.694, HYB_b = -5.068, HYB_c = 1.52 // https://doi.org/10.1016/S0168-9002(00)00544-1
-		//Variable/G CPM_a = 4.625, CPM_b = -5.251, CPM_c = 2.079 // https://doi.org/10.1103/PhysRevAccelBeams.20.064801
-		Variable/G SCM_a = 12.42, SCM_b = -4.79, SCM_c = 0.385 // https://doi.org/10.1016/S0168-9002(00)00544-1
-		
-		// https://doi.org/10.3389/fphy.2023.1204073
-		//Variable/G HYB_a = 3.381, HYB_b = -4.73, HYB_c = 1.198 // https://doi.org/10.1016/S0168-9002(00)00544-1
+		Variable/G HFe_a = 3.381, HFe_b = -4.73, HFe_c = 1.198 // https://doi.org/10.1016/S0168-9002(00)00544-1
 		Variable/G CPM_a = 3.502, CPM_b = -3.604, CPM_c = 0.359 // https://publications.anl.gov/anlpubs/2017/07/137001.pdf
-		//Variable/G SCM // https://doi.org/10.1016/j.nima.2005.03.150
-		
-		Variable/G lu_0 = 15, lu_1 = 22, lu_t = 20, lu_pnt = 71, K_0 = 1, K_1 = 3, K_t = 2, K_pnt = 21
+		Variable/G CPH_a = 4.625, CPH_b = -5.251, CPH_c = 2.079 // https://doi.org/10.1103/PhysRevAccelBeams.20.064801
+		Variable/G SCM_a = 12.42, SCM_b = -4.79, SCM_c = 0.385 // https://doi.org/10.1016/S0168-9002(00)00544-1
+		// SCM(Kim) // https://doi.org/10.1016/j.nima.2005.03.150
+		// ref. https://doi.org/10.3389/fphy.2023.1204073
+		Variable/G lu_0 = 15, lu_1 = 25, lu_t = 20, lu_pnt = 71, K_0 = 1, K_1 = 3, K_t = 2, K_pnt = 21
 		Variable/G gap_0 = 4, gap_1 = 5.5, gap_pnt = 4, gap_lu_0 = 0.001, gap_lu_1 = 10 // limit of gap/lu range, default 0.1 < gap/lu < 1.0
 		Variable/G fld_0 = 1, fld_1 = 8, fld_pnt = 100
 		Variable/G sigma_xr = 97.44, sigma_yr = 3.9, sigma_xd = 9.754, sigma_yd = 2.437, pe_wigg = 50, max_power = 25
@@ -95,7 +93,7 @@ Function Undulator() : Panel
 	SetVariable setCou pos={10,375},size={150,30},title="Coupling:",limits={0.0000001,1,0},value=coupling, proc = set_cou
 
 	TitleBox tit_mag_est,title="Magnetic field simulation",pos={200,10},size={100, 20},fsize=14,frame=0
-	PopupMenu setType pos={200,40},size={150,30},title="Magnet type:",value="PPM(a,b,c);HYB(a,b,c);PPM(Br,M,h);CPM(a,b,c);SCM(a,b,c);SCM(Kim);Define(a,b,c)",proc=set_Type_mag
+	PopupMenu setType pos={200,40},size={150,30},title="Magnet type:",value="PPM(a,b,c);HYB(a,b,c);Iron(a,b,c);CPM(a,b,c);CPH(a,b,c);SCM(a,b,c);SCK(Kim);Define(a,b,c);PPM(Br,M,h)",proc=set_Type_mag
 	TitleBox tit_T_a,title="a:",pos={200,60},size={50, 20},frame=0
 	TitleBox tit_T_b,title="b:",pos={250,60},size={50, 20},frame=0
 	TitleBox tit_T_c,title="c:",pos={300,60},size={50, 20},frame=0
@@ -238,7 +236,7 @@ Function B_un_plot()
 	NVAR lu_0 = root:un:lu_0, lu_1 = root:un:lu_1, lu_pnt = root:un:lu_pnt, K_0 = root:un:K_0, K_1 = root:un:K_1, K_pnt = root:un:K_pnt
 	NVAR crev = root:un:crev, gplot = root:un:gplot, E_e = root:un:E_e, I_e = root:un:I_e, u_length = root:un:u_length, n_har = root:un:n_har
 	
-	String wn = targetName(1), plot_type, color_type, w_tmp, gapstr, str_tag, str_tag_list
+	String wn = targetName(1), plot_type, color_type, w_tmp, gapstr, str_tag, str_tag_list, gap_list, gap_wave
 	Variable i = 0, d_gap = (gap_1 - gap_0)/(gap_pnt-1), gap_plot, color_rev, plot_tran
 	Variable lu = lu_1-(lu_1-lu_0)/10	// Tag position of gap (mm)
 	
@@ -294,6 +292,15 @@ Function B_un_plot()
 					setcolor()
 					i = i + 1
 				while(i < gap_pnt)
+				
+				i =0
+				gap_list = WaveList("Gap_lu_K_gap*", ";", "DIMS:1")
+				print ItemsInList(gap_list, ";")
+				Do
+					gap_wave = StringFromList(i, gap_list, ";")
+					KillWaves/Z $gap_wave
+					i = i + 1
+				while(i < ItemsInList(gap_list, ";"))
 			else
 				i=0
 				Do
@@ -316,6 +323,15 @@ Function B_un_plot()
 					setcolor()
 					i = i + 1
 				while(i < gap_pnt)
+				
+				i =0
+				gap_list = WaveList("Gap_lu_K_gap*", ";", "DIMS:1")
+				print ItemsInList(gap_list, ";")
+				Do
+					gap_wave = StringFromList(i, gap_list, ";")
+					KillWaves/Z $gap_wave
+					i = i + 1
+				while(i < ItemsInList(gap_list, ";"))
 			endif
 		else
 			if (ItemsInList(w_list) > 1)
@@ -367,6 +383,15 @@ Function B_un_plot()
 				setcolor()
 				i = i + 1
 			while(i < gap_pnt)
+			
+			i =0
+			gap_list = WaveList("Gap_lu_K_gap*", ";", "DIMS:1")
+			print ItemsInList(gap_list, ";")
+			Do
+				gap_wave = StringFromList(i, gap_list, ";")
+				KillWaves/Z $gap_wave
+				i = i + 1
+			while(i < ItemsInList(gap_list, ";"))
 		endif
 	endif
 	DoWindow/F panelun
@@ -1151,7 +1176,7 @@ Function Plot_field_lu()
 	NVAR winpos = root:un:winpos, winsize = root:un:winsize, w_width = root:un:w_width, w_height = root:un:w_height
 	NVAR gap_0 = root:un:gap_0, gap_1 = root:un:gap_1, gap_pnt = root:un:gap_pnt, lu_0 = root:un:lu_0, lu_1 = root:un:lu_1
 	Variable i = 0, d_gap = (gap_1 - gap_0)/(gap_pnt-1), gap, lu = lu_1-(lu_1-lu_0)/10
-	String gapstr, m_plot, Field_lu_plot = "Field_lu_plot"
+	String gapstr, m_plot, Field_lu_plot = "Field_lu_plot", gap_list, gap_wave
 	
 	DoWindow $Field_lu_plot
 	if (V_flag == 1)
@@ -1178,6 +1203,15 @@ Function Plot_field_lu()
 			Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=Field_lu_plot $"Gap_lu_field_gap" + gapstr, lu, gapstr+" mm"
 			i = i + 1
 		while(i<gap_pnt)
+		
+		i =0
+		gap_list = WaveList("Gap_lu_field_gap*", ";", "DIMS:1")
+		print ItemsInList(gap_list, ";")
+		Do
+			gap_wave = StringFromList(i, gap_list, ";")
+			KillWaves/Z $gap_wave
+			i = i + 1
+		while(i < ItemsInList(gap_list, ";"))
 	endif
 	
 	ModifyGraph/W=$Field_lu_plot mirror=2
@@ -1583,6 +1617,13 @@ Function set_Type_mag(ctrlName, popNum, popStr) : PopupMenuControl
 		T_a = HYB_a
 		T_b = HYB_b
 		T_c = HYB_c
+	elseif (popNum == 3)
+		NVAR HFe_a = root:un:HFe_a
+		NVAR HFe_b = root:un:HFe_b
+		NVAR HFe_c = root:un:HFe_c
+		T_a = HFe_a
+		T_b = HFe_b
+		T_c = HFe_c
 	elseif (popNum == 4)
 		NVAR CPM_a = root:un:CPM_a
 		NVAR CPM_b = root:un:CPM_b
@@ -1591,12 +1632,25 @@ Function set_Type_mag(ctrlName, popNum, popStr) : PopupMenuControl
 		T_b = CPM_b
 		T_c = CPM_c
 	elseif (popNum == 5)
+		NVAR CPH_a = root:un:CPH_a
+		NVAR CPH_b = root:un:CPH_b
+		NVAR CPH_c = root:un:CPH_c
+		T_a = CPH_a
+		T_b = CPH_b
+		T_c = CPH_c
+	elseif (popNum == 6)
 		NVAR SCM_a = root:un:SCM_a
 		NVAR SCM_b = root:un:SCM_b
 		NVAR SCM_c = root:un:SCM_c
 		T_a = SCM_a
 		T_b = SCM_b
 		T_c = SCM_c
+	elseif (popNum == 7)
+		// SCM(Kim)
+	elseif (popNum == 8)
+		// User define
+	elseif (popNum == 9)
+		// PPM(Br, M, h)
 	endif
 	
 	Gap_lu_K()
@@ -1795,13 +1849,6 @@ Function luscaleproc(name, value, event)
 	Controlinfo/W=panelun setType
 	
 	if (gap/lu_t > gap_lu_0 && gap/lu_t < gap_lu_1)
-//		if (V_Value == 3)
-//			field = 2*Br*(sin(pi/M)/(pi/M))*exp(-pi*(gap/lu_t))*(1-exp(-2*pi*(h_lu_r)))
-//		elseif (V_Value == 6)
-//			field = (0.28052+0.05798*lu_t-0.0009*lu_t^2+5.1E-6*lu_t^3)*exp(-pi*((gap/lu_t)-0.5))
-//		else
-//			field = T_a*exp((gap/lu_t)*(T_b+T_c*(gap/lu_t)))
-//		endif
 		field = calc_field(gap, lu_t)
 		K_t = 0.0934*field*lu_t
 	else
@@ -1859,13 +1906,6 @@ Function set_lu_scale(ctrlName,varNum,varStr,varName) : SetVariableControl
 	Controlinfo/W=panelun setType
 	
 	if (gap/lu_t > gap_lu_0 && gap/lu_t < gap_lu_1)
-//		if (V_Value == 3)
-//			field = 2*Br*(sin(pi/M)/(pi/M))*exp(-pi*(gap/lu_t))*(1-exp(-2*pi*(h_lu_r)))
-//		elseif (V_Value == 6)
-//			field = (0.28052+0.05798*lu_t-0.0009*lu_t^2+5.1E-6*lu_t^3)*exp(-pi*((gap/lu_t)-0.5))
-//		else
-//			field = T_a*exp((gap/lu_t)*(T_b+T_c*(gap/lu_t)))
-//		endif
 		field = calc_field(gap, lu_t)
 		K_t = 0.0934*field*lu_t
 	else
@@ -1973,9 +2013,9 @@ Function calc_field(gap, lu)
 	
 	if (gap/lu > gap_lu_0 && gap/lu < gap_lu_1)
 		Controlinfo/W=panelun setType
-		if (V_Value == 3)
+		if (V_Value == 9)
 			field = 2*Br*(sin(pi/M)/(pi/M))*exp(-pi*(gap/lu))*(1-exp(-2*pi*(h_lu_r)))
-		elseif (V_Value == 6)
+		elseif (V_Value == 7)
 			field = (0.28052+0.05798*lu-0.0009*lu^2+5.1E-6*lu^3)*exp(-pi*((gap/lu)-0.5))
 		else
 			field = T_a*exp((gap/lu)*(T_b+T_c*(gap/lu)))
