@@ -29,13 +29,14 @@ Function Undulator() : Panel
 		Variable/G PPM_a = 2.076, PPM_b = -3.24, PPM_c = 0, Br = 1.38, M = 4, h_lu_r = 0.5
 		Variable/G HYB_a = 3.694, HYB_b = -5.068, HYB_c = 1.52 // https://doi.org/10.1016/S0168-9002(00)00544-1
 		Variable/G HFe_a = 3.381, HFe_b = -4.73, HFe_c = 1.198 // https://doi.org/10.1016/S0168-9002(00)00544-1
+		Variable/G HCo_a = 3.33, HCo_b = -5.47, HCo_c = 1.8 // https://doi.org/10.1016/j.nima.2005.03.150 or 10.1051/jphyscol:1983120
 		Variable/G CPM_a = 3.502, CPM_b = -3.604, CPM_c = 0.359 // https://publications.anl.gov/anlpubs/2017/07/137001.pdf
 		Variable/G CPH_a = 4.625, CPH_b = -5.251, CPH_c = 2.079 // https://doi.org/10.1103/PhysRevAccelBeams.20.064801
 		Variable/G SCM_a = 12.42, SCM_b = -4.79, SCM_c = 0.385 // https://doi.org/10.1016/S0168-9002(00)00544-1
 		// SCM(Kim) // https://doi.org/10.1016/j.nima.2005.03.150
 		// ref. https://doi.org/10.3389/fphy.2023.1204073
 		Variable/G lu_0 = 15, lu_1 = 25, lu_t = 20, lu_pnt = 71, K_0 = 1, K_1 = 3, K_t = 2, K_pnt = 21
-		Variable/G gap_0 = 4, gap_1 = 5.5, gap_pnt = 4, gap_lu_0 = 0.001, gap_lu_1 = 10 // limit of gap/lu range, default 0.1 < gap/lu < 1.0
+		Variable/G gap_0 = 4, gap_1 = 5.5, gap_pnt = 4, gap_lu_0 = 0.001, gap_lu_1 = 1 // limit of gap/lu range, default 0.1 < gap/lu < 1.0
 		Variable/G fld_0 = 1, fld_1 = 8, fld_pnt = 100
 		Variable/G sigma_xr = 97.44, sigma_yr = 3.9, sigma_xd = 9.754, sigma_yd = 2.437, pe_wigg = 50, max_power = 25
 		Variable/G emi_x = 9.6E-10, emi_y = 9.6E-12, beta_x = 9.99, beta_y = 1.6, esp = 0.00077 // emi9.5E-10/7.6E-12, beta9.95/1.6, esp0.00077
@@ -53,7 +54,7 @@ Function Undulator() : Panel
 		String/G lu_str, K_str
 	endif
 	
-	NewPanel /W=(loadpos,10,loadpos+370,540)/N=panelun as "Undulator"
+	NewPanel /W=(loadpos,10,loadpos+370,550)/N=panelun as "Undulator"
 	
 	TitleBox tit_un_opt,title="Machine parameters",pos={10,10},size={100, 40},fsize=14,frame=0
 	SetVariable setE_e pos={10,40},size={150,30},title="Beam energy (GeV):",limits={0.1,10,0},value=E_e, proc = set_E_e
@@ -93,13 +94,13 @@ Function Undulator() : Panel
 	SetVariable setCou pos={10,375},size={150,30},title="Coupling:",limits={0.0000001,1,0},value=coupling, proc = set_cou
 
 	TitleBox tit_mag_est,title="Magnetic field simulation",pos={200,10},size={100, 20},fsize=14,frame=0
-	PopupMenu setType pos={200,40},size={150,30},title="Magnet type:",value="PPM(a,b,c);HYB(a,b,c);Iron(a,b,c);CPM(a,b,c);CPH(a,b,c);SCM(a,b,c);SCK(Kim);Define(a,b,c);PPM(Br,M,h)",proc=set_Type_mag
+	PopupMenu setType pos={200,40},size={150,30},title="Magnet type:",value="PPM(a,b,c);HYB(a,b,c);HFe(a,b,c);HCo(a,b,c);CPM(a,b,c);CPH(a,b,c);SCM(a,b,c);SCK(Kim);Define(a,b,c);PPM(Br,M,h)",proc=set_Type_mag
 	TitleBox tit_T_a,title="a:",pos={200,60},size={50, 20},frame=0
 	TitleBox tit_T_b,title="b:",pos={250,60},size={50, 20},frame=0
 	TitleBox tit_T_c,title="c:",pos={300,60},size={50, 20},frame=0
-	SetVariable setT_a pos={200,75},size={50,30},title=" ",limits={-10,10,0},value=T_a, proc = set_T_a
-	SetVariable setT_b pos={250,75},size={50,30},title=" ",limits={-10,10,0},value=T_b, proc = set_T_b
-	SetVariable setT_c pos={300,75},size={50,30},title=" ",limits={-10,10,0},value=T_c, proc = set_T_c
+	SetVariable setT_a pos={200,75},size={50,30},title=" ",limits={-20,20,0},value=T_a, proc = set_T_a
+	SetVariable setT_b pos={250,75},size={50,30},title=" ",limits={-20,20,0},value=T_b, proc = set_T_b
+	SetVariable setT_c pos={300,75},size={50,30},title=" ",limits={-20,20,0},value=T_c, proc = set_T_c
 	TitleBox tit_Br,title="Br (T):",pos={200,95},size={50, 20},frame=0
 	TitleBox tit_M,title="M:",pos={250,95},size={50, 20},frame=0
 	TitleBox tit_h,title="h/lu:",pos={300,95},size={50, 20},frame=0
@@ -136,16 +137,17 @@ Function Undulator() : Panel
 	SetVariable setpherr pos={200,375},size={150,30},title="Phase error (deg):",limits={0,10,1},value=ph_err, proc = set_ph_err
 	
 	PopupMenu setPlotWigg pos={200,400},size={150,30},title="Wiggler",value="Flux < Pmax;AFD < Pmax;AFD at L in W;AFD at L in U",proc=set_plot_wigg
-	SetVariable setpewigg pos={200,420},size={150,30},title="Photon energy (keV):",limits={1,200,1},value=pe_wigg, proc = set_pe_wigg
-	SetVariable setmaxpw pos={200,440},size={150,30},title="Power max (kW):",limits={1,200,1},value=max_power, proc = set_max_power
+	PopupMenu setAddWigg pos={200,420},size={150,30},title="Addtional",value="Angle,mrad;Harmonic #;K;# periods;P,kW/m;P,kW/ID;Total length,m",proc=set_add_wigg
+	SetVariable setpewigg pos={200,440},size={150,30},title="Photon energy (keV):",limits={1,200,1},value=pe_wigg, proc = set_pe_wigg
+	SetVariable setmaxpw pos={200,460},size={150,30},title="Power max (kW):",limits={1,200,1},value=max_power, proc = set_max_power
 	
-	TitleBox tit_fld_est,title="Field range (T)",pos={200,460},size={100, 20},frame=0
-	TitleBox tit_fld_0,title="Initial:",pos={200,475},size={50, 20},frame=0
-	TitleBox tit_fld_1,title="End:",pos={250,475},size={50, 20},frame=0
-	TitleBox tit_fld_p,title="# points:",pos={300,475},size={50, 20},frame=0
-	SetVariable setfld_0 pos={200,490},size={50,30},title=" ",limits={0.1,10,1},value=fld_0, proc = set_fld_0
-	SetVariable setfld_1 pos={250,490},size={50,30},title=" ",limits={0.1,10,1},value=fld_1, proc = set_fld_1
-	SetVariable setfld_pnt pos={300,490},size={50,30},title=" ",limits={2,10001,1},value=fld_pnt, proc = set_fld_pnt
+	TitleBox tit_fld_est,title="Field range (T)",pos={200,480},size={100, 20},frame=0
+	TitleBox tit_fld_0,title="Initial:",pos={200,495},size={50, 20},frame=0
+	TitleBox tit_fld_1,title="End:",pos={250,495},size={50, 20},frame=0
+	TitleBox tit_fld_p,title="# points:",pos={300,495},size={50, 20},frame=0
+	SetVariable setfld_0 pos={200,510},size={50,30},title=" ",limits={0.1,10,1},value=fld_0, proc = set_fld_0
+	SetVariable setfld_1 pos={250,510},size={50,30},title=" ",limits={0.1,10,1},value=fld_1, proc = set_fld_1
+	SetVariable setfld_pnt pos={300,510},size={50,30},title=" ",limits={2,10001,1},value=fld_pnt, proc = set_fld_pnt
 
 	SetDataFolder saveDF
 End
@@ -1231,7 +1233,7 @@ Function Wigg_plots()
 	NVAR T_a = root:un:T_a, T_b = root:un:T_b, T_c = root:un:T_c, fld_0 = root:un:fld_0, fld_1 = root:un:fld_1, fld_pnt = root:un:fld_pnt
 	NVAR Br = root:un:Br, M = root:un:M, h_lu_r = root:un:h_lu_r, gap_lu_0 = root:un:gap_lu_0, gap_lu_1 = root:un:gap_lu_1
 	Variable i = 0, j=0, d_gap = (gap_1 - gap_0)/(gap_pnt-1), gap, d_lu = (lu_1-lu_0)/(lu_pnt-1), lu, n_har, plot_type, magnet_mode 
-	String Period_field_plot = "Period_field_plot", m_plot, gapstr, g_plot
+	String Period_field_plot = "Period_field_plot", m_plot, gapstr, g_plot, plot_add
 	
 	String savedDF = GetDataFolder(1)
 	
@@ -1268,22 +1270,23 @@ Function Wigg_plots()
 		Do
 			lu = lu_0+d_lu*j
 			N = (u_length/lu)	// use floor for practical application 
-			m_flux_lu_field_K[j][i] = 0.0934*fld*lu
+			m_flux_lu_field_K[j][i] = 0.0934*fld*lu	// K
 			m_flux_lu_field_en[j][i] = ((10^-3)*(hc))/((lu*10^-3/(2*gg^2))*(1+m_flux_lu_field_K[j][i]^2/2))
 			
-			m_flux_lu_field_pw[j][i] = 0.633 * E_e^2 * fld^2 * 1 * I_e	// kW for L = 1 m
-			m_flux_lu_field_ul[j][i] = 1000 * max_power/m_flux_lu_field_pw[j][i]
-			m_flux_lu_field_n[j][i] = (m_flux_lu_field_ul[j][i]/lu)	// use floor for practical application 
-			m_flux_lu_field_pa[j][i] = 0.633 * E_e^2 * fld^2 * m_flux_lu_field_ul[j][i] * I_e	// kW for L = 1 m
+			m_flux_lu_field_pw[j][i] = 0.633 * E_e^2 * fld^2 * 1 * I_e	// kW power per m
+			m_flux_lu_field_ul[j][i] = max_power/m_flux_lu_field_pw[j][i]	// ID length (m)
+			m_flux_lu_field_n[j][i] = (1000*m_flux_lu_field_ul[j][i]/lu)	// # periods: use floor for practical application 
+			m_flux_lu_field_pa[j][i] = 0.633 * E_e^2 * fld^2 * m_flux_lu_field_ul[j][i] * I_e	// kW for ID length
 			n_har = floor(pe_wigg/m_flux_lu_field_en[j][i])
 			
 			if (mod(n_har, 2) == 0)
 				n_har = n_har - 1
 			endif
 			// sec 3.7, https://indico.ictp.it/event/a02011/contribution/1/material/0/0.pdf
-			m_flux_lu_field_ag[j][i] = 4*sqrt((1+m_flux_lu_field_K[j][i]^2/2)/(gg^2))	// a factor of 4 = 2 x 2 from both sides x2 and emission for each side x2
+			m_flux_lu_field_ag[j][i] = 1000*4*sqrt((1+m_flux_lu_field_K[j][i]^2/2)/(gg^2))	// mrad: a factor of 4 = 2 x 2 from both sides x2 and emission for each side x2
 			//m_flux_lu_field_ag[j][i] = m_flux_lu_field_K[j][i]/gg
 			m_flux_lu_field_ha[j][i] = n_har
+			// undulator Fk
 			m_flux_lu_field_fk[j][i] = ((n_har*m_flux_lu_field_K[j][i])^2/((1+m_flux_lu_field_K[j][i]^2/2)^2))*(BESSELJ((n_har-1)/2,n_har*m_flux_lu_field_K[j][i]^2/(4*(1+m_flux_lu_field_K[j][i]^2/2)))-BESSELJ((n_har+1)/2,n_har*m_flux_lu_field_K[j][i]^2/(4*(1+m_flux_lu_field_K[j][i]^2/2))))^2
 			
 			if (plot_type == 1)	// wiggler < max power per horizontal mrad
@@ -1331,7 +1334,7 @@ Function Wigg_plots()
 	
 	Display/N=$Period_field_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
 	AppendMatrixContour/W=$Period_field_plot $m_plot
-	ModifyContour/W=$Period_field_plot $m_plot autoLevels={*,*,41}
+	ModifyContour/W=$Period_field_plot $m_plot autoLevels={*,*,11}
 	ModifyGraph/W=$Period_field_plot nticks=5,manTick=0,manMinor(bottom)={0,0}
 	ModifyGraph/W=$Period_field_plot grid=1,tick=2,mirror=2,minor(left)=1,gridStyle=3,gridRGB=(34952,34952,34952)
 	//setcolor()
@@ -1359,6 +1362,32 @@ Function Wigg_plots()
 	while(i<gap_pnt)
 	
 	setcolor()
+	
+	Controlinfo/W=panelun setAddWigg
+	if (V_Value == 1)
+		plot_add = "Flux_lu_field_ag"	// angle
+	elseif (V_Value == 2)
+		plot_add = "Flux_lu_field_ha"	// harmonics
+	elseif (V_Value == 3)
+		plot_add = "Flux_lu_field_K"	// K
+	elseif (V_Value == 4)	
+		plot_add = "Flux_lu_field_n"	// # periods
+	elseif (V_Value == 5)
+		plot_add = "Flux_lu_field_pw"	// kW power per 1 m
+	elseif (V_Value == 6)
+		plot_add = "Flux_lu_field_pa"	// kW power total
+	elseif (V_Value == 7)
+		plot_add = "Flux_lu_field_ul"	// total length
+	endif
+	
+	AppendMatrixContour/W=$Period_field_plot $plot_add
+	ModifyContour/W=$Period_field_plot $plot_add autoLevels={*,*,6}
+	ModifyContour/W=$Period_field_plot $plot_add rgbLines=(43690,43690,43690), labelFStyle=2
+	
+	If (stringmatch(plot_add,"Flux_lu_field_ha")==1)
+		ModifyContour $plot_add manLevels={1,2,21}
+	endif
+		
 	DoWindow/F panelun
 End
 
@@ -1625,20 +1654,27 @@ Function set_Type_mag(ctrlName, popNum, popStr) : PopupMenuControl
 		T_b = HFe_b
 		T_c = HFe_c
 	elseif (popNum == 4)
+		NVAR HCo_a = root:un:HCo_a
+		NVAR HCo_b = root:un:HCo_b
+		NVAR HCo_c = root:un:HCo_c
+		T_a = HCo_a
+		T_b = HCo_b
+		T_c = HCo_c
+	elseif (popNum == 5)
 		NVAR CPM_a = root:un:CPM_a
 		NVAR CPM_b = root:un:CPM_b
 		NVAR CPM_c = root:un:CPM_c
 		T_a = CPM_a
 		T_b = CPM_b
 		T_c = CPM_c
-	elseif (popNum == 5)
+	elseif (popNum == 6)
 		NVAR CPH_a = root:un:CPH_a
 		NVAR CPH_b = root:un:CPH_b
 		NVAR CPH_c = root:un:CPH_c
 		T_a = CPH_a
 		T_b = CPH_b
 		T_c = CPH_c
-	elseif (popNum == 6)
+	elseif (popNum == 7)
 		NVAR SCM_a = root:un:SCM_a
 		NVAR SCM_b = root:un:SCM_b
 		NVAR SCM_c = root:un:SCM_c
@@ -1981,6 +2017,14 @@ Function set_plot_wigg(ctrlName, popNum, popStr) : PopupMenuControl
 	Wigg_plots()
 End
 
+Function set_add_wigg(ctrlName, popNum, popStr) : PopupMenuControl
+	String ctrlName
+	Variable popNum
+	String popStr
+	
+	Wigg_plots()
+End
+
 Function set_fld_0(ctrlName,varNum,varStr,varName) : SetVariableControl
 	String ctrlName,varStr,varName
 	Variable varNum
@@ -2013,9 +2057,9 @@ Function calc_field(gap, lu)
 	
 	if (gap/lu > gap_lu_0 && gap/lu < gap_lu_1)
 		Controlinfo/W=panelun setType
-		if (V_Value == 9)
+		if (V_Value == 10)
 			field = 2*Br*(sin(pi/M)/(pi/M))*exp(-pi*(gap/lu))*(1-exp(-2*pi*(h_lu_r)))
-		elseif (V_Value == 7)
+		elseif (V_Value == 8)
 			field = (0.28052+0.05798*lu-0.0009*lu^2+5.1E-6*lu^3)*exp(-pi*((gap/lu)-0.5))
 		else
 			field = T_a*exp((gap/lu)*(T_b+T_c*(gap/lu)))
