@@ -20,6 +20,10 @@ $$K = \sqrt{2 \langle (\gamma \beta)^2 \rangle}$$
 
 $$\langle (\gamma \beta)^2 \rangle = {1 \over \lambda_u} \int_0^{\lambda_u} \lbrack(\gamma \beta_x)^2+(\gamma \beta_y)^2 \rbrack dz$$
 
+An example of period 20 mm in a sinusoidal $B$ or $\beta (z)$ shown in Fig. below results in the $K$ value equal to the effective $K$.
+
+$$K_{\mbox{20 mm}} = \sqrt{2 \cdot 34.889 \over 20} = 1.868$$
+
 ![Undulator peak field at 1 Tesla in a period of 20 mm](/Images/IgorPro_undulator_beta.png)
 
 Here, even if $\beta (z)$ is not sinusoidal, the effective $K$ should be obtained in either the numerical integration of the field as shown above or the discrete Fourier transform (DFT) analysis within a period $\lambda_u$. 
