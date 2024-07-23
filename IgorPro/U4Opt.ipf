@@ -1392,6 +1392,9 @@ Function plot_field_lu_w()
 	ModifyContour/W=$Period_field_plot $m_plot autoLevels={*,*,11}
 	ModifyGraph/W=$Period_field_plot nticks=5,manTick=0,manMinor(bottom)={0,0}
 	ModifyGraph/W=$Period_field_plot grid=1,tick=2,mirror=2,minor(left)=1,gridStyle=3,gridRGB=(34952,34952,34952)
+	// append image
+	AppendImage/W=$Period_field_plot $m_plot
+	ModifyImage/W=$Period_field_plot $m_plot ctab={*, *, Rainbow, 0 }
 	//setcolor()
 	if (plot_type == 1)	// wiggler < max power
 		TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Spectral Flux density (ph/s/mrad/0.1%bw) limited by "+num2str(max_power)+" kW at "+num2str(pe_wigg)+" keV"	
@@ -1405,7 +1408,6 @@ Function plot_field_lu_w()
 		TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Flux (ph/s/0.1%bw) at "+num2str(u_length)+" mm at "+num2str(pe_wigg)+" keV in Undulator"
 	elseif (plot_type == 6)	// undulator at u_length
 		TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Effective Flux (ph/s/0.1%bw) at "+num2str(u_length)+" mm at "+num2str(pe_wigg)+" keV in Undulator"
-
 	endif
 	SetAxis/W=Period_field_plot left fld_0,fld_1
 	SetAxis/W=Period_field_plot bottom lu_0,lu_1
