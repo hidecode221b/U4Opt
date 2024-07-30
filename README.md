@@ -12,7 +12,7 @@ $$\mbox{($B_0$ in Tesla, $\lambda_u$ in m)}$$
 
 $B_0$ can be designed in the magnet height ($h$) and magnetization ($B_r$), and tuned in the magnetic gap ($g$) and temperature. The minimum gap is basically limited in the dynamic aperture of the storage ring lattice, and the maximum gap is limited in the mechanical structure of the undulator. Various magnetic types and structures are available in the advanced synchrotron facilities. 
 
-The deviation from the sinusoidal field appears owing to the finite number of trapezoidal magnet blocks in a period ($M$). In particular, the hybrid short period undulator deforms the sinusoidal field because the high peak field strength at the small pole materials. The photon radiative field can be analyzed in the Fourier transform as described in elsewhere by Takashi Tanaka [[1](https://doi.org/10.1107/S090904950101425X),[2](https://doi.org/10.1103/PhysRevAccelBeams.21.110704)].
+The deviation from the sinusoidal field appears owing to the finite number of trapezoidal magnet blocks in a period ($M$). In particular, the hybrid short period undulator deforms the sinusoidal field because the high peak field strength at the small pole materials. The photon radiative field can be formulated  and analyzed by Takashi Tanaka [[1](https://doi.org/10.1107/S090904950101425X),[2](https://doi.org/10.1103/PhysRevAccelBeams.21.110704)].
 
 $$\beta_{x,y} (z) = \pm {e \over \gamma m c} \int_0^z B_{y,x} (z') dz'$$
 
