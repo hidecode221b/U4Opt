@@ -37,7 +37,7 @@ Function Undulator() : Panel
 		// ref. https://doi.org/10.3389/fphy.2023.1204073
 		Variable/G lu_0 = 15, lu_1 = 25, lu_t = 20, lu_pnt = 71, K_0 = 1, K_1 = 3, K_t = 2, K_pnt = 21
 		Variable/G gap_0 = 4, gap_1 = 5.5, gap_pnt = 4, gap_lu_0 = 0.001, gap_lu_1 = 1 // limit of gap/lu range, default 0.1 < gap/lu < 1.0
-		Variable/G fld_0 = 1, fld_1 = 8, fld_pnt = 100
+		Variable/G fld_0 = 1, fld_1 = 8, fld_pnt = 100, iplot=0
 		Variable/G sigma_xr = 97.44, sigma_yr = 3.9, sigma_xd = 9.754, sigma_yd = 2.437, pe_wigg = 50, max_power = 25
 		Variable/G emi_x = 9.6E-10, emi_y = 9.6E-12, beta_x = 9.99, beta_y = 1.6, esp = 0.00077 // emi9.5E-10/7.6E-12, beta9.95/1.6, esp0.00077
 		Variable/G coupling = emi_y/emi_x // 0.01
@@ -46,7 +46,7 @@ Function Undulator() : Panel
 		SetDataFolder root:un
 		//String/G File_Name, Full
 		Variable/G E_e, I_e, u_length, n_har, T_a, T_b, T_c, crev, gplot, xplot, PPM_a, PPM_b, PPM_c, HYB_a, HYB_b, HYB_c, Br, M, h_lu_r, ph_err
-		Variable/G CPM_a, CPM_b, CPM_c, SCM_a, SCM_b, SCM_c, fld_0, fld_1, fld_pnt
+		Variable/G CPM_a, CPM_b, CPM_c, SCM_a, SCM_b, SCM_c, fld_0, fld_1, fld_pnt, iplot
 		Variable/G lu_0, lu_1, lu_t, lu_pnt, K_0, K_1, K_t, K_pnt, gap_0, gap_1, gap_pnt, gap_lu_0, gap_lu_1, K_max
 		Variable/G winsize, winpos, loadpos, w_width, w_height
 		Variable/G sigma_xr, sigma_yr, sigma_xd, sigma_yd, pe_wigg, max_power
@@ -142,6 +142,7 @@ Function Undulator() : Panel
 	SetVariable setmaxpw pos={200,460},size={150,30},title="Power max (kW):",limits={0.01,200,1},value=max_power, proc = set_max_power
 	
 	TitleBox tit_fld_est,title="Field range (T)",pos={200,480},size={100, 20},frame=0
+	CheckBox setImgPlot pos={300,480},title="Img:",side=1,value=iplot,proc=set_img_plot
 	TitleBox tit_fld_0,title="Initial:",pos={200,495},size={50, 20},frame=0
 	TitleBox tit_fld_1,title="End:",pos={250,495},size={50, 20},frame=0
 	TitleBox tit_fld_p,title="# points:",pos={300,495},size={50, 20},frame=0
@@ -1358,7 +1359,7 @@ Function plot_field_lu_w()
 	NVAR winpos = root:un:winpos, winsize = root:un:winsize, w_width = root:un:w_width, w_height = root:un:w_height
 	NVAR E_e = root:un:E_e, I_e = root:un:I_e, u_length = root:un:u_length, pe_wigg = root:un:pe_wigg, max_power = root:un:max_power
 	NVAR gap_0 = root:un:gap_0, gap_1 = root:un:gap_1, gap_pnt = root:un:gap_pnt, lu_0 = root:un:lu_0, lu_1 = root:un:lu_1, lu_pnt = root:un:lu_pnt
-	NVAR fld_0 = root:un:fld_0, fld_1 = root:un:fld_1, fld_pnt = root:un:fld_pnt
+	NVAR fld_0 = root:un:fld_0, fld_1 = root:un:fld_1, fld_pnt = root:un:fld_pnt, iplot=root:un:iplot
 	
 	Variable i = 0, j=0, d_gap = (gap_1 - gap_0)/(gap_pnt-1), gap, d_lu = (lu_1-lu_0)/(lu_pnt-1), lu, n_har, plot_type, magnet_mode, eta_x, eta_y
 	String Period_field_plot = "Period_field_plot", m_plot, gapstr, g_plot, plot_add
@@ -1393,8 +1394,12 @@ Function plot_field_lu_w()
 	ModifyGraph/W=$Period_field_plot nticks=5,manTick=0,manMinor(bottom)={0,0}
 	ModifyGraph/W=$Period_field_plot grid=1,tick=2,mirror=2,minor(left)=1,gridStyle=3,gridRGB=(34952,34952,34952)
 	// append image
-	AppendImage/W=$Period_field_plot $m_plot
-	ModifyImage/W=$Period_field_plot $m_plot ctab={*, *, Rainbow, 0 }
+	Controlinfo/W=panelun setimgplot
+	if (V_Value == 1)
+		AppendImage/W=$Period_field_plot $m_plot
+		ModifyImage/W=$Period_field_plot $m_plot ctab={*, *, Rainbow, 0 }
+	endif
+
 	//setcolor()
 	if (plot_type == 1)	// wiggler < max power
 		TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Spectral Flux density (ph/s/mrad/0.1%bw) limited by "+num2str(max_power)+" kW at "+num2str(pe_wigg)+" keV"	
@@ -2113,6 +2118,15 @@ Function set_fld_pnt(ctrlName,varNum,varStr,varName) : SetVariableControl
 	NVAR fld_pnt = root:un:fld_pnt
 	calc_field_lu_w()
 end
+
+Function set_img_plot(ctrlName,checked) : CheckBoxControl
+	String ctrlName
+	Variable checked
+	
+	NVAR iplot = root:un:iplot
+	calc_field_lu_w()
+	plot_field_lu_w()
+End
 
 Function calc_field(gap, lu)
 	Variable gap, lu
