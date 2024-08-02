@@ -203,10 +203,14 @@ Note that the you may need update the plots from the popup menu after changes in
 
 ### Igor Pro (2D plot can be either contour or image, not only energy but also flux, etc.)
 
-![IgorPro_undulator.PNG](/Images/IgorPro_undulator_interface.PNG)
+![IgorPro_undulator.PNG](/Images/IgorPro_undulator_interface.png)
 
 ### Igor Pro (adjustable period shown as a cross hair)
 
 ![IgorPro_undulator.PNG](/Images/IgorPro_undulator1.PNG)
+
+### Igor Pro (wiggler flux density limited by the total power)
+
+![IgorPro_wiggler.PNG](Images/Period_field_plot_SPS-II_XMCT_Pmax.png)
 
 
