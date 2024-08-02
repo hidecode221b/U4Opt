@@ -173,7 +173,7 @@ Function/S targetName(varNum)
 	elseif (V_Value == 4)	// Angular flux density (ph/s/mrad2/0.1%bw); zero emittance or energy spread
 		wn = "K_lu_af"
 		data = "Angular flux density"
-		unit = "ph/s/mrad2/0.1%bw"
+		unit = "ph/s/mrad\S2\M/0.1%bw"
 	elseif (V_Value == 5)	// Beam size (um); zero emittance or energy spread
 		wn = "K_lu_sr"
 		data = "Beam size"
@@ -197,7 +197,7 @@ Function/S targetName(varNum)
 	elseif (V_Value == 10)	// Brilliance (ph/s/mm2/mrad2/0.1%bw); zero emittance or energy spread
 		wn = "K_lu_br"
 		data = "Brilliance"
-		unit = "ph/s/mm2/mrad2/0.1%bw"
+		unit = "ph/s/mm\S2\M/mrad\S2\M/0.1%bw"
 	elseif (V_Value == 11)	// Total power (kW); zero emittance or energy spread
 		wn = "K_lu_tp"
 		data = "Total power"
@@ -209,15 +209,15 @@ Function/S targetName(varNum)
 	elseif (V_Value == 13)	// Effective angular flux density
 		wn = "K_lu_eaf"
 		data = "Effective angular flux density"
-		unit = "ph/s/mm2/mrad2/0.1%bw"
+		unit = "ph/s/mm\S2\M/mrad\S2\M/0.1%bw"
 	elseif (V_Value == 14)	// Effective brilliance 1 (sigma_r,d and beam size,divergence)
 		wn = "K_lu_ebr1"
 		data = "Effective brilliance (sigma_r,d and beam size,divergence)"
-		unit = "ph/s/mm2/mrad2/0.1%bw"
+		unit = "ph/s/mm\S2\M/mrad\S2\M/0.1%bw"
 	elseif (V_Value == 15)	// Effective brilliance 2 (Emittance, beta, energy spread, and phase error)
 		wn = "K_lu_ebr2"
 		data = "Effective brilliance 2 (Emittance, beta and energy spread, phase error)"
-		unit = "ph/s/mm2/mrad2/0.1%bw"
+		unit = "ph/s/mm\S2\M/mrad\S2\M/0.1%bw"
 	elseif (V_Value == 16)	// Effective brilliance 2 (Emittance, beta, energy spread, and phase error)
 		wn = "K_lu_efl"
 		data = "Effective flux from eff bri 2 (Emittance, beta and energy spread, phase error)"
@@ -997,7 +997,7 @@ Function calc_1d_plot()
 				Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$I_1d_plot $"I_1d_fl_mw", 10, "MPW (hor. mrad)"
 			endif
 		elseif (stringmatch(I_1d_plot,"AFD")==1)
-			Label/W=$I_1d_plot left "Angular flux density (ph/s/mrad2/0.1%bw)"
+			Label/W=$I_1d_plot left "Angular flux density (ph/s/mrad\S2\M/0.1%bw)"
 			if (bm_plot == 1)
 				AppendToGraph/W=$I_1d_plot $"I_1d_af_bm" vs $"I_1d_en"
 				AppendToGraph/W=$I_1d_plot $"I_1d_af_mw" vs $"I_1d_en"
@@ -1005,7 +1005,7 @@ Function calc_1d_plot()
 				Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$I_1d_plot $"I_1d_af_mw", 10, "MPW (hor. mrad)"
 			endif
 		elseif (stringmatch(I_1d_plot,"Bri")==1)
-			Label/W=$I_1d_plot left "Brilliance (ph/s/mm2/mrad2/0.1%bw)"
+			Label/W=$I_1d_plot left "Brilliance (ph/s/mm2/mrad\S2\M/0.1%bw)"
 			if (bm_plot == 1)
 				AppendToGraph/W=$I_1d_plot $"I_1d_br_bm" vs $"I_1d_en"
 				AppendToGraph/W=$I_1d_plot $"I_1d_br_mw" vs $"I_1d_en"
@@ -1013,7 +1013,7 @@ Function calc_1d_plot()
 				Tag/A=RT/B=0/F=0/I=0/L=0/Z=0/W=$I_1d_plot $"I_1d_br_mw", 10, "MPW (hor. mrad)"
 			endif
 		elseif (stringmatch(I_1d_plot,"eb")==1)
-			Label/W=$I_1d_plot left "Effective brilliance (ph/s/mm2/mrad2/0.1%bw)"
+			Label/W=$I_1d_plot left "Effective brilliance (ph/s/mm\S2\M/mrad\S2\M/0.1%bw)"
 			if (bm_plot == 1)
 				AppendToGraph/W=$I_1d_plot $"I_1d_br_bm" vs $"I_1d_en"
 				AppendToGraph/W=$I_1d_plot $"I_1d_br_mw" vs $"I_1d_en"
@@ -1404,11 +1404,11 @@ Function plot_field_lu_w()
 	if (plot_type == 1)	// wiggler < max power
 		TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Spectral Flux density (ph/s/mrad/0.1%bw) limited by "+num2str(max_power)+" kW at "+num2str(pe_wigg)+" keV"	
 	elseif (plot_type == 2)	// wiggler < max power
-		TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Angular Flux density (ph/s/mrad2/0.1%bw) limited by "+num2str(max_power)+" kW at "+num2str(pe_wigg)+" keV"
+		TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Angular Flux density (ph/s/mrad\S2\M/0.1%bw) limited by "+num2str(max_power)+" kW at "+num2str(pe_wigg)+" keV"
 	elseif (plot_type == 3)	// wiggler at u_length
-		TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Angular Flux density (ph/s/mrad2/0.1%bw) at "+num2str(u_length)+" mm at "+num2str(pe_wigg)+" keV in Wiggler"
+		TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Angular Flux density (ph/s/mrad\S2\M/0.1%bw) at "+num2str(u_length)+" mm at "+num2str(pe_wigg)+" keV in Wiggler"
 	elseif (plot_type == 4)	// undulator at u_length
-		TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Angular Flux density (ph/s/mrad2/0.1%bw) at "+num2str(u_length)+" mm at "+num2str(pe_wigg)+" keV in Undulator"
+		TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Angular Flux density (ph/s/mrad\S2\M/0.1%bw) at "+num2str(u_length)+" mm at "+num2str(pe_wigg)+" keV in Undulator"
 	elseif (plot_type == 5)	// undulator at u_length
 		TextBox/W=$Period_field_plot/C/N=$Period_field_plot/F=0/A=LT "Flux (ph/s/0.1%bw) at "+num2str(u_length)+" mm at "+num2str(pe_wigg)+" keV in Undulator"
 	elseif (plot_type == 6)	// undulator at u_length
