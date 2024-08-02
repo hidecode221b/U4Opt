@@ -12,7 +12,7 @@ $$\mbox{($B_0$ in Tesla, $\lambda_u$ in m)}$$
 
 $B_0$ can be designed in the magnet height ($h$) and magnetization ($B_r$), and tuned in the magnetic gap ($g$) and temperature. The minimum gap is basically limited in the dynamic aperture of the storage ring lattice, and the maximum gap is limited in the mechanical structure of the undulator. Various magnetic types and structures are available in the advanced synchrotron facilities. 
 
-The deviation from the sinusoidal field appears owing to the finite number of trapezoidal magnet blocks in a period ($M$). In particular, the hybrid short period undulator deforms the sinusoidal field because the high peak field strength at the small pole materials. The photon radiative field can be formulated  and analyzed by Takashi Tanaka [[1](https://doi.org/10.1107/S090904950101425X),[2](https://doi.org/10.1103/PhysRevAccelBeams.21.110704)].
+The deviation from the sinusoidal field appears owing to the finite number of trapezoidal magnet blocks in a period ($M$). In particular, the hybrid short period undulator deforms the sinusoidal field because the high peak field strength at the small pole materials. The photon radiative field can be formulated  and analyzed by [Takashi Tanaka](https://doi.org/10.1107/S090904950101425X).
 
 $$\beta_{x,y} (z) = \pm {e \over \gamma m c} \int_0^z B_{y,x} (z') dz'$$
 
@@ -97,7 +97,11 @@ Users can import and export the parameters as a preset (.dat) in Python version.
 
 ### Non-linear effects
 
-No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization including the end-magnet, phase error, and betatron function should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://github.com/ochubar/SRW), [SRW in OASYS](https://www.aps.anl.gov/Science/Scientific-Software/OASYS). [Takashi Tanaka](https://doi.org/10.1103/PhysRevAccelBeams.21.110704) formulates the universal representation of phase errors. 
+No emittance or energy spread are taken into account resulting in the single electron and Gaussian beam approximation. Further optimization including the end-magnet, phase error, and betatron function should be conducted in [SPECTRA](https://spectrax.org/spectra/) or [SRW](https://github.com/ochubar/SRW), [SRW in OASYS](https://www.aps.anl.gov/Science/Scientific-Software/OASYS), [SRW in Sirepo](https://www.sirepo.com/) or [jupyter server](https://www.radiasoft.net/jupyter-server/). 
+
+[Takashi Tanaka](https://doi.org/10.1103/PhysRevAccelBeams.21.110704) describes the universal representation of phase errors typically formulated below.
+
+$$\phi_{j} = {2 \pi / \lambda_u \over 1 + K^2 / 2} \int_{0}^{z_{j}} \left[ \gamma^2 \vec{\beta}^2_{\perp} (z) - {K^2 \over 2} \right] dz$$
 
 [Jui-Che Huang](https://doi.org/10.1103/PhysRevAccelBeams.20.064801) describes the average brilliance by using electron beam emittance ($\epsilon$), radiation emittance ($\epsilon_r = \lambda /4\pi$), radiation wavelength ($\lambda$), undulator length ($L$), betatron function ($\beta$), and $\zeta = 2\pi \beta/L$.
 
