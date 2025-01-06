@@ -1076,7 +1076,7 @@ Function calc_1d_plot()
 	endif
 	
 	setcolor()
-	TextBox/W=$I_1d_plot/C/N=$I_1d_plot/F=0/A=LT num2str(E_e)+" GeV, "+num2str(I_e*1000)+" mA, "+num2str(u_length/1000)+" m, period "+num2str(lu_t)+" mm, max K "+num2str(K_t)
+	TextBox/W=$I_1d_plot/C/N=$I_1d_plot/F=0/A=LB num2str(E_e)+" GeV, "+num2str(I_e*1000)+" mA, "+num2str(u_length/1000)+" m, period "+num2str(lu_t)+" mm, max K "+num2str(K_t)
 end
 
 Function Gap_lu_K()
@@ -1179,15 +1179,21 @@ Function plot_field_lu()
 	NVAR winpos = root:un:winpos, winsize = root:un:winsize, w_width = root:un:w_width, w_height = root:un:w_height
 	NVAR gap_0 = root:un:gap_0, gap_1 = root:un:gap_1, gap_pnt = root:un:gap_pnt, lu_0 = root:un:lu_0, lu_1 = root:un:lu_1
 	Variable i = 0, d_gap = (gap_1 - gap_0)/(gap_pnt-1), gap, lu = lu_1-(lu_1-lu_0)/10
-	String gapstr, m_plot, Field_lu_plot = "Field_lu_plot", gap_list, gap_wave
+	String gapstr, m_plot, Field_lu_plot = "Field_lu_plot", gap_list, gap_wave, Field_gap_plot = "Field_gap_plot", g_plot
 	
 	DoWindow $Field_lu_plot
 	if (V_flag == 1)
 		DoWindow/K $Field_lu_plot
 	endif
 	
+	DoWindow $Field_gap_plot
+	if (V_flag == 1)
+		DoWindow/K $Field_gap_plot
+	endif
+	
 	m_plot = "Gap_lu_field_K"		// plot matrix data: default: "Gap_lu_field_K"
 									// can be "Gap_lu_field_mw", "Gap_lu_field_fl", "Gap_lu_field_af"
+	
 	// K contour in field vs period plot
 	Display/N=$Field_lu_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
 	AppendMatrixContour/W=$Field_lu_plot $m_plot
@@ -1767,6 +1773,7 @@ Function set_T_a(ctrlName,varNum,varStr,varName) : SetVariableControl
 	
 	NVAR T_a = root:un:T_a
 	Gap_lu_K()
+	Plot_field_lu()
 end
 
 Function set_T_b(ctrlName,varNum,varStr,varName) : SetVariableControl
@@ -1775,6 +1782,7 @@ Function set_T_b(ctrlName,varNum,varStr,varName) : SetVariableControl
 	
 	NVAR T_b = root:un:T_b
 	Gap_lu_K()
+	Plot_field_lu()
 end
 
 Function set_T_c(ctrlName,varNum,varStr,varName) : SetVariableControl
@@ -1792,6 +1800,7 @@ Function set_Br(ctrlName,varNum,varStr,varName) : SetVariableControl
 	
 	NVAR Br = root:un:Br
 	Gap_lu_K()
+	Plot_field_lu()
 end
 
 Function set_M(ctrlName,varNum,varStr,varName) : SetVariableControl
@@ -1800,6 +1809,7 @@ Function set_M(ctrlName,varNum,varStr,varName) : SetVariableControl
 	
 	NVAR M = root:un:M
 	Gap_lu_K()
+	Plot_field_lu()
 end
 
 Function set_h_lu_r(ctrlName,varNum,varStr,varName) : SetVariableControl
@@ -1808,6 +1818,7 @@ Function set_h_lu_r(ctrlName,varNum,varStr,varName) : SetVariableControl
 	
 	NVAR h_lu_r = root:un:h_lu_r
 	Gap_lu_K()
+	Plot_field_lu()
 end
 
 Function set_gap_0(ctrlName,varNum,varStr,varName) : SetVariableControl
