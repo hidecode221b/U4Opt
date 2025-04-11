@@ -277,7 +277,7 @@ class PrettyWidget(QMainWindow):
 
         grid.addWidget(QLabel('max K:'), 6, 12)
         self.target_K = QDoubleSpinBox(minimum=0.01, maximum=100, value=self.variables[25], singleStep=0.5)
-        self.target_K.editingFinished.connect(self.calc_target_K_t)
+        #self.target_K.editingFinished.connect(self.calc_target_K_t)
         grid.addWidget(self.target_K, 6, 13)
         """
         self.slider_target_K = QSlider(Qt.Orientation.Horizontal)
@@ -299,8 +299,8 @@ class PrettyWidget(QMainWindow):
         elif self.comboBox_magnet.currentIndex() >= 4:
             self.variables[25] = 0.0934*self.variables[24]*2*self.variables[8]*(np.sin(np.pi/self.variables[9])/(np.pi/self.variables[9]))*np.exp(-np.pi*(self.variables[17]/self.variables[24]))*(1-np.exp(-2*np.pi*self.variables[10]))
 
-        self.target_K.setValue(self.variables[25])
-        self.slider_target_period.setValue(self.variables[24])
+        #self.target_K.setValue(self.variables[25])
+        #self.slider_target_period.setValue(self.variables[24])
         #self.slider_target_K.setValue(self.K_t)
         self.calc()
 
