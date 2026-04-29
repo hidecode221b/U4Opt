@@ -6,7 +6,7 @@ Menu "Macros"
 	"Undulator"
 End
 
-// Hideki NAKAJIMA (c) 2024.01.18, rev. 2024.02.14
+// Hideki NAKAJIMA (c) 2024.01.18, rev. 2026.04.29
 // load delimited text "XAS_edges.txt" for Flux/en plot
 
 Function Undulator() : Panel
@@ -1299,8 +1299,9 @@ Function calc_field_lu_w()		// wiggler mode
 				n_har = n_har - 1
 			endif
 			// sec 3.7, https://indico.ictp.it/event/a02011/contribution/1/material/0/0.pdf
-			m_flux_lu_field_ag[i][j] = 1000*4*sqrt((1+m_flux_lu_field_K[i][j]^2/2)/(gg^2))	// angle mrad: a factor of 4 = 2 x 2 from both sides x2 and emission for each side x2
-			//m_flux_lu_field_ag[i][j] = m_flux_lu_field_K[i][j]/gg
+			//m_flux_lu_field_ag[i][j] = 1000*4*sqrt((1+m_flux_lu_field_K[i][j]^2/2)/(gg^2))	// angle mrad: a factor of 4 = 2 x 2 from both sides x2 and emission for each side x2
+			//m_flux_lu_field_ag[i][j] = 1000*2*m_flux_lu_field_K[i][j]/gg
+			m_flux_lu_field_ag[i][j] = 1000*2*sqrt(1+m_flux_lu_field_K[i][j]^2)/gg
 			m_flux_lu_field_ha[i][j] = n_har
 			// undulator Fk
 			m_flux_lu_field_fk[i][j] = ((n_har*m_flux_lu_field_K[i][j])^2/((1+m_flux_lu_field_K[i][j]^2/2)^2))*(BESSELJ((n_har-1)/2,n_har*m_flux_lu_field_K[i][j]^2/(4*(1+m_flux_lu_field_K[i][j]^2/2)))-BESSELJ((n_har+1)/2,n_har*m_flux_lu_field_K[i][j]^2/(4*(1+m_flux_lu_field_K[i][j]^2/2))))^2
