@@ -41,6 +41,7 @@ The effective field can also be evaluated by using $\beta_n$.
 
 $$B_{\mbox{eff}} = {2 \pi mc \over e} {K_{\mbox{eff}} \over \lambda_u } $$
 
+$K_{\mbox{eff}}$ can also be numerically evaluated from the Fourier transform analysis on the field simulated or measured as described by [Toshi Tanabe](https://doi.org/10.1088/1742-6596/3010/1/012006).
 
 The  flux ($F$) from the undulator depends on the the electron beam current ($I$ amps), total length ($L$), $\lambda_u$, $n$, and $K$. The flux over the central cone ($\sqrt{\lambda/L}$) at the harmonic $n$ and number of periods $N$ ($=L/\lambda_u$) in the band width ($\Delta \omega/\omega=0.1$ \%) is
 
