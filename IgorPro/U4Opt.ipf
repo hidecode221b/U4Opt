@@ -1,4 +1,4 @@
-﻿#pragma TextEncoding = "UTF-8"
+#pragma TextEncoding = "UTF-8"
 #pragma rtGlobals=3				// Use modern global access method and strict wave access
 #pragma DefaultTab={3,20,4}		// Set default tab width in Igor Pro 9 and later
 
@@ -6,7 +6,7 @@ Menu "Macros"
 	"Undulator"
 End
 
-// Hideki NAKAJIMA (c) 2024.01.18, rev. 2026.04.29
+// Hideki NAKAJIMA (c) 2024.01.18, rev. 2026.04.30
 // load delimited text "XAS_edges.txt" for Flux/en plot
 
 Function Undulator() : Panel
@@ -405,6 +405,7 @@ Function Gap_lu_plot() // Gap vs lambda_u for gap/lu, field, K in contour plot
 	NVAR lu_0 = root:un:lu_0, lu_1 = root:un:lu_1, gap_0 = root:un:gap_0, gap_1 = root:un:gap_1
 	//String topGraphName = WinName(0, 1), list = ContourNameList(topGraphName, ";"), wn = StringFromList(0, list, ";")
 	String wn, strAno
+	Variable win_restore = 0, win_restore_top, win_restore_bottom, win_restore_right, win_restore_left
 	
 	Controlinfo/W=panelun setPlotGap
 	print V_Value
@@ -421,10 +422,24 @@ Function Gap_lu_plot() // Gap vs lambda_u for gap/lu, field, K in contour plot
 	
 	DoWindow $"Un_plot_c_" + wn
 	if (V_flag == 1)
+		win_restore = 1
+		GetWindow/Z $"Un_plot_c_" + wn wsize
+		win_restore_top = V_top
+		win_restore_bottom = V_bottom
+		win_restore_right = V_right
+		win_restore_left = V_left
+		
 		DoWindow/K $"Un_plot_c_" + wn
+	else
+		win_restore = 0
 	endif
 	
-	Display/N=$"Un_plot_c_" + wn/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
+	if (win_restore == 1)
+		Display/N=$"Un_plot_c_" + wn/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom)
+	else
+		Display/N=$"Un_plot_c_" + wn/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
+	endif
+	
 	AppendMatrixContour/W=$"Un_plot_c_" + wn $wn
 	SetAxis/W=$"Un_plot_c_" + wn left gap_0, gap_1
 	SetAxis/W=$"Un_plot_c_" + wn bottom lu_0, lu_1
@@ -808,7 +823,7 @@ Function calc_1d_plot()
 	NVAR n_har = root:un:n_har, K_0 = root:un:K_0, K_1 = root:un:K_1, K_t = root:un:K_t, K_pnt = root:un:K_pnt, lu_0 = root:un:lu_0, lu_1 = root:un:lu_1, lu_t = root:un:lu_t
 	Variable i, j, n, n_pnt = (n_har+1)/2, Kp, d_K = (K_1 - K_0)/(K_pnt-1), lu = lu_1, en_0, en_1, mode, bm_plot
 	String w = "I_1d", harstr, fl, af, fk, en, qk, gk, sr, sd, cx, cy, cf, br, eb, ef
-	
+	Variable win_restore = 0, win_restore_top, win_restore_bottom, win_restore_right, win_restore_left
 	String I_1d_plot
 	Controlinfo/W=panelun setPlotOther
 	//print V_Value
@@ -849,7 +864,16 @@ Function calc_1d_plot()
 	
 	DoWindow $I_1d_plot
 	if (V_flag == 1)
+		win_restore = 1
+		GetWindow/Z $I_1d_plot wsize
+		win_restore_top = V_top
+		win_restore_bottom = V_bottom
+		win_restore_right = V_right
+		win_restore_left = V_left
+		
 		DoWindow/K $I_1d_plot
+	else
+		win_restore = 0
 	endif
 	
 	Controlinfo/W=panelun setMode
@@ -860,7 +884,11 @@ Function calc_1d_plot()
 	
 	gk = w + "_gk"
 	if (stringmatch(I_1d_plot,"GKn")==1)
-		Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $gk
+		if (win_restore == 1)
+			Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $gk
+		else
+			Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $gk
+		endif
 		Label/W=$I_1d_plot left "G"
 		SetAxis/W=$I_1d_plot left 0,1
 	endif
@@ -886,33 +914,85 @@ Function calc_1d_plot()
 		
 		if (i==0)
 			if (stringmatch(I_1d_plot,"FKneV")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $fk vs $en
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $fk vs $en
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $fk vs $en
+				endif
 			elseif (stringmatch(I_1d_plot,"FKn")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $fk
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $fk
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $fk
+				endif
 			elseif (stringmatch(I_1d_plot,"QKn")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $qk
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $qk
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $qk
+				endif
 			elseif  (stringmatch(I_1d_plot,"GKn")==1)
 				// skip
 			elseif  (stringmatch(I_1d_plot,"Flux")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $fl vs $en
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $fl vs $en
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $fl vs $en
+				endif
 			elseif  (stringmatch(I_1d_plot,"AFD")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $af vs $en
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $af vs $en
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $af vs $en
+				endif
 			elseif  (stringmatch(I_1d_plot,"Bri")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $br vs $en
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $br vs $en
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $br vs $en
+				endif
 			elseif  (stringmatch(I_1d_plot,"Beam_size")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $sr vs $en
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $sr vs $en
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $sr vs $en
+				endif
 			elseif  (stringmatch(I_1d_plot,"Beam_div")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $sd vs $en
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $sd vs $en
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $sd vs $en
+				endif
 			elseif  (stringmatch(I_1d_plot,"CF_x")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $cx vs $en
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $cx vs $en
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $cx vs $en
+				endif
 			elseif  (stringmatch(I_1d_plot,"CF_y")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $cy vs $en
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $cy vs $en
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $cy vs $en
+				endif
 			elseif  (stringmatch(I_1d_plot,"CF")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $cf vs $en
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $cf vs $en
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $cf vs $en
+				endif
 			elseif  (stringmatch(I_1d_plot,"eb")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $eb vs $en
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $eb vs $en
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $eb vs $en
+				endif
 			elseif  (stringmatch(I_1d_plot,"ef")==1)
-				Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $ef vs $en
+				if (win_restore == 1)
+					Display/N=$I_1d_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom) $ef vs $en
+				else
+					Display/N=$I_1d_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize) $ef vs $en
+				endif
 			endif
 		else
 			if (stringmatch(I_1d_plot,"FKneV")==1)
@@ -1180,22 +1260,45 @@ Function plot_field_lu()
 	NVAR gap_0 = root:un:gap_0, gap_1 = root:un:gap_1, gap_pnt = root:un:gap_pnt, lu_0 = root:un:lu_0, lu_1 = root:un:lu_1
 	Variable i = 0, d_gap = (gap_1 - gap_0)/(gap_pnt-1), gap, lu = lu_1-(lu_1-lu_0)/10
 	String gapstr, m_plot, Field_lu_plot = "Field_lu_plot", gap_list, gap_wave, Field_gap_plot = "Field_gap_plot", g_plot
+	Variable win_restore = 0, win_restore_top, win_restore_bottom, win_restore_right, win_restore_left
 	
 	DoWindow $Field_lu_plot
 	if (V_flag == 1)
+		win_restore = 1
+		GetWindow/Z $Field_lu_plot wsize
+		win_restore_top = V_top
+		win_restore_bottom = V_bottom
+		win_restore_right = V_right
+		win_restore_left = V_left
+		
 		DoWindow/K $Field_lu_plot
+	else
+		win_restore = 0
 	endif
 	
-	DoWindow $Field_gap_plot
-	if (V_flag == 1)
-		DoWindow/K $Field_gap_plot
-	endif
+//	DoWindow $Field_gap_plot
+//	if (V_flag == 1)
+//		win_restore = 1
+//		GetWindow/Z $Field_gap_plot wsize
+//		win_restore_top = V_top
+//		win_restore_bottom = V_bottom
+//		win_restore_right = V_right
+//		win_restore_left = V_left
+//		
+//		DoWindow/K $Field_gap_plot
+//	else
+//		win_restore = 0
+//	endif
 	
 	m_plot = "Gap_lu_field_K"		// plot matrix data: default: "Gap_lu_field_K"
 									// can be "Gap_lu_field_mw", "Gap_lu_field_fl", "Gap_lu_field_af"
 	
 	// K contour in field vs period plot
-	Display/N=$Field_lu_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
+	if (win_restore == 1)
+		Display/N=$Field_lu_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom)
+	else
+		Display/N=$Field_lu_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
+	endif
 	AppendMatrixContour/W=$Field_lu_plot $m_plot
 	ModifyContour/W=$Field_lu_plot $m_plot autoLevels={*,*,11}
 	ModifyGraph/W=$Field_lu_plot nticks=5,manTick=0,manMinor(bottom)={0,0}
@@ -1370,12 +1473,21 @@ Function plot_field_lu_w()
 	
 	Variable i = 0, j=0, d_gap = (gap_1 - gap_0)/(gap_pnt-1), gap, d_lu = (lu_1-lu_0)/(lu_pnt-1), lu, n_har, plot_type, magnet_mode, eta_x, eta_y
 	String Period_field_plot = "Period_field_plot", m_plot, gapstr, g_plot, plot_add
-	
+	Variable win_restore = 0, win_restore_top, win_restore_bottom, win_restore_right, win_restore_left
 	String savedDF = GetDataFolder(1)
 	
 	DoWindow $Period_field_plot
 	if (V_flag == 1)
+		win_restore = 1
+		GetWindow/Z $Period_field_plot wsize
+		win_restore_top = V_top
+		win_restore_bottom = V_bottom
+		win_restore_right = V_right
+		win_restore_left = V_left
+		
 		DoWindow/K $Period_field_plot
+	else
+		win_restore = 0
 	endif
 	
 	Controlinfo/W=panelun setPlotWigg
@@ -1395,9 +1507,13 @@ Function plot_field_lu_w()
 	
 	m_plot = "Flux_lu_field_mw"
 	
-	Display/N=$Period_field_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
+	if (win_restore == 1)
+		Display/N=$Period_field_plot/W=(win_restore_left, win_restore_top, win_restore_right, win_restore_bottom)
+	else
+		Display/N=$Period_field_plot/W=(winpos+w_width/winsize+10, 10, winpos+2*w_width/winsize, 10+w_height/winsize)
+	endif
 	AppendMatrixContour/W=$Period_field_plot $m_plot
-	ModifyContour/W=$Period_field_plot $m_plot autoLevels={*,*,11}
+	ModifyContour/W=$Period_field_plot $m_plot autoLevels={*,*,41}
 	ModifyGraph/W=$Period_field_plot nticks=5,manTick=0,manMinor(bottom)={0,0}
 	ModifyGraph/W=$Period_field_plot grid=1,tick=2,mirror=2,minor(left)=1,gridStyle=3,gridRGB=(34952,34952,34952)
 	// append image
@@ -1455,7 +1571,7 @@ Function plot_field_lu_w()
 	endif
 	
 	AppendMatrixContour/W=$Period_field_plot $plot_add
-	ModifyContour/W=$Period_field_plot $plot_add autoLevels={*,*,6}
+	ModifyContour/W=$Period_field_plot $plot_add autoLevels={*,*,21}
 	ModifyContour/W=$Period_field_plot $plot_add rgbLines=(43690,43690,43690), labelFStyle=2
 	
 	If (stringmatch(plot_add,"Flux_lu_field_ha")==1)
