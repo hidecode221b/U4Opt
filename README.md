@@ -195,6 +195,8 @@ Note that the you may need update the plots from the popup menu after changes in
   
 - [Insertion devices, Johannes Bahrdt (2006).](http://dx.doi.org/10.5170/CERN-2006-002.441)
 
+- [Light Source II, Takashi Tanaka (2015).](http://cheiron2015.spring8.or.jp/text/Lec.4_T.Tanaka.pdf).
+
 - [Insertion Devices as Highly-Brilliant Synchrotron Radiation Sources, Takashi Tanaka (2005).](https://doi.org/10.5940/jcrsj.47.115) in Japanese
 
 
