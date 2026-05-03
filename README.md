@@ -37,7 +37,9 @@ $$K_n = {e \over m c} {\beta_n} $$
 
 $$K_{\mbox{eff}} = \sqrt{ K_1^2 + K_3^2 + K_5^2 + \cdot \cdot \cdot }$$
 
-The effective field can also be evaluated by using $\beta_n$.
+The effective field has a relation with effective $K$.
+
+$$K_{n} = {e B_n \over 2 \pi m c} {\lambda_u \over n} $$
 
 $$B_{\mbox{eff}} = {2 \pi mc \over e} {K_{\mbox{eff}} \over \lambda_u } $$
 
